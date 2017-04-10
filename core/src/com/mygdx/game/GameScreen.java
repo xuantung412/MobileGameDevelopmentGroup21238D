@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
+
 /**
  * Created by Nguyen on 10/4/17.
  */
+
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
@@ -23,7 +25,7 @@ public class MenuScreen implements Screen {
     public void render(float f) {
         Gdx.app.log("MenuScreen: ","menuScreen render");
         Gdx.app.log("MenuScreen: ","About to call gameScreen");
-        game.setScreen(MyGdxGame.gameScreen);
+   //     game.setScreen(MyGdxGame);
         Gdx.app.log("MenuScreen: ","gameScreen started");
     }
 
