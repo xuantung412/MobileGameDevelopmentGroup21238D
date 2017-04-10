@@ -108,9 +108,9 @@ public class MyGdxGame implements ApplicationListener {
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
 
-		Vector2 moveSpeed = new Vector2(100.0f, 100.0f);
+	/*	Vector2 moveSpeed = new Vector2(100.0f, 100.0f);
 		Vector2 moveDirection = new Vector2(1.0f, 1.0f);
-		Vector2 moveTo = new Vector2(200, 480);
+		Vector2 moveTo = new Vector2(200, 480);*/
 
 	//	body.applyForce(moveSpeed, body.getMassData().center, true);
        // body.setLinearVelocity(moveSpeed);
@@ -157,13 +157,12 @@ public class MyGdxGame implements ApplicationListener {
     float radianAngle=0;
     Runnable helloRunnable = new Runnable() {
         public void run() {
-
             body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle()+0.0174533f);
         }
     };
 
 
-
+    int i =0;
 
 	@Override
 	public void render() {
@@ -185,13 +184,28 @@ public class MyGdxGame implements ApplicationListener {
         //timer.schedule(new rotate(), 0, 5000);
        // new Timer().scheduleAtFixedRate(rotate(body), 0, 1);
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 5, 10, TimeUnit.SECONDS);
+      //  ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+       // executor.scheduleAtFixedRate(helloRunnable, 5, 10, TimeUnit.SECONDS);
 
+        Vector2 moveSpeed = new Vector2(1000f, 1000f);
 
-        body.applyAngularImpulse(((Float) body.getAngle()),true);
+     //   body.setAngularVelocity(100f);
 
-        Gdx.app.log("angle", Float.toString(body.getAngle()));
+        double xDirectionD = (Math.cos(body.getAngle()));
+        float xDirection = (float)xDirectionD;
+        double yDirectionD = (Math.cos(body.getAngle()));
+        float yDirection = (float)yDirectionD;
+
+        Vector2 moveDirection = new Vector2(xDirection, yDirection);
+      //  body.getAngle()
+      //  body.applyForceToCenter(moveDirection,true);
+        if(i<1) {
+            i++;
+            body.applyLinearImpulse(moveSpeed, moveDirection, true);
+        }
+        Gdx.app.log("angle", Float.toString(moveDirection.x));
+        Gdx.app.log("angle", Float.toString(moveDirection.y));
+
 
     }
 	@Override
