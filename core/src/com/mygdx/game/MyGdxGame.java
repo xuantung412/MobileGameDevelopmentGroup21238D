@@ -22,7 +22,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
-	World world = new World(new Vector2(0, -100), true);
+	World world = new World(new Vector2(0, 0), true);
 	// The built in renderer of box2d for debugging
 	Box2DDebugRenderer debugRenderer;
 	// Box2d operates in a floating point world so use
