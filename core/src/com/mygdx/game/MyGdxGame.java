@@ -23,7 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
-	World world = new World(new Vector2(0, 0), true);
+	World world = new World(new Vector2(0	, 0), true);
 	// The built in renderer of box2d for debugging
 	Box2DDebugRenderer debugRenderer;
 	// Box2d operates in a floating point world so use
@@ -99,6 +99,13 @@ public class MyGdxGame implements ApplicationListener {
 
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
+
+		Vector2 moveSpeed = new Vector2(50.0f, 50.0f);
+		Vector2 moveDirection = new Vector2(1.0f, 1.0f);
+		Vector2 moveTo = new Vector2(0, 480);
+
+		body.applyForce(moveSpeed, moveTo, true);
+
 
 		// Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
