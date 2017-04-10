@@ -5,6 +5,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
-	World world = new World(new Vector2(0	, 0), true);
+	World world = new World(new Vector2(0, 0), true);
 	// The built in renderer of box2d for debugging
 	Box2DDebugRenderer debugRenderer;
 	// Box2d operates in a floating point world so use
@@ -91,7 +92,7 @@ public class MyGdxGame implements ApplicationListener {
 		// Create the body for the ball
 		BodyDef bodyDef = new BodyDef();
 
-		// Make the ball a dynamic body so that it can be accellerated
+		// Make the ball a dynamic body so that it can be accelerated
 		// and can collide with the ground and bounce
 		bodyDef.type = BodyType.DynamicBody;
 
@@ -168,7 +169,7 @@ public class MyGdxGame implements ApplicationListener {
 	public void render() {
 		// Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		// call the debug renerer
+		// call the debug renderer
 		debugRenderer.render(world, camera.combined);
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
@@ -202,4 +203,15 @@ public class MyGdxGame implements ApplicationListener {
 	@Override
 	public void resume() {
 	}
+
+	public boolean touchDown(int screenX, int screenY, int touch){
+        if(touch != Input.Buttons.LEFT){
+            Gdx.app.log("tester2", "fuck libgdx");
+            return false;
+        }
+        Gdx.app.log("tester", "fuck libgdx");
+        return true;
+
+    }
+
 }
