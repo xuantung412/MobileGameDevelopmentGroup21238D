@@ -20,6 +20,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Timer;
+
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
@@ -35,7 +42,7 @@ public class MyGdxGame implements ApplicationListener {
 	static final int BOX_VELOCITY_ITERATIONS=6;
 	static final int BOX_POSITION_ITERATIONS=2;
 
-
+    Body body;
 
 	@Override
 	public void create() {
@@ -92,7 +99,7 @@ public class MyGdxGame implements ApplicationListener {
 		bodyDef.position.set(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
 		// add the ball to the world
-		Body body = world.createBody(bodyDef);
+		body = world.createBody(bodyDef);
 
 		// Give the ball a circular shape
 		CircleShape dynamicCircle = new CircleShape();
@@ -100,24 +107,35 @@ public class MyGdxGame implements ApplicationListener {
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
 
-		Vector2 moveSpeed = new Vector2(50.0f, 50.0f);
+		Vector2 moveSpeed = new Vector2(100.0f, 100.0f);
 		Vector2 moveDirection = new Vector2(1.0f, 1.0f);
-		Vector2 moveTo = new Vector2(0, 480);
+		Vector2 moveTo = new Vector2(200, 480);
 
-		body.applyForce(moveSpeed, moveTo, true);
+	//	body.applyForce(moveSpeed, body.getMassData().center, true);
+       // body.setLinearVelocity(moveSpeed);
+     //   body.applyForceToCenter(moveSpeed, true);
+
+    //    body.applyTorque(10f, true);
+
+    //    body.applyLinearImpulse(moveSpeed, body.getMassData().center, true);
+     //   Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
+       // body.getMassData().center
 
 
-		// Create a new fixture
+       // body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle());
+
+
+        // Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
 		FixtureDef fixtureDef2 = new FixtureDef();
 		// Give it the circle shape
 		fixtureDef.shape = dynamicCircle;
 
 		// Give it a density so the ball will have mass
-		fixtureDef.density = 1.0f;
+		fixtureDef.density = 5.0f;
 
 		// Ignore friction
-		fixtureDef.friction = 0.0f;
+		fixtureDef.friction = 1.0f;
 
 		// Enable bounce
 		fixtureDef.restitution = 0.95f;
@@ -132,6 +150,20 @@ public class MyGdxGame implements ApplicationListener {
 	@Override
 	public void dispose() {
 	}
+
+
+
+    float radianAngle=0;
+    Runnable helloRunnable = new Runnable() {
+        public void run() {
+
+            body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle()+0.0174533f);
+        }
+    };
+
+
+
+
 	@Override
 	public void render() {
 		// Clear the screen
@@ -141,8 +173,26 @@ public class MyGdxGame implements ApplicationListener {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
+       // Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
+      //  Vector2 test = new Vector2(0,0);
+       // body.applyLinearImpulse(test, body.getMassData().center, true);
+     //   Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
 
-	}
+       // body.applyTorque(10f, true);
+
+        Timer timer = new Timer();
+        //timer.schedule(new rotate(), 0, 5000);
+       // new Timer().scheduleAtFixedRate(rotate(body), 0, 1);
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(helloRunnable, 5, 10, TimeUnit.SECONDS);
+
+
+        body.applyAngularImpulse(((Float) body.getAngle()),true);
+
+        Gdx.app.log("angle", Float.toString(body.getAngle()));
+
+    }
 	@Override
 	public void resize(int width, int height) {
 	}
