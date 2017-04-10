@@ -1,9 +1,12 @@
+/*
 package com.mygdx.game;
 
 
+*/
 /**
  * Created by Nguyen on 10/4/17.
- */
+ *//*
+
 
 
 import com.badlogic.gdx.ApplicationListener;
@@ -51,3 +54,4 @@ public class MenuScreen implements Screen {
         Gdx.app.log("MenuScreen: ","menuScreen hide called");
     }
 }
+*/
