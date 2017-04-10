@@ -28,6 +28,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.touchDown;
+
 public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
@@ -102,29 +104,13 @@ public class MyGdxGame implements ApplicationListener {
 		// add the ball to the world
 		body = world.createBody(bodyDef);
 
+		body.setFixedRotation(true);
+
 		// Give the ball a circular shape
 		CircleShape dynamicCircle = new CircleShape();
 
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
-
-	/*	Vector2 moveSpeed = new Vector2(100.0f, 100.0f);
-		Vector2 moveDirection = new Vector2(1.0f, 1.0f);
-		Vector2 moveTo = new Vector2(200, 480);*/
-
-	//	body.applyForce(moveSpeed, body.getMassData().center, true);
-       // body.setLinearVelocity(moveSpeed);
-     //   body.applyForceToCenter(moveSpeed, true);
-
-    //    body.applyTorque(10f, true);
-
-    //    body.applyLinearImpulse(moveSpeed, body.getMassData().center, true);
-     //   Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
-       // body.getMassData().center
-
-
-       // body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle());
-
 
         // Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
@@ -133,7 +119,7 @@ public class MyGdxGame implements ApplicationListener {
 		fixtureDef.shape = dynamicCircle;
 
 		// Give it a density so the ball will have mass
-		fixtureDef.density = 5.0f;
+		fixtureDef.density = 1.0f;
 
 		// Ignore friction
 		fixtureDef.friction = 1.0f;
@@ -157,12 +143,14 @@ public class MyGdxGame implements ApplicationListener {
     float radianAngle=0;
     Runnable helloRunnable = new Runnable() {
         public void run() {
+			//TODO fix this so that it doesn't count infinitely
             body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle()+0.0174533f);
         }
     };
 
 
     int i =0;
+
 
 	@Override
 	public void render() {
@@ -173,39 +161,27 @@ public class MyGdxGame implements ApplicationListener {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
-       // Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
-      //  Vector2 test = new Vector2(0,0);
-       // body.applyLinearImpulse(test, body.getMassData().center, true);
-     //   Gdx.app.log("velo", Float.toString(Math.abs(body.getAngularVelocity())));
+		//rotates the player
+		//TODO fix the timer so it actually applies every x seconds
+		// instead of every frame after a delay
+		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		executor.scheduleAtFixedRate(helloRunnable, 3, 10000, TimeUnit.SECONDS);
 
-       // body.applyTorque(10f, true);
+		//This code sets the direction to the way the circle is facing
+		// and sets the speed it travels in that direction to moveSpeed
+		int moveSpeed = 1000;
+		double xDirectionD = (Math.cos(body.getAngle()));
+		float xDirection = (float) xDirectionD;
+		double yDirectionD = (Math.sin(body.getAngle()));
+		float yDirection = (float) yDirectionD;
 
-        Timer timer = new Timer();
-        //timer.schedule(new rotate(), 0, 5000);
-       // new Timer().scheduleAtFixedRate(rotate(body), 0, 1);
+		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
-      //  ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-       // executor.scheduleAtFixedRate(helloRunnable, 5, 10, TimeUnit.SECONDS);
-
-        Vector2 moveSpeed = new Vector2(1000f, 1000f);
-
-     //   body.setAngularVelocity(100f);
-
-        double xDirectionD = (Math.cos(body.getAngle()));
-        float xDirection = (float)xDirectionD;
-        double yDirectionD = (Math.cos(body.getAngle()));
-        float yDirection = (float)yDirectionD;
-
-        Vector2 moveDirection = new Vector2(xDirection, yDirection);
-      //  body.getAngle()
-      //  body.applyForceToCenter(moveDirection,true);
-        if(i<1) {
-            i++;
-            body.applyLinearImpulse(moveSpeed, moveDirection, true);
-        }
-        Gdx.app.log("angle", Float.toString(moveDirection.x));
-        Gdx.app.log("angle", Float.toString(moveDirection.y));
-
+		//TODO
+		//Harris this line will make the circle shoot in the direction it is facing
+		// if (touch){
+		body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
+	//	}
 
     }
 	@Override
