@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 
 import java.util.TimerTask;
@@ -47,8 +49,16 @@ public class MyGdxGame implements ApplicationListener {
 
     Body body;
 
+    SpriteBatch batch;
+    Sprite sprite;
+    Texture img;
+
 	@Override
 	public void create() {
+
+
+
+
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
@@ -104,7 +114,11 @@ public class MyGdxGame implements ApplicationListener {
 		// add the ball to the world
 		body = world.createBody(bodyDef);
 
+		//TOM'S CHANGES IN HERE !!!!!
 		body.setFixedRotation(true);
+		body.setLinearDamping(1f);
+
+
 
 		// Give the ball a circular shape
 		CircleShape dynamicCircle = new CircleShape();
@@ -122,7 +136,7 @@ public class MyGdxGame implements ApplicationListener {
 		fixtureDef.density = 1.0f;
 
 		// Ignore friction
-		fixtureDef.friction = 1.0f;
+		fixtureDef.friction = 0.0f;
 
 		// Enable bounce
 		fixtureDef.restitution = 0.95f;
@@ -130,7 +144,18 @@ public class MyGdxGame implements ApplicationListener {
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
 
-		// create a new debug renderer
+
+        //TODO make this appear and then have it's position match the physics body all the time
+        batch = new SpriteBatch();
+        img = new Texture("player.png");
+        sprite = new Sprite(img);
+
+        sprite.setPosition(Gdx.graphics.getWidth() / 2 - sprite.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2);
+
+
+
+        // create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
 
 	}
@@ -140,16 +165,16 @@ public class MyGdxGame implements ApplicationListener {
 
 
 
-    float radianAngle=0;
+/*    float radianAngle=0;
     Runnable helloRunnable = new Runnable() {
         public void run() {
 			//TODO fix this so that it doesn't count infinitely
             body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle()+0.0174533f);
         }
-    };
+    };*/
 
 
-    int i =0;
+ //   int i =0;
 
 
 	@Override
@@ -161,15 +186,15 @@ public class MyGdxGame implements ApplicationListener {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
-		//rotates the player
+        //rotates the player
 		//TODO fix the timer so it actually applies every x seconds
 		// instead of every frame after a delay
-		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(helloRunnable, 3, 10000, TimeUnit.SECONDS);
+/*		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		executor.scheduleAtFixedRate(helloRunnable, 3, 10000, TimeUnit.SECONDS);*/
 
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
-		int moveSpeed = 1000;
+		int moveSpeed = 10000;
 		double xDirectionD = (Math.cos(body.getAngle()));
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
@@ -177,11 +202,36 @@ public class MyGdxGame implements ApplicationListener {
 
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
-		//TODO
-		//Harris this line will make the circle shoot in the direction it is facing
-		// if (touch){
-		body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
-	//	}
+		//TODO need to move this into a function later
+		if(body.getLinearVelocity().x<=1 && body.getLinearVelocity().y<=1) {
+			//Gdx.app.log("spinning ", "is true");
+			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
+			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
+
+			//TODO
+			//Harris this line will make the circle shoot in the direction it is facing
+			// if (touch){
+			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+				body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
+			}
+		}
+
+        //TODO fix this, also need to do a rotation update, will need to convert radians and degrees
+		sprite.setPosition(body.getPosition().x, body.getPosition().y);
+    //    sprite.setRotation();
+
+/*		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity())));
+		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity().x)));
+		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity().y)));*/
+
+
+		//Gdx.app.log("velocity ", "plz work");
+
+
+
+
+
+		//	}
 
     }
 	@Override
