@@ -228,7 +228,7 @@ public class MyGdxGame implements ApplicationListener {
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
 		}
 
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving) {
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) {
 			Gdx.app.log("tester2", "fuck libgdx");
 			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			moving=true;
@@ -241,6 +241,7 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add some more walls so it is like a game
 		//TODO add UI that displays turns remaining
 		//TODO build a couple levels so it transitions appropriately from one to another
+		//TODO polish
 
 
 
