@@ -155,7 +155,32 @@ public class MyGdxGame implements ApplicationListener {
 
 
 
-        // create a new debug renderer
+		// 1. Create a BodyDef, as usual.
+		BodyDef bd = new BodyDef();
+		bd.position.set(0, 0);
+		bd.type = BodyType.DynamicBody;
+
+		// 2. Create a FixtureDef, as usual.
+		FixtureDef fd = new FixtureDef();
+		fd.density = 1;
+		fd.friction = 0.5f;
+		fd.restitution = 0.3f;
+
+		// 3. Create a Body, as usual.
+		Body player;
+		player = world.createBody(bd);
+
+		bd.position.set(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
+		sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
+
+
+
+
+
+
+
+
+		// create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
 
 	}
@@ -164,17 +189,6 @@ public class MyGdxGame implements ApplicationListener {
 	}
 
 
-
-/*    float radianAngle=0;
-    Runnable helloRunnable = new Runnable() {
-        public void run() {
-			//TODO fix this so that it doesn't count infinitely
-            body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle()+0.0174533f);
-        }
-    };*/
-
-
- //   int i =0;
 
 
 	@Override
@@ -186,11 +200,7 @@ public class MyGdxGame implements ApplicationListener {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
-        //rotates the player
-		//TODO fix the timer so it actually applies every x seconds
-		// instead of every frame after a delay
-/*		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(helloRunnable, 3, 10000, TimeUnit.SECONDS);*/
+
 
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
@@ -208,7 +218,7 @@ public class MyGdxGame implements ApplicationListener {
 			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
 
-			//TODO
+			//TODO swap press right with touch
 			//Harris this line will make the circle shoot in the direction it is facing
 			// if (touch){
 			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
