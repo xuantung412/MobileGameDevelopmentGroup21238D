@@ -221,7 +221,8 @@ public class MyGdxGame implements ApplicationListener {
 			//TODO swap press right with touch
 			//Harris this line will make the circle shoot in the direction it is facing
 			// if (touch){
-			if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+                Gdx.app.log("tester2", "fuck libgdx");
 				body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			}
 		}
@@ -254,14 +255,5 @@ public class MyGdxGame implements ApplicationListener {
 	public void resume() {
 	}
 
-	public boolean touchDown(int screenX, int screenY, int touch){
-        if(touch != Input.Buttons.LEFT){
-            Gdx.app.log("tester2", "fuck libgdx");
-            return false;
-        }
-        Gdx.app.log("tester", "fuck libgdx");
-        return true;
-
-    }
 
 }
