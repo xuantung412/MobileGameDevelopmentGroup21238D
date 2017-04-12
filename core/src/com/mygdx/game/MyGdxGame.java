@@ -154,8 +154,7 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(170,300,10,80);
 		addWall(250,80,10,80);
 		addWall(250,300,10,80);
-		addWall(340,80,10,70);
-		addWall(340,300,10,70);
+
 
 
 
