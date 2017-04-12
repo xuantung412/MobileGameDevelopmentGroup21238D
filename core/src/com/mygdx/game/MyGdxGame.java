@@ -173,13 +173,6 @@ public class MyGdxGame implements ApplicationListener {
 		bd.position.set(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 		sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
-
-
-
-
-
-
-
 		// create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
 
@@ -213,7 +206,7 @@ public class MyGdxGame implements ApplicationListener {
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
 		//TODO need to move this into a function later
-		if(body.getLinearVelocity().x<=2 && body.getLinearVelocity().y<=2) {
+		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
 			//Gdx.app.log("spinning ", "is true");
 			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
