@@ -92,8 +92,7 @@ public class MyGdxGame implements ApplicationListener {
 		BodyDef wall2 = new BodyDef();*/
 		BodyDef goalBodyDef = new BodyDef();
 
-
-
+		
 		// The position of the body will be at the bottom of the screen half way along
 /*		groundBodyDef.position.set(new Vector2(0, 1));
         topBodyDef.position.set(new Vector2(0, 319));
