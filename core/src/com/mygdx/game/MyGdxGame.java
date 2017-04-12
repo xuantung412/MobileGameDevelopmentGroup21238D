@@ -182,7 +182,7 @@ public class MyGdxGame implements ApplicationListener {
 	}
 
 
-
+	boolean moving = false;
 
 	@Override
 	public void render() {
@@ -205,7 +205,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
-		//TODO need to move this into a function later
+/*		//TODO need to move this into a function later
 		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
 			//Gdx.app.log("spinning ", "is true");
 			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
@@ -217,9 +217,35 @@ public class MyGdxGame implements ApplicationListener {
 			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 				body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			}
+		}*/
+
+		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
+		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
+			moving=false;
 		}
 
-        //TODO fix this, also need to do a rotation update, will need to convert radians and degrees
+		if (!moving){
+			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
+		}
+
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving) {
+			Gdx.app.log("tester2", "fuck libgdx");
+			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
+			moving=true;
+			//TODO decrement turns remaining each move
+			//turnsRemaining--;
+		}
+
+		//TODO add box with collision for goal
+		//TODO add sprite for both player and goal and map them appropriately
+		//TODO add some more walls so it is like a game
+		//TODO add UI that displays turns remaining
+		//TODO build a couple levels so it transitions appropriately from one to another
+
+
+
+
+			//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
 		sprite.setPosition(body.getPosition().x, body.getPosition().y);
     //    sprite.setRotation();
 
