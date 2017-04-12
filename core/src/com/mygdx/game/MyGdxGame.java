@@ -215,7 +215,6 @@ public class MyGdxGame implements ApplicationListener {
 			//Harris this line will make the circle shoot in the direction it is facing
 			// if (touch){
 			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-                Gdx.app.log("tester2", "fuck libgdx");
 				body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			}
 		}
