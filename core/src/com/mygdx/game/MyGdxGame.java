@@ -22,9 +22,12 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Timer;
 
+import java.awt.Color;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -51,9 +54,11 @@ public class MyGdxGame implements ApplicationListener {
 
     SpriteBatch batch;
     Sprite sprite;
+	BitmapFont font;
     Texture img;
 
 
+<<<<<<< HEAD
 
 	public void addWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
@@ -65,6 +70,9 @@ public class MyGdxGame implements ApplicationListener {
 
 	}
 
+=======
+		font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
+>>>>>>> origin/master
 
 	@Override
 	public void create() {
@@ -314,8 +322,11 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add sprite for both player and goal and map them appropriately
 		//TODO add some more walls so it is like a game
 		//TODO TUNG is doing add UI that displays turns remaining
-		//set label to ("Turns Remaining: " + turnsRemaining)
-
+		String turn;
+		turn ="Turn Remaining: " +turnsRemaining;
+		batch.begin();
+		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +650f,Gdx.graphics.getHeight()/2+470f );
+		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
