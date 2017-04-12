@@ -237,7 +237,9 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add box with collision for goal
 		//TODO add sprite for both player and goal and map them appropriately
 		//TODO add some more walls so it is like a game
-		//TODO add UI that displays turns remaining
+		//TODO TUNG is doing add UI that displays turns remaining
+		//set label to ("Turns Remaining: " + turnsRemaining)
+
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
