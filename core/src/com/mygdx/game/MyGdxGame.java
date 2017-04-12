@@ -53,12 +53,21 @@ public class MyGdxGame implements ApplicationListener {
     Sprite sprite;
     Texture img;
 
+
+
+	public void addWall(float xPos, float yPos, float width, float height){
+		BodyDef wallBodyDef = new BodyDef();
+		wallBodyDef.position.set(new Vector2(xPos, yPos));
+		Body wallBody = world.createBody(wallBodyDef);
+		PolygonShape wallBox = new PolygonShape();
+		wallBox.setAsBox(width, height);
+		wallBody.createFixture(wallBox, 1.0f);
+
+	}
+
+
 	@Override
 	public void create() {
-
-
-
-
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
@@ -75,38 +84,113 @@ public class MyGdxGame implements ApplicationListener {
         BodyDef leftBodyDef = new BodyDef();
         BodyDef rightBodyDef = new BodyDef();
 		BodyDef obstacleBodyDef = new BodyDef();
+		BodyDef wall = new BodyDef();
+		BodyDef wall2 = new BodyDef();
+		BodyDef goalBodyDef = new BodyDef();
+
+
+
 		// The position of the body will be at the bottom of the screen half way along
-		groundBodyDef.position.set(new Vector2(0, 10));
-        topBodyDef.position.set(new Vector2(0, 310));
-        leftBodyDef.position.set(new Vector2(10, 160));
-        rightBodyDef.position.set(new Vector2(470, 160));
-		obstacleBodyDef.position.set(new Vector2(240,160));
+/*		groundBodyDef.position.set(new Vector2(0, 1));
+        topBodyDef.position.set(new Vector2(0, 319));
+        leftBodyDef.position.set(new Vector2(1, 160));
+        rightBodyDef.position.set(new Vector2(479, 160));
+		obstacleBodyDef.position.set(new Vector2(220,200));
+		wall.position.set(new Vector2(130,110));
+		wall2.position.set(new Vector2(330,100));*/
+		goalBodyDef.position.set(new Vector2(420,50));
+
+
+
+
+
+
 		// Add the body to the world
-		Body groundBody = world.createBody(groundBodyDef);
+/*		Body groundBody = world.createBody(groundBodyDef);
         Body topBody = world.createBody(topBodyDef);
         Body leftBody = world.createBody(leftBodyDef);
         Body rightBody = world.createBody(rightBodyDef);
 		Body obstacleBody = world.createBody(obstacleBodyDef);
+		Body wallBody = world.createBody(wall);
+		Body wallBody2 = world.createBody(wall2);*/
+		Body goalBody = world.createBody(goalBodyDef);
+
+
+
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
-		PolygonShape groundBox = new PolygonShape();
+/*		PolygonShape groundBox = new PolygonShape();
         PolygonShape topBox = new PolygonShape();
         PolygonShape leftBox = new PolygonShape();
         PolygonShape rightBox = new PolygonShape();
 		PolygonShape obstacleBox = new PolygonShape();
+		PolygonShape wallBox = new PolygonShape();*/
+		PolygonShape goalBox = new PolygonShape();
+
+
 		// set the size of the box to fill the camera viewport width
 		// and hence the width of the screen
-		groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
+		/*groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
         topBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
         leftBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
         rightBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
-		obstacleBox.setAsBox(10.0f, 10.0f);
+		obstacleBox.setAsBox(40.0f, 40.0f);
+		wallBox.setAsBox(40.0f, 55.0f);*/
+		goalBox.setAsBox(20.0f, 20.0f);
+
+
+		//TODO use this thing to make the basic walls now
+		//side walls
+		addWall(0,1,(camera.viewportWidth) * 2, 10.0f);
+		addWall(0,319,(camera.viewportWidth) * 2, 10.0f);
+		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
+		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
+
+
+
+		addWall(70,80,10,80);
+		addWall(70,300,10,80);
+		addWall(170,80,10,80);
+		addWall(170,300,10,80);
+		addWall(250,80,10,80);
+		addWall(250,300,10,80);
+		addWall(340,80,10,70);
+		addWall(340,300,10,70);
+
+
+
+
+
+		//later level probably
+		//obstacle walls
+/*		addWall(70,80,10,90);
+		addWall(130,110,20,50);
+		addWall(250,200,50,50);
+		addWall(400,300,40,30);*/
+
+
+
+
+
 		// Add the fixture to the ground body
-		groundBody.createFixture(groundBox, 0.0f);
+/*		groundBody.createFixture(groundBox, 0.0f);
         topBody.createFixture(topBox, 0.0f);
         leftBody.createFixture(leftBox, 0.0f);
         rightBody.createFixture(rightBox, 0.0f);
 		obstacleBody.createFixture(obstacleBox, 1.0f);
+		wallBody.createFixture(wallBox, 1.0f);
+		wallBody2.createFixture(wallBox, 1.0f);*/
+		goalBody.createFixture(goalBox, 1.0f);
+
+
+
+		//TODO i think we want to make the goal box a sensor
+		//this means it won't collide and will just tell us when it's hit not bounce off it
+		FixtureDef goalFixture = new FixtureDef();
+		goalFixture.isSensor= true;
+
+
+
 		// Create the body for the ball
 		BodyDef bodyDef = new BodyDef();
 
@@ -115,14 +199,14 @@ public class MyGdxGame implements ApplicationListener {
 		bodyDef.type = BodyType.DynamicBody;
 
 		// Start the ball positioned near the top of the viewport
-		bodyDef.position.set(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
+		bodyDef.position.set(camera.viewportWidth / 5, camera.viewportHeight / 2f);
 
 		// add the ball to the world
 		body = world.createBody(bodyDef);
 
 		//TOM'S CHANGES IN HERE !!!!!
 		body.setFixedRotation(true);
-		body.setLinearDamping(1f);
+		body.setLinearDamping(.5f);
 
 
 
@@ -145,7 +229,7 @@ public class MyGdxGame implements ApplicationListener {
 		fixtureDef.friction = 0.0f;
 
 		// Enable bounce
-		fixtureDef.restitution = 0.95f;
+		fixtureDef.restitution = 1f;
 
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
@@ -156,28 +240,10 @@ public class MyGdxGame implements ApplicationListener {
         img = new Texture("player.png");
         sprite = new Sprite(img);
 
-        sprite.setPosition(Gdx.graphics.getWidth() / 2 - sprite.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2);
 
 
+		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
-		// 1. Create a BodyDef, as usual.
-		BodyDef bd = new BodyDef();
-		bd.position.set(0, 0);
-		bd.type = BodyType.DynamicBody;
-
-		// 2. Create a FixtureDef, as usual.
-		FixtureDef fd = new FixtureDef();
-		fd.density = 1;
-		fd.friction = 0.5f;
-		fd.restitution = 0.3f;
-
-		// 3. Create a Body, as usual.
-		Body player;
-		player = world.createBody(bd);
-
-		bd.position.set(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
-		sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
 		// create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
@@ -203,9 +269,19 @@ public class MyGdxGame implements ApplicationListener {
 
 
 
+		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
+		//TODO so it moves in the same direction as the body and stuff
+		//one of their scales is in gdx graphics the other in camera or something
+		//they don't have same position
+		// 1 degree = 0.0174533 radians
+		batch.begin();
+		sprite.setRotation(body.getAngle()*57.298f);
+		batch.draw(sprite, body.getPosition().x, body.getPosition().y);
+		batch.end();
+
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
-		int moveSpeed = 10000;
+		int moveSpeed = 30000;
 		double xDirectionD = (Math.cos(body.getAngle()));
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
@@ -216,12 +292,12 @@ public class MyGdxGame implements ApplicationListener {
 
 
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
-		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
+		if(Math.abs(body.getLinearVelocity().x)<=5 && Math.abs(body.getLinearVelocity().y)<=5) {
 			moving=false;
 		}
 
 		if (!moving){
-			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
+			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*4));
 		}
 
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving) && turnsRemaining>0) {
@@ -246,9 +322,7 @@ public class MyGdxGame implements ApplicationListener {
 
 
 
-			//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
-			// 1 degree = 0.0174533 radians
-		sprite.setPosition(body.getPosition().x, body.getPosition().y);
+
 
 
 
