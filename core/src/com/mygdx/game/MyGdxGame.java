@@ -74,33 +74,39 @@ public class MyGdxGame implements ApplicationListener {
         BodyDef topBodyDef = new BodyDef();
         BodyDef leftBodyDef = new BodyDef();
         BodyDef rightBodyDef = new BodyDef();
+		BodyDef obstacleBodyDef = new BodyDef();
 		// The position of the body will be at the bottom of the screen half way along
 		groundBodyDef.position.set(new Vector2(0, 10));
         topBodyDef.position.set(new Vector2(0, 310));
         leftBodyDef.position.set(new Vector2(10, 160));
         rightBodyDef.position.set(new Vector2(470, 160));
+		obstacleBodyDef.position.set(new Vector2(240,160));
 		// Add the body to the world
 		Body groundBody = world.createBody(groundBodyDef);
         Body topBody = world.createBody(topBodyDef);
         Body leftBody = world.createBody(leftBodyDef);
         Body rightBody = world.createBody(rightBodyDef);
+		Body obstacleBody = world.createBody(obstacleBodyDef);
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
 		PolygonShape groundBox = new PolygonShape();
         PolygonShape topBox = new PolygonShape();
         PolygonShape leftBox = new PolygonShape();
         PolygonShape rightBox = new PolygonShape();
+		PolygonShape obstacleBox = new PolygonShape();
 		// set the size of the box to fill the camera viewport width
 		// and hence the width of the screen
 		groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
         topBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
         leftBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
         rightBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
+		obstacleBox.setAsBox(10.0f, 10.0f);
 		// Add the fixture to the ground body
 		groundBody.createFixture(groundBox, 0.0f);
         topBody.createFixture(topBox, 0.0f);
         leftBody.createFixture(leftBox, 0.0f);
         rightBody.createFixture(rightBox, 0.0f);
+		obstacleBody.createFixture(obstacleBox, 1.0f);
 		// Create the body for the ball
 		BodyDef bodyDef = new BodyDef();
 
@@ -239,6 +245,7 @@ public class MyGdxGame implements ApplicationListener {
 
 
 			//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
+			// 1 degree = 0.0174533 radians
 		sprite.setPosition(body.getPosition().x, body.getPosition().y);
 
 
