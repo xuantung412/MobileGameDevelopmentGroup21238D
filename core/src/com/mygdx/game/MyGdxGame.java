@@ -183,6 +183,8 @@ public class MyGdxGame implements ApplicationListener {
 
 
 	boolean moving = false;
+	int turnsRemaining = 9999;
+
 
 	@Override
 	public void render() {
@@ -205,19 +207,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
-/*		//TODO need to move this into a function later
-		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
-			//Gdx.app.log("spinning ", "is true");
-			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
-			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
 
-			//TODO swap press right with touch
-			//Harris this line will make the circle shoot in the direction it is facing
-			// if (touch){
-			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-				body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
-			}
-		}*/
 
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
 		if(Math.abs(body.getLinearVelocity().x)<=2 && Math.abs(body.getLinearVelocity().y)<=2) {
@@ -228,12 +218,14 @@ public class MyGdxGame implements ApplicationListener {
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
 		}
 
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) {
-			Gdx.app.log("tester2", "fuck libgdx");
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving) && turnsRemaining>0) {
 			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			moving=true;
-			//TODO decrement turns remaining each move
-			//turnsRemaining--;
+			turnsRemaining--;
+		}
+
+		if (turnsRemaining==0){
+			//TODO implement end game screen
 		}
 
 		//TODO add box with collision for goal
@@ -248,14 +240,7 @@ public class MyGdxGame implements ApplicationListener {
 
 			//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
 		sprite.setPosition(body.getPosition().x, body.getPosition().y);
-    //    sprite.setRotation();
 
-/*		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity())));
-		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity().x)));
-		Gdx.app.log("velocity ", (String.valueOf(body.getLinearVelocity().y)));*/
-
-
-		//Gdx.app.log("velocity ", "plz work");
 
 
 
