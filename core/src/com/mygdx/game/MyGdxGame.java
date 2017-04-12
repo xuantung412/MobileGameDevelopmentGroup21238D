@@ -213,7 +213,7 @@ public class MyGdxGame implements ApplicationListener {
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
 		//TODO need to move this into a function later
-		if(body.getLinearVelocity().x<=1 && body.getLinearVelocity().y<=1) {
+		if(body.getLinearVelocity().x<=2 && body.getLinearVelocity().y<=2) {
 			//Gdx.app.log("spinning ", "is true");
 			//Gdx.app.log("spinning ", (String.valueOf(body.getAngle())));
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*2));
