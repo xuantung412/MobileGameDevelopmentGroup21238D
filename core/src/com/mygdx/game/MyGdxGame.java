@@ -25,6 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -53,8 +54,10 @@ public class MyGdxGame implements ApplicationListener {
 	Sprite sprite;
 	Texture img;
 	BitmapFont font;
-	int level;
-
+	Body moveableWall1;
+	Body moveableWall2;
+	Body moveableWall3;
+	boolean rotateWall1And2 = false;
 
 	public void addWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
@@ -63,9 +66,16 @@ public class MyGdxGame implements ApplicationListener {
 		PolygonShape wallBox = new PolygonShape();
 		wallBox.setAsBox(width, height);
 		wallBody.createFixture(wallBox, 1.0f);
-
 	}
-
+	public Body addMoveableWall(float xPos, float yPos, float width, float height){
+		BodyDef wallBodyDef = new BodyDef();
+		wallBodyDef.position.set(new Vector2(xPos, yPos));
+		Body wallBody = world.createBody(wallBodyDef);
+		PolygonShape wallBox = new PolygonShape();
+		wallBox.setAsBox(width, height);
+		wallBody.createFixture(wallBox, 1.0f);
+		return wallBody;
+	}
 
 	@Override
 	public void create() {
@@ -92,7 +102,6 @@ public class MyGdxGame implements ApplicationListener {
 		BodyDef wall2 = new BodyDef();*/
 		BodyDef goalBodyDef = new BodyDef();
 
-		
 		// The position of the body will be at the bottom of the screen half way along
 /*		groundBodyDef.position.set(new Vector2(0, 1));
         topBodyDef.position.set(new Vector2(0, 319));
@@ -102,11 +111,6 @@ public class MyGdxGame implements ApplicationListener {
 		wall.position.set(new Vector2(130,110));
 		wall2.position.set(new Vector2(330,100));*/
 		goalBodyDef.position.set(new Vector2(420,50));
-
-
-
-
-
 
 		// Add the body to the world
 /*		Body groundBody = world.createBody(groundBodyDef);
@@ -118,8 +122,6 @@ public class MyGdxGame implements ApplicationListener {
 		Body wallBody2 = world.createBody(wall2);*/
 		Body goalBody = world.createBody(goalBodyDef);
 
-
-
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
 /*		PolygonShape groundBox = new PolygonShape();
@@ -129,7 +131,6 @@ public class MyGdxGame implements ApplicationListener {
 		PolygonShape obstacleBox = new PolygonShape();
 		PolygonShape wallBox = new PolygonShape();*/
 		PolygonShape goalBox = new PolygonShape();
-
 
 		// set the size of the box to fill the camera viewport width
 		// and hence the width of the screen
@@ -161,12 +162,72 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(340,300,10,70);*/
 
 		//Tung's level
-		addWall(170,80,10,80);
+		Random ranNum = new Random();
+		level = 8;
+		if(level < 3) {
+			//addWall(170, 80, 10, 80);
 
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(5)+10, 110);
+			addWall(ranNum.nextInt(20)+270, 200, ranNum.nextInt(5)+10, 110);
+			if(ranNum.nextBoolean() == true){
+				addWall(ranNum.nextInt(20)+350, 120, ranNum.nextInt(5)+10, 110);
+			}
+		}
+		else if(level < 4) {
+			//addWall(170, 80, 10, 80);
 
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+200, 200, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+250, 120, ranNum.nextInt(3)+5, 110);
 
+			if(new Random().nextBoolean() == false){
+				addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
+			}
+		}
+		else if(level < 5) {
+			//addWall(170, 80, 10, 80);
 
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+200, 200, ranNum.nextInt(3)+5, 110);
+			addWall(250, 120, ranNum.nextInt(3)+5, 110);
+			addWall(306, 220, 50, 10);
 
+			if(new Random().nextBoolean() == false){
+				addWall(410, 110, 60, 10);
+			}
+		}
+
+		else if(level < 6) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
+
+		}
+		else if(level < 7) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(5)+10, 110);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+320, 120, ranNum.nextInt(5)+10, 110);
+		}
+		else if(level < 8) {
+			addWall(150, 260, 15, 50);
+			addWall(150, 60, 15, 50);
+			addWall(350, 260, 15, 50);
+			addWall(350, 60 ,15, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 70);
+
+			//moveableWall2  = addMoveableWall(270, 260, 10, 50);
+		}
+		else if(level < 9) {
+			addWall(150, 180, 10, 130);
+			addWall(225, 140, 10, 130);
+			addWall(300, 180, 10, 130);
+			addWall(375, 140 ,10, 130);
+			//moveableWall3 = addMoveableWall(250, 160, 5, 70);
+
+			//moveableWall2  = addMoveableWall(270, 260, 10, 50);
+		}
 		//later level probably
 		//obstacle walls
 /*		addWall(70,80,10,90);
@@ -224,7 +285,6 @@ public class MyGdxGame implements ApplicationListener {
 
 		// Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
-		FixtureDef fixtureDef2 = new FixtureDef();
 		// Give it the circle shape
 		fixtureDef.shape = dynamicCircle;
 
@@ -240,12 +300,10 @@ public class MyGdxGame implements ApplicationListener {
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
 
-
 		//TODO make this appear and then have it's position match the physics body all the time
 		batch = new SpriteBatch();
 		img = new Texture("player.png");
 		sprite = new Sprite(img);
-
 
 
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
@@ -259,11 +317,10 @@ public class MyGdxGame implements ApplicationListener {
 	public void dispose() {
 	}
 
-
 	boolean moving = false;
 	int turnsRemaining = 9999;
-
-
+	int level;
+	double time = 120;
 	@Override
 	public void render() {
 		// Clear the screen
@@ -272,8 +329,40 @@ public class MyGdxGame implements ApplicationListener {
 		debugRenderer.render(world, camera.combined);
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
+		//Move the wall
+		if(moveableWall1 != null && moveableWall2 != null) {
+			if (moveableWall1.getPosition().y > 260 || moveableWall1.getPosition().y < 60) {
+				if (rotateWall1And2 == true) {
+					rotateWall1And2 = false;
+				} else {
+					rotateWall1And2 = true;
+				}
+			}
+			int wall1And2Speed = 0;
+			if( level == 5){
+				wall1And2Speed = 2;
+			}
+			else if(level == 6 ){
+				wall1And2Speed = 3;
+			}
+			if (rotateWall1And2 == false) {
+				moveableWall1.setTransform(moveableWall1.getPosition().x, wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
+			} else {
+				moveableWall1.setTransform(moveableWall1.getPosition().x, -wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
 
+			}
 
+			if (moveableWall2 != null) {
+				if (rotateWall1And2 == false) {
+					moveableWall2.setTransform(moveableWall2.getPosition().x, -wall1And2Speed + moveableWall2.getPosition().y, moveableWall2.getAngle());
+				} else {
+					moveableWall2.setTransform(moveableWall2.getPosition().x, +wall1And2Speed + moveableWall2.getPosition().y, moveableWall2.getAngle());
+				}
+			}
+		}
+		if( moveableWall3 != null){
+			moveableWall3.setTransform(moveableWall3.getPosition().x,moveableWall3.getPosition().y, moveableWall3.getAngle()-1);
+		}
 
 		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
 		//TODO so it moves in the same direction as the body and stuff
@@ -292,10 +381,7 @@ public class MyGdxGame implements ApplicationListener {
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
 		float yDirection = (float) yDirectionD;
-
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
-
-
 
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
 		if(Math.abs(body.getLinearVelocity().x)<=5 && Math.abs(body.getLinearVelocity().y)<=5) {
@@ -317,13 +403,18 @@ public class MyGdxGame implements ApplicationListener {
 		}
 
 		//TODO add box with collision for goal
+
 		//TODO add sprite for both player and goal and map them appropriately
 		//TODO add some more walls so it is like a game
 		//TODO TUNG is doing add UI that displays turns remaining
 		String turn;
 		turn ="Turn Remaining: " +turnsRemaining;
 		batch.begin();
-		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +650f,Gdx.graphics.getHeight()/2+470f );
+		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +650f,Gdx.graphics.getHeight()/2+499f );
+
+		String currentLevel;
+		currentLevel = "Current Level: "+ level;
+		font.draw(batch,currentLevel,Gdx.graphics.getWidth()/2 -830f,Gdx.graphics.getHeight()/2+499f );
 		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
