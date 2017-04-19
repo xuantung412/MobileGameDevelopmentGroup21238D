@@ -105,6 +105,7 @@ public class MyGdxGame implements ApplicationListener {
 		//	FixtureDef goalFixture = new FixtureDef();
 		//	goalFixture.isSensor= true;
 
+        //
 
 		//TODO use this thing to make the basic walls now
 		//side walls
