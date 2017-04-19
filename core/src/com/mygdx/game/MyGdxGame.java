@@ -34,6 +34,7 @@ public class MyGdxGame implements ApplicationListener {
 	// Create a new box2d world with gravity down in the y direction
 	//     set default sleep true for bodies that are not moving
 	World world = new World(new Vector2(0, 0), true);
+
 	// The built in renderer of box2d for debugging
 	Box2DDebugRenderer debugRenderer;
 	// Box2d operates in a floating point world so use
@@ -54,6 +55,8 @@ public class MyGdxGame implements ApplicationListener {
 
 	Body[] wallBodies = new Body[20];
 	int wallBodiesCount=0;
+	int turnsRemaining;
+
 
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -125,12 +128,9 @@ public class MyGdxGame implements ApplicationListener {
 
 
 		if (level==1) {
-			addWall(70, 80, 20, 60);
-			addWall(70, 300, 20, 60);
-			addWall(170, 80, 20, 60);
-			addWall(170, 300, 20, 60);
-			addWall(250, 80, 20, 60);
-			addWall(250, 300, 20, 60);
+			turnsRemaining=20;
+			addWall(270, 250, 40, 60);
+			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
 		}
 
@@ -138,10 +138,11 @@ public class MyGdxGame implements ApplicationListener {
 		//later level probably
 		//obstacle walls
 		if (level==2) {
-			addWall(70, 80, 10, 90);
-			addWall(130, 110, 20, 50);
-			addWall(250, 200, 50, 50);
-			addWall(400, 300, 40, 30);
+			turnsRemaining=20;
+			addWall(60, 110, 10, 30);
+			addWall(140, 100, 30, 50);
+			addWall(250, 160, 50, 80);
+			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
 		}
 
@@ -171,7 +172,7 @@ public class MyGdxGame implements ApplicationListener {
 		//stops it from rotating
 		body.setFixedRotation(true);
 		//slows the player down
-		body.setLinearDamping(.5f);
+		body.setLinearDamping(.8f);
 
 		// Give the ball a circular shape
 		CircleShape dynamicCircle = new CircleShape();
@@ -214,7 +215,6 @@ public class MyGdxGame implements ApplicationListener {
 
 
 	boolean moving = false;
-	int turnsRemaining = 9999;
 
 
 	@Override
@@ -248,7 +248,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
-		int moveSpeed = 30000;
+		int moveSpeed = 50000;
 		double xDirectionD = (Math.cos(body.getAngle()));
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
@@ -268,15 +268,16 @@ public class MyGdxGame implements ApplicationListener {
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*4));
 		}
 
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving) && turnsRemaining>0) {
-			Gdx.app.log("right worked",  "i love uni");
+		if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
+			Gdx.app.log("right worked",  Float.toString(moveVelocity.x));
+			Gdx.app.log("right worked",  Float.toString(moveVelocity.y));
 
 			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			moving=true;
 			turnsRemaining--;
 		}
 
-		//Press left to restart levels
+		//Press left to go to next level
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			Gdx.app.log("went into create thing",  "i love uni");
 		//	world.dispose();
@@ -292,9 +293,32 @@ public class MyGdxGame implements ApplicationListener {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
-		//	level=2;
+			level=2;
 			create();
 		}
+
+		//press up to restart or run out of lives
+		if(Gdx.input.isKeyPressed(Input.Keys.UP) || (turnsRemaining==0 && !moving)){
+			Gdx.app.log("went into create thing",  "i love uni");
+			//	world.dispose();
+			//TODO put the walls that you make each level into an array and delete them in here aswell
+			//when running create do so based on a level variable
+			//badabing badaboom
+			//that should work i think
+			// XD
+			for (int i=0; i<wallBodies.length; i++){
+				if (wallBodies[i]!=null) {
+					world.destroyBody(wallBodies[i]);
+				}
+			}
+			world.destroyBody(body);
+			//if you uncomment this it will load level 2
+		//	level++;
+			create();
+		}
+
+
+
 
 		if (turnsRemaining==0){
 			//TODO implement end game screen
