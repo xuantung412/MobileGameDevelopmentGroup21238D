@@ -1,7 +1,4 @@
-
 package com.mygdx.game;
-
-
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -23,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.LongMap;
 import com.badlogic.gdx.utils.Timer;
 
 import java.util.TimerTask;
@@ -98,6 +96,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		// Add the fixture to the ground body
 		goalBody.createFixture(goalBox, 1.0f);
+
 
 
 		//TODO i think we want to make the goal box a sensor
@@ -223,10 +222,10 @@ public class MyGdxGame implements ApplicationListener {
 		sprite.setRotation(body.getAngle()*57.298f);
 		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
 		//Gdx.app.log("positioning sprite x", String.valueOf(sprite.get));
-		Gdx.app.log("positioning sprite X",  String.valueOf(sprite.getRegionX()));
+/*		Gdx.app.log("positioning sprite X",  String.valueOf(sprite.getRegionX()));
 		Gdx.app.log("positioning sprite y",  String.valueOf(sprite.getRegionY()));
 		Gdx.app.log("positioning body x",  String.valueOf(body.getPosition().x));
-		Gdx.app.log("positioning body y",  String.valueOf(body.getPosition().y));
+		Gdx.app.log("positioning body y",  String.valueOf(body.getPosition().y));*/
 
 		batch.end();
 
@@ -253,9 +252,24 @@ public class MyGdxGame implements ApplicationListener {
 		}
 
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving) && turnsRemaining>0) {
+			Gdx.app.log("right worked",  "i love uni");
+
 			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 			moving=true;
 			turnsRemaining--;
+		}
+
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			Gdx.app.log("went into create thing",  "i love uni");
+		//	world.dispose();
+			//TODO put the walls that you make each level into an array and delete them in here aswell
+			//when running create do so based on a level variable
+			//badabing badaboom
+			//that should work i think
+			// XD 
+			world.destroyBody(body);
+			create();
 		}
 
 		if (turnsRemaining==0){
@@ -269,18 +283,6 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
-
-
-
-
-
-
-
-
-
-
-		//	}
-
     }
 	@Override
 	public void resize(int width, int height) {
@@ -291,6 +293,4 @@ public class MyGdxGame implements ApplicationListener {
 	@Override
 	public void resume() {
 	}
-
-
 }
