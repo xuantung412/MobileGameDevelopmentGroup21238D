@@ -57,6 +57,11 @@ public class MyGdxGame implements ApplicationListener {
 	Body moveableWall1;
 	Body moveableWall2;
 	Body moveableWall3;
+	Body moveableWall4;
+	Body moveableWall5;
+	Body moveableWall6;
+	Body moveableWall7;
+
 	boolean rotateWall1And2 = false;
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -163,7 +168,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		//Tung's level
 		Random ranNum = new Random();
-		level = 8;
+		level = 14;
 		if(level < 3) {
 			//addWall(170, 80, 10, 80);
 
@@ -224,9 +229,60 @@ public class MyGdxGame implements ApplicationListener {
 			addWall(225, 140, 10, 130);
 			addWall(300, 180, 10, 130);
 			addWall(375, 140 ,10, 130);
-			//moveableWall3 = addMoveableWall(250, 160, 5, 70);
 
-			//moveableWall2  = addMoveableWall(270, 260, 10, 50);
+		}
+		else if(level < 10) {
+			addWall(150, 180, 10, 130);
+			addWall(200, 140, 10, 130);
+			addWall(250, 180, 10, 130);
+			addWall(300, 140 ,10, 130);
+			addWall(350, 180, 10, 130);
+
+		}
+		else if(level < 11) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(200, 140, 10, 130);
+			moveableWall2  = addMoveableWall(250, 260, 10, 50);
+			addWall(300, 180 ,10, 130);
+			addWall(350, 140, 10, 130);
+
+		}
+		else if(level < 12) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(200, 140, 10, 130);
+			moveableWall2  = addMoveableWall(250, 260, 10, 50);
+			addWall(300, 180 ,10, 130);
+			addWall(350, 140, 10, 130);
+
+		}
+		else if(level < 13) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+		}
+		else if(level < 14) {
+			moveableWall3 = addMoveableWall(175, 70, 5, 60);
+			moveableWall4 = addMoveableWall(175, 200, 5, 60);
+			moveableWall5 = addMoveableWall(300, 70, 5, 60);
+			moveableWall6 = addMoveableWall(300, 200, 5, 60);
+			addWall(250, 289, 100, 20);
+			addWall(380, 61, 15, 50);
+			addWall(380, 175, 15, 30);
+			addWall(380, 274, 15, 35);
+
+		}
+		else if(level < 15) {
+			addWall(150, 111, 8, 100);
+			addWall(150, 274, 8, 35);
+			addWall(200, 209, 8, 100);
+			addWall(200, 46, 8, 35);
+			addWall(250, 126, 8, 115);
+			addWall(250, 289, 8, 20);
+			addWall(300, 229, 8, 80);
+			addWall(300, 66, 8, 55);
+			addWall(350, 150, 8, 139);
 		}
 		//later level probably
 		//obstacle walls
@@ -282,7 +338,6 @@ public class MyGdxGame implements ApplicationListener {
 
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
-
 		// Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
 		// Give it the circle shape
@@ -318,7 +373,7 @@ public class MyGdxGame implements ApplicationListener {
 	}
 
 	boolean moving = false;
-	int turnsRemaining = 9999;
+	int turnsRemaining = 100;
 	int level;
 	double time = 120;
 	@Override
@@ -345,6 +400,16 @@ public class MyGdxGame implements ApplicationListener {
 			else if(level == 6 ){
 				wall1And2Speed = 3;
 			}
+			else if(level == 10 ){
+				wall1And2Speed = 8;
+			}
+			else if(level == 11 ){
+				wall1And2Speed = 10;
+			}
+			else if(level == 12 ){
+				wall1And2Speed = 8;
+			}
+
 			if (rotateWall1And2 == false) {
 				moveableWall1.setTransform(moveableWall1.getPosition().x, wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
 			} else {
@@ -363,7 +428,18 @@ public class MyGdxGame implements ApplicationListener {
 		if( moveableWall3 != null){
 			moveableWall3.setTransform(moveableWall3.getPosition().x,moveableWall3.getPosition().y, moveableWall3.getAngle()-1);
 		}
-
+		if( moveableWall4 != null){
+			moveableWall4.setTransform(moveableWall4.getPosition().x,moveableWall4.getPosition().y, moveableWall4.getAngle()-1);
+		}
+		if( moveableWall5 != null){
+			moveableWall5.setTransform(moveableWall5.getPosition().x,moveableWall5.getPosition().y, moveableWall5.getAngle()-1);
+		}
+		if( moveableWall6 != null){
+			moveableWall6.setTransform(moveableWall6.getPosition().x,moveableWall6.getPosition().y, moveableWall6.getAngle()-1);
+		}
+		if( moveableWall7 != null){
+			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-1);
+		}
 		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
 		//TODO so it moves in the same direction as the body and stuff
 		//one of their scales is in gdx graphics the other in camera or something
@@ -410,7 +486,7 @@ public class MyGdxGame implements ApplicationListener {
 		String turn;
 		turn ="Turn Remaining: " +turnsRemaining;
 		batch.begin();
-		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +650f,Gdx.graphics.getHeight()/2+499f );
+		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +(Gdx.graphics.getWidth()/2- Gdx.graphics.getWidth()/9),Gdx.graphics.getHeight()/2+(Gdx.graphics.getHeight()/2-Gdx.graphics.getHeight()/20) );
 
 		String currentLevel;
 		currentLevel = "Current Level: "+ level;
