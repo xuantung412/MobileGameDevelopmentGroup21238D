@@ -142,7 +142,6 @@ public class MyGdxGame implements ApplicationListener {
 		goalBody.createFixture(goalBox, 1.0f);
 
 
-		//TODO i think we want to make the goal box a sensor
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 	//	FixtureDef goalFixture = new FixtureDef();
 	//	goalFixture.isSensor= true;
@@ -175,7 +174,6 @@ public class MyGdxGame implements ApplicationListener {
 
         // Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
-		FixtureDef fixtureDef2 = new FixtureDef();
 		// Give it the circle shape
 		fixtureDef.shape = dynamicCircle;
 
@@ -252,10 +250,11 @@ public class MyGdxGame implements ApplicationListener {
 
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
+        int rotationThreshold = 5;
 
 
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
-		if(Math.abs(body.getLinearVelocity().x)<=5 && Math.abs(body.getLinearVelocity().y)<=5) {
+		if(Math.abs(body.getLinearVelocity().x)<=rotationThreshold && Math.abs(body.getLinearVelocity().y)<=rotationThreshold) {
 			moving=false;
 		}
 
@@ -275,9 +274,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		//TODO add box with collision for goal
 		//TODO add sprite for both player and goal and map them appropriately
-		//TODO add some more walls so it is like a game
-		//TODO TUNG is doing add UI that displays turns remaining
-		//set label to ("Turns Remaining: " + turnsRemaining)
+
 
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
