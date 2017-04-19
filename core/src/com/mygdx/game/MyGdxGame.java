@@ -50,7 +50,10 @@ public class MyGdxGame implements ApplicationListener {
     SpriteBatch batch;
     Sprite sprite;
     Texture img;
+	int level = 1;
 
+	Body[] wallBodies = new Body[20];
+	int wallBodiesCount=0;
 
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -60,11 +63,20 @@ public class MyGdxGame implements ApplicationListener {
 		PolygonShape wallBox = new PolygonShape();
 		wallBox.setAsBox(width, height);
 		wallBody.createFixture(wallBox, 1.0f);
+		wallBodies[wallBodiesCount] = wallBody;
+		wallBodiesCount++;
 	}
 
 
 	@Override
 	public void create() {
+
+		for (int i=0; i<wallBodies.length; i++){
+			wallBodies[i]=null;
+		}
+
+
+
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
@@ -97,8 +109,6 @@ public class MyGdxGame implements ApplicationListener {
 		// Add the fixture to the ground body
 		goalBody.createFixture(goalBox, 1.0f);
 
-
-
 		//TODO i think we want to make the goal box a sensor
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 		//	FixtureDef goalFixture = new FixtureDef();
@@ -113,20 +123,27 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
 
-		addWall(70,80,20,60);
-		addWall(70,300,20,60);
-		addWall(170,80,20,60);
-		addWall(170,300,20,60);
-		addWall(250,80,20,60);
-		addWall(250,300,20,60);
+
+		if (level==1) {
+			addWall(70, 80, 20, 60);
+			addWall(70, 300, 20, 60);
+			addWall(170, 80, 20, 60);
+			addWall(170, 300, 20, 60);
+			addWall(250, 80, 20, 60);
+			addWall(250, 300, 20, 60);
+			wallBodiesCount=0;
+		}
+
 
 		//later level probably
 		//obstacle walls
-/*		addWall(70,80,10,90);
-		addWall(130,110,20,50);
-		addWall(250,200,50,50);
-		addWall(400,300,40,30);*/
-
+		if (level==2) {
+			addWall(70, 80, 10, 90);
+			addWall(130, 110, 20, 50);
+			addWall(250, 200, 50, 50);
+			addWall(400, 300, 40, 30);
+			wallBodiesCount=0;
+		}
 
 
 		goalBody.createFixture(goalBox, 1.0f);
@@ -259,7 +276,7 @@ public class MyGdxGame implements ApplicationListener {
 			turnsRemaining--;
 		}
 
-
+		//Press left to restart levels
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			Gdx.app.log("went into create thing",  "i love uni");
 		//	world.dispose();
@@ -267,8 +284,15 @@ public class MyGdxGame implements ApplicationListener {
 			//when running create do so based on a level variable
 			//badabing badaboom
 			//that should work i think
-			// XD 
+			// XD
+			for (int i=0; i<wallBodies.length; i++){
+				if (wallBodies[i]!=null) {
+					world.destroyBody(wallBodies[i]);
+				}
+			}
 			world.destroyBody(body);
+			//if you uncomment this it will load level 2
+		//	level=2;
 			create();
 		}
 
