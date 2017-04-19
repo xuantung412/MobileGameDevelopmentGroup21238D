@@ -76,66 +76,36 @@ public class MyGdxGame implements ApplicationListener {
 		camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);
 		// Update the changed camera settings!
 		camera.update();
+
+
 		// Define the ground on which the ball will bounce
 		// By default a body is static
-/*		BodyDef groundBodyDef =new BodyDef();
-        BodyDef topBodyDef = new BodyDef();
-        BodyDef leftBodyDef = new BodyDef();
-        BodyDef rightBodyDef = new BodyDef();
-		BodyDef obstacleBodyDef = new BodyDef();
-		BodyDef wall = new BodyDef();
-		BodyDef wall2 = new BodyDef();*/
 		BodyDef goalBodyDef = new BodyDef();
 
-
-
 		// The position of the body will be at the bottom of the screen half way along
-/*		groundBodyDef.position.set(new Vector2(0, 1));
-        topBodyDef.position.set(new Vector2(0, 319));
-        leftBodyDef.position.set(new Vector2(1, 160));
-        rightBodyDef.position.set(new Vector2(479, 160));
-		obstacleBodyDef.position.set(new Vector2(220,200));
-		wall.position.set(new Vector2(130,110));
-		wall2.position.set(new Vector2(330,100));*/
 		goalBodyDef.position.set(new Vector2(420,50));
 
-
-
-
-
-
 		// Add the body to the world
-/*		Body groundBody = world.createBody(groundBodyDef);
-        Body topBody = world.createBody(topBodyDef);
-        Body leftBody = world.createBody(leftBodyDef);
-        Body rightBody = world.createBody(rightBodyDef);
-		Body obstacleBody = world.createBody(obstacleBodyDef);
-		Body wallBody = world.createBody(wall);
-		Body wallBody2 = world.createBody(wall2);*/
 		Body goalBody = world.createBody(goalBodyDef);
-
-
 
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
-/*		PolygonShape groundBox = new PolygonShape();
-        PolygonShape topBox = new PolygonShape();
-        PolygonShape leftBox = new PolygonShape();
-        PolygonShape rightBox = new PolygonShape();
-		PolygonShape obstacleBox = new PolygonShape();
-		PolygonShape wallBox = new PolygonShape();*/
 		PolygonShape goalBox = new PolygonShape();
-
 
 		// set the size of the box to fill the camera viewport width
 		// and hence the width of the screen
-		/*groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
-        topBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
-        leftBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
-        rightBox.setAsBox(10.0f, (camera.viewportHeight) * 2);
-		obstacleBox.setAsBox(40.0f, 40.0f);
-		wallBox.setAsBox(40.0f, 55.0f);*/
 		goalBox.setAsBox(20.0f, 20.0f);
+
+		// Add the fixture to the ground body
+		goalBody.createFixture(goalBox, 1.0f);
+
+
+		//TODO i think we want to make the goal box a sensor
+		//this means it won't collide and will just tell us when it's hit not bounce off it
+		//	FixtureDef goalFixture = new FixtureDef();
+		//	goalFixture.isSensor= true;
+
+
 
 
 		//TODO use this thing to make the basic walls now
@@ -145,16 +115,12 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
 
-
-
-		addWall(70,80,20,80);
-		addWall(70,300,20,80);
-		addWall(170,80,20,80);
-		addWall(170,300,20,80);
-		addWall(250,80,20,80);
-		addWall(250,300,20,80);
-
-
+		addWall(70,80,20,60);
+		addWall(70,300,20,60);
+		addWall(170,80,20,60);
+		addWall(170,300,20,60);
+		addWall(250,80,20,60);
+		addWall(250,300,20,60);
 
 		//later level probably
 		//obstacle walls
@@ -162,32 +128,6 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(130,110,20,50);
 		addWall(250,200,50,50);
 		addWall(400,300,40,30);*/
-
-
-
-
-
-		// Add the fixture to the ground body
-/*		groundBody.createFixture(groundBox, 0.0f);
-        topBody.createFixture(topBox, 0.0f);
-        leftBody.createFixture(leftBox, 0.0f);
-        rightBody.createFixture(rightBox, 0.0f);
-		obstacleBody.createFixture(obstacleBox, 1.0f);
-		wallBody.createFixture(wallBox, 1.0f);
-		wallBody.createFixture(wallBox, 1.0f);
-		wallBody2.createFixture(wallBox, 1.0f);*/
-		goalBody.createFixture(goalBox, 1.0f);
-
-
-		//TODO this versi0on should be working i think
-		//88yhe9uhdwqiudbwq/wqdoundwqiubdqw9undwqoieqnoewnoqfneqon
-
-		//TODO i think we want to make the goal box a sensor
-		//this means it won't collide and will just tell us when it's hit not bounce off it
-	//	FixtureDef goalFixture = new FixtureDef();
-	//	goalFixture.isSensor= true;
-
-
 
 		// Create the body for the ball
 		BodyDef bodyDef = new BodyDef();
@@ -207,8 +147,6 @@ public class MyGdxGame implements ApplicationListener {
 		body.setFixedRotation(true);
 		//slows the player down
 		body.setLinearDamping(.5f);
-
-
 
 		// Give the ball a circular shape
 		CircleShape dynamicCircle = new CircleShape();
@@ -239,9 +177,7 @@ public class MyGdxGame implements ApplicationListener {
         batch = new SpriteBatch();
         img = new Texture("player.png");
         sprite = new Sprite(img);
-
-
-
+		
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
 

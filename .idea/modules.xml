@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MobileGameDevelopmentGroup21238D.iml" filepath="$PROJECT_DIR$/MobileGameDevelopmentGroup21238D.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MobileGameDevelopmentGroup21238D-2e9b7b4d745d1cba2ba0a31b6a7673751f3a6c20.iml" filepath="$PROJECT_DIR$/MobileGameDevelopmentGroup21238D-2e9b7b4d745d1cba2ba0a31b6a7673751f3a6c20.iml" />
       <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
     </modules>
