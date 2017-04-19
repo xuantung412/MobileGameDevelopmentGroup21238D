@@ -106,8 +106,6 @@ public class MyGdxGame implements ApplicationListener {
 		//	goalFixture.isSensor= true;
 
 
-
-
 		//TODO use this thing to make the basic walls now
 		//side walls
 		addWall(0,1,(camera.viewportWidth) * 2, 10.0f);
@@ -128,24 +126,6 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(130,110,20,50);
 		addWall(250,200,50,50);
 		addWall(400,300,40,30);*/
-
-
-		// Add the fixture to the ground body
-/*		groundBody.createFixture(groundBox, 0.0f);
-        topBody.createFixture(topBox, 0.0f);
-        leftBody.createFixture(leftBox, 0.0f);
-        rightBody.createFixture(rightBox, 0.0f);
-		obstacleBody.createFixture(obstacleBox, 1.0f);
-		wallBody.createFixture(wallBox, 1.0f);
-		wallBody.createFixture(wallBox, 1.0f);
-		wallBody2.createFixture(wallBox, 1.0f);*/
-		goalBody.createFixture(goalBox, 1.0f);
-
-
-		//TODO i think we want to make the goal box a sensor
-		//this means it won't collide and will just tell us when it's hit not bounce off it
-	//	FixtureDef goalFixture = new FixtureDef();
-	//	goalFixture.isSensor= true;
 
 
 		// Create the body for the ball
