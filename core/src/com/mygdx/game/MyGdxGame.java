@@ -129,11 +129,6 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(250,200,50,50);
 		addWall(400,300,40,30);*/
 
-<<<<<<< HEAD
-=======
-
-
-
 
 		// Add the fixture to the ground body
 /*		groundBody.createFixture(groundBox, 0.0f);
@@ -153,8 +148,6 @@ public class MyGdxGame implements ApplicationListener {
 	//	goalFixture.isSensor= true;
 
 
-
->>>>>>> origin/master
 		// Create the body for the ball
 		BodyDef bodyDef = new BodyDef();
 
