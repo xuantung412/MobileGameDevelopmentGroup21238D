@@ -179,8 +179,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
-
-
+		
         //TODO make this appear and then have it's position match the physics body all the time
         batch = new SpriteBatch();
         img = new Texture("player.png");
