@@ -47,13 +47,12 @@ public class MyGdxGame implements ApplicationListener {
 	static final int BOX_VELOCITY_ITERATIONS=6;
 	static final int BOX_POSITION_ITERATIONS=2;
 
-	Body body;
+    Body body;
 
-	SpriteBatch batch;
-	Sprite sprite;
-	Texture img;
-	BitmapFont font;
-	int level;
+    SpriteBatch batch;
+    Sprite sprite;
+    Texture img;
+
 
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -63,15 +62,11 @@ public class MyGdxGame implements ApplicationListener {
 		PolygonShape wallBox = new PolygonShape();
 		wallBox.setAsBox(width, height);
 		wallBody.createFixture(wallBox, 1.0f);
-
 	}
 
 
 	@Override
 	public void create() {
-		level =0;
-		font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
-
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
@@ -92,7 +87,8 @@ public class MyGdxGame implements ApplicationListener {
 		BodyDef wall2 = new BodyDef();*/
 		BodyDef goalBodyDef = new BodyDef();
 
-		
+
+
 		// The position of the body will be at the bottom of the screen half way along
 /*		groundBodyDef.position.set(new Vector2(0, 1));
         topBodyDef.position.set(new Vector2(0, 319));
@@ -151,19 +147,12 @@ public class MyGdxGame implements ApplicationListener {
 
 
 
-	/*	addWall(70,80,10,80);
-		addWall(70,300,10,80);
-		addWall(170,80,10,80);
-		addWall(170,300,10,80);
-		addWall(250,80,10,80);
-		addWall(250,300,10,80);
-		addWall(340,80,10,70);
-		addWall(340,300,10,70);*/
-
-		//Tung's level
-		addWall(170,80,10,80);
-
-
+		addWall(70,80,20,80);
+		addWall(70,300,20,80);
+		addWall(170,80,20,80);
+		addWall(170,300,20,80);
+		addWall(250,80,20,80);
+		addWall(250,300,20,80);
 
 
 
@@ -185,15 +174,18 @@ public class MyGdxGame implements ApplicationListener {
         rightBody.createFixture(rightBox, 0.0f);
 		obstacleBody.createFixture(obstacleBox, 1.0f);
 		wallBody.createFixture(wallBox, 1.0f);
+		wallBody.createFixture(wallBox, 1.0f);
 		wallBody2.createFixture(wallBox, 1.0f);*/
 		goalBody.createFixture(goalBox, 1.0f);
 
 
+		//TODO this versi0on should be working i think
+		//88yhe9uhdwqiudbwq/wqdoundwqiubdqw9undwqoieqnoewnoqfneqon
 
 		//TODO i think we want to make the goal box a sensor
 		//this means it won't collide and will just tell us when it's hit not bounce off it
-		FixtureDef goalFixture = new FixtureDef();
-		goalFixture.isSensor= true;
+	//	FixtureDef goalFixture = new FixtureDef();
+	//	goalFixture.isSensor= true;
 
 
 
@@ -211,7 +203,9 @@ public class MyGdxGame implements ApplicationListener {
 		body = world.createBody(bodyDef);
 
 		//TOM'S CHANGES IN HERE !!!!!
+		//stops it from rotating
 		body.setFixedRotation(true);
+		//slows the player down
 		body.setLinearDamping(.5f);
 
 
@@ -222,7 +216,7 @@ public class MyGdxGame implements ApplicationListener {
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
 
-		// Create a new fixture
+        // Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
 		FixtureDef fixtureDef2 = new FixtureDef();
 		// Give it the circle shape
@@ -241,10 +235,10 @@ public class MyGdxGame implements ApplicationListener {
 		body.createFixture(fixtureDef);
 
 
-		//TODO make this appear and then have it's position match the physics body all the time
-		batch = new SpriteBatch();
-		img = new Texture("player.png");
-		sprite = new Sprite(img);
+        //TODO make this appear and then have it's position match the physics body all the time
+        batch = new SpriteBatch();
+        img = new Texture("player.png");
+        sprite = new Sprite(img);
 
 
 
@@ -282,7 +276,13 @@ public class MyGdxGame implements ApplicationListener {
 		// 1 degree = 0.0174533 radians
 		batch.begin();
 		sprite.setRotation(body.getAngle()*57.298f);
-		batch.draw(sprite, body.getPosition().x, body.getPosition().y);
+		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+		//Gdx.app.log("positioning sprite x", String.valueOf(sprite.get));
+		Gdx.app.log("positioning sprite X",  String.valueOf(sprite.getRegionX()));
+		Gdx.app.log("positioning sprite y",  String.valueOf(sprite.getRegionY()));
+		Gdx.app.log("positioning body x",  String.valueOf(body.getPosition().x));
+		Gdx.app.log("positioning body y",  String.valueOf(body.getPosition().y));
+
 		batch.end();
 
 		//This code sets the direction to the way the circle is facing
@@ -320,14 +320,7 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add sprite for both player and goal and map them appropriately
 		//TODO add some more walls so it is like a game
 		//TODO TUNG is doing add UI that displays turns remaining
-		String turn;
-		turn ="Turn Remaining: " +turnsRemaining;
-		batch.begin();
-		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +650f,Gdx.graphics.getHeight()/2+470f );
-		batch.end();
-		//TODO build a couple levels so it transitions appropriately from one to another
-		//TODO polish
-
+		//set label to ("Turns Remaining: " + turnsRemaining)
 
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
@@ -344,7 +337,7 @@ public class MyGdxGame implements ApplicationListener {
 
 		//	}
 
-	}
+    }
 	@Override
 	public void resize(int width, int height) {
 	}
