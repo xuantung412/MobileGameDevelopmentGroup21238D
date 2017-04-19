@@ -179,9 +179,6 @@ public class MyGdxGame implements ApplicationListener {
 		goalBody.createFixture(goalBox, 1.0f);
 
 
-		//TODO this versi0on should be working i think
-		//88yhe9uhdwqiudbwq/wqdoundwqiubdqw9undwqoieqnoewnoqfneqon
-
 		//TODO i think we want to make the goal box a sensor
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 	//	FixtureDef goalFixture = new FixtureDef();
@@ -260,6 +257,8 @@ public class MyGdxGame implements ApplicationListener {
 
 	@Override
 	public void render() {
+		//Makes background colour
+		Gdx.gl.glClearColor(0/255f, 0/255f, 128/255f, 1);
 		// Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// call the debug renderer
