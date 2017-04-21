@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.LongMap;
 import com.badlogic.gdx.utils.Timer;
 
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -51,12 +52,21 @@ public class MyGdxGame implements ApplicationListener {
     SpriteBatch batch;
     Sprite sprite;
     Texture img;
-	int level = 1;
+	int level = 11;
+	BitmapFont font;
 
 	Body[] wallBodies = new Body[20];
 	int wallBodiesCount=0;
 	int turnsRemaining;
 
+	Body moveableWall1;
+	Body moveableWall2;
+	Body moveableWall3;
+	Body moveableWall4;
+	Body moveableWall5;
+	Body moveableWall6;
+	Body moveableWall7;
+	boolean rotateWall1And2 = false;
 
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -69,10 +79,22 @@ public class MyGdxGame implements ApplicationListener {
 		wallBodies[wallBodiesCount] = wallBody;
 		wallBodiesCount++;
 	}
+	public Body addMoveableWall(float xPos, float yPos, float width, float height){
+		BodyDef wallBodyDef = new BodyDef();
+		wallBodyDef.position.set(new Vector2(xPos, yPos));
+		Body wallBody = world.createBody(wallBodyDef);
+		PolygonShape wallBox = new PolygonShape();
+		wallBox.setAsBox(width, height);
+		wallBody.createFixture(wallBox, 1.0f);
+		wallBodies[wallBodiesCount] = wallBody;
+		wallBodiesCount++;
+		return wallBody;
 
+	}
 
 	@Override
 	public void create() {
+		font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
 
 		for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
@@ -125,26 +147,144 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(0,319,(camera.viewportWidth) * 2, 10.0f);
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
+		Random ranNum = new Random();
+		if(level < 3) {
+			//addWall(170, 80, 10, 80);
 
-
-		if (level==1) {
-			turnsRemaining=20;
-			addWall(270, 250, 40, 60);
-			addWall(300, 55, 70, 40);
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(5)+10, 110);
+			addWall(ranNum.nextInt(20)+270, 200, ranNum.nextInt(5)+10, 110);
+			if(ranNum.nextBoolean() == true){
+				addWall(ranNum.nextInt(20)+350, 120, ranNum.nextInt(5)+10, 110);
+			}
 			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 3) {
+			//addWall(170, 80, 10, 80);
+
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+200, 200, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+250, 120, ranNum.nextInt(3)+5, 110);
+
+			if(new Random().nextBoolean() == false){
+				addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
+			}
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 4) {
+			//addWall(170, 80, 10, 80);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(3)+5, 110);
+			addWall(ranNum.nextInt(10)+200, 200, ranNum.nextInt(3)+5, 110);
+			addWall(250, 120, ranNum.nextInt(3)+5, 110);
+			addWall(306, 220, 50, 10);
+
+			if(new Random().nextBoolean() == false){
+				addWall(410, 110, 60, 10);
+			}
+
 		}
 
-
-		//later level probably
-		//obstacle walls
-		if (level==2) {
-			turnsRemaining=20;
-			addWall(60, 110, 10, 30);
-			addWall(140, 100, 30, 50);
-			addWall(250, 160, 50, 80);
-			addWall(400, 250, 20, 30);
+		else if(level == 5) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
 			wallBodiesCount=0;
+			turnsRemaining = 20;
 		}
+		else if(level == 6) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(5)+10, 110);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+320, 120, ranNum.nextInt(5)+10, 110);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 7) {
+			addWall(150, 260, 15, 50);
+			addWall(150, 60, 15, 50);
+			addWall(350, 260, 15, 50);
+			addWall(350, 60 ,15, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 70);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			//moveableWall2  = addMoveableWall(270, 260, 10, 50);
+		}
+		else if(level == 8) {
+			addWall(150, 180, 10, 130);
+			addWall(225, 140, 10, 130);
+			addWall(300, 180, 10, 130);
+			addWall(375, 140 ,10, 130);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 9) {
+			addWall(150, 180, 10, 130);
+			addWall(200, 140, 10, 130);
+			addWall(250, 180, 10, 130);
+			addWall(300, 140 ,10, 130);
+			addWall(350, 180, 10, 130);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 10) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(200, 140, 10, 130);
+			moveableWall2  = addMoveableWall(250, 260, 10, 50);
+			addWall(300, 180 ,10, 130);
+			addWall(350, 140, 10, 130);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 11) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(200, 140, 10, 130);
+			moveableWall2  = addMoveableWall(250, 260, 10, 50);
+			addWall(300, 180 ,10, 130);
+			addWall(350, 140, 10, 130);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 12) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}
+		else if(level == 13) {
+			moveableWall3 = addMoveableWall(175, 70, 5, 60);
+			moveableWall4 = addMoveableWall(175, 200, 5, 60);
+			moveableWall5 = addMoveableWall(300, 70, 5, 60);
+			moveableWall6 = addMoveableWall(300, 200, 5, 60);
+			addWall(250, 289, 100, 20);
+			addWall(380, 61, 15, 50);
+			addWall(380, 175, 15, 30);
+			addWall(380, 274, 15, 35);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+
+		}
+		else if(level == 14) {
+			addWall(150, 111, 8, 100);
+			addWall(150, 274, 8, 35);
+			addWall(200, 209, 8, 100);
+			addWall(200, 46, 8, 35);
+			addWall(250, 126, 8, 115);
+			addWall(250, 289, 8, 20);
+			addWall(300, 229, 8, 80);
+			addWall(300, 66, 8, 55);
+			addWall(350, 150, 8, 139);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+
+		}
+
 
 
 		goalBody.createFixture(goalBox, 1.0f);
@@ -227,7 +367,62 @@ public class MyGdxGame implements ApplicationListener {
 		debugRenderer.render(world, camera.combined);
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
+//Move the wall
+		if(moveableWall1 != null && moveableWall2 != null) {
+			if (moveableWall1.getPosition().y > 260 || moveableWall1.getPosition().y < 60) {
+				if (rotateWall1And2 == true) {
+					rotateWall1And2 = false;
+				} else {
+					rotateWall1And2 = true;
+				}
+			}
+			int wall1And2Speed = 0;
+			if( level == 5){
+				wall1And2Speed = 2;
+			}
+			else if(level == 6 ){
+				wall1And2Speed = 3;
+			}
+			else if(level == 10 ){
+				wall1And2Speed = 8;
+			}
+			else if(level == 11 ){
+				wall1And2Speed = 10;
+			}
+			else if(level == 12 ){
+				wall1And2Speed = 8;
+			}
 
+			if (rotateWall1And2 == false) {
+				moveableWall1.setTransform(moveableWall1.getPosition().x, wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
+			} else {
+				moveableWall1.setTransform(moveableWall1.getPosition().x, -wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
+
+			}
+
+			if (moveableWall2 != null) {
+				if (rotateWall1And2 == false) {
+					moveableWall2.setTransform(moveableWall2.getPosition().x, -wall1And2Speed + moveableWall2.getPosition().y, moveableWall2.getAngle());
+				} else {
+					moveableWall2.setTransform(moveableWall2.getPosition().x, +wall1And2Speed + moveableWall2.getPosition().y, moveableWall2.getAngle());
+				}
+			}
+		}
+		if( moveableWall3 != null){
+			moveableWall3.setTransform(moveableWall3.getPosition().x,moveableWall3.getPosition().y, moveableWall3.getAngle()-1);
+		}
+		if( moveableWall4 != null){
+			moveableWall4.setTransform(moveableWall4.getPosition().x,moveableWall4.getPosition().y, moveableWall4.getAngle()-1);
+		}
+		if( moveableWall5 != null){
+			moveableWall5.setTransform(moveableWall5.getPosition().x,moveableWall5.getPosition().y, moveableWall5.getAngle()-1);
+		}
+		if( moveableWall6 != null){
+			moveableWall6.setTransform(moveableWall6.getPosition().x,moveableWall6.getPosition().y, moveableWall6.getAngle()-1);
+		}
+		if( moveableWall7 != null){
+			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-1);
+		}
 
 
 		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
@@ -293,7 +488,7 @@ public class MyGdxGame implements ApplicationListener {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
-			level=2;
+			level =12;
 			create();
 		}
 
@@ -313,7 +508,7 @@ public class MyGdxGame implements ApplicationListener {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
-		//	level++;
+			//level++;
 			create();
 		}
 
@@ -327,7 +522,15 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add box with collision for goal
 		//TODO add sprite for both player and goal and map them appropriately
 
+		String turn;
+		turn ="Turn Remaining: " +turnsRemaining;
+		batch.begin();
+		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +(Gdx.graphics.getWidth()/2- Gdx.graphics.getWidth()/9),Gdx.graphics.getHeight()/2+(Gdx.graphics.getHeight()/2-Gdx.graphics.getHeight()/20) );
 
+		String currentLevel;
+		currentLevel = "Current Level: "+ level;
+		font.draw(batch,currentLevel,Gdx.graphics.getWidth()/2 -830f,Gdx.graphics.getHeight()/2+499f );
+		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
