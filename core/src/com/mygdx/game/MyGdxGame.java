@@ -52,7 +52,7 @@ public class MyGdxGame implements ApplicationListener {
     SpriteBatch batch;
     Sprite sprite;
     Texture img;
-	int level = 11;
+	int level = 1;
 	BitmapFont font;
 
 	Body[] wallBodies = new Body[20];
@@ -99,9 +99,6 @@ public class MyGdxGame implements ApplicationListener {
 		for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
 		}
-
-
-
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
@@ -151,13 +148,19 @@ public class MyGdxGame implements ApplicationListener {
 		if(level < 3) {
 			//addWall(170, 80, 10, 80);
 
+
 			addWall(ranNum.nextInt(10)+150, 120, ranNum.nextInt(5)+10, 110);
 			addWall(ranNum.nextInt(20)+270, 200, ranNum.nextInt(5)+10, 110);
 			if(ranNum.nextBoolean() == true){
 				addWall(ranNum.nextInt(20)+350, 120, ranNum.nextInt(5)+10, 110);
 			}
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			if(level ==1) {
+				turnsRemaining = 20;
+			}
+			else{
+				turnsRemaining = 15;
+			}
 		}
 		else if(level == 3) {
 			//addWall(170, 80, 10, 80);
@@ -367,7 +370,7 @@ public class MyGdxGame implements ApplicationListener {
 		debugRenderer.render(world, camera.combined);
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
-//Move the wall
+		//Move the wall
 		if(moveableWall1 != null && moveableWall2 != null) {
 			if (moveableWall1.getPosition().y > 260 || moveableWall1.getPosition().y < 60) {
 				if (rotateWall1And2 == true) {
@@ -454,6 +457,7 @@ public class MyGdxGame implements ApplicationListener {
         int rotationThreshold = 5;
 
 
+
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
 		if(Math.abs(body.getLinearVelocity().x)<=rotationThreshold && Math.abs(body.getLinearVelocity().y)<=rotationThreshold) {
 			moving=false;
@@ -512,7 +516,20 @@ public class MyGdxGame implements ApplicationListener {
 			create();
 		}
 
+		//Check postion of body and goal. If body is reach a goal, move to next level.
+		if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){
+			Gdx.app.log("Move to next level","");
 
+			for (int i=0; i<wallBodies.length; i++){
+				if (wallBodies[i]!=null) {
+					world.destroyBody(wallBodies[i]);
+				}
+			}
+			world.destroyBody(body);
+			//Increase level by 1
+			level +=1;
+			create();
+		}
 
 
 		if (turnsRemaining==0){
