@@ -164,7 +164,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			wallBodiesCount=0;
 			if(level ==1) {
-				turnsRemaining = 2;
+				turnsRemaining = 20;
 			}
 			else{
 				turnsRemaining = 15;
@@ -313,8 +313,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// add the ball to the world
 		body = world.createBody(bodyDef);
 
-		//TOM'S CHANGES IN HERE !!!!!
-		//stops it from rotating
 		body.setFixedRotation(true);
 		//slows the player down
 		body.setLinearDamping(.8f);
@@ -494,7 +492,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
-			level =12;
+			level++;
 			create();
 		}
 
@@ -519,7 +517,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-        if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){			Gdx.app.log("Move to next level","");
+        if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){
+            Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
