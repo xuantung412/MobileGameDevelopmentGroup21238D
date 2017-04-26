@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,9 +33,9 @@ import java.util.concurrent.TimeUnit;
 
 import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.touchDown;
 
-public class MyGdxGame implements ApplicationListener {
+public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	// Create a new box2d world with gravity down in the y direction
-	//     set default sleep true for bodies that are not moving
+	// set default sleep true for bodies that are not moving
 	World world = new World(new Vector2(0, 0), true);
 
 	// The built in renderer of box2d for debugging
@@ -52,11 +54,11 @@ public class MyGdxGame implements ApplicationListener {
     SpriteBatch batch;
     Sprite sprite;
     Texture img;
-	int level = 1;
+	static int level;
 	BitmapFont font;
 
 	Body[] wallBodies = new Body[20];
-	int wallBodiesCount=0;
+	int wallBodiesCount = 0;
 	int turnsRemaining;
 
 	Body moveableWall1;
@@ -67,6 +69,11 @@ public class MyGdxGame implements ApplicationListener {
 	Body moveableWall6;
 	Body moveableWall7;
 	boolean rotateWall1And2 = false;
+
+	MyGame game;
+	public MyGdxGame(MyGame game){
+        this.game = game;
+	}
 
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -94,9 +101,8 @@ public class MyGdxGame implements ApplicationListener {
 
 	@Override
 	public void create() {
-		font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
-
-		for (int i=0; i<wallBodies.length; i++){
+        font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
+        for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
 		}
 		// Use a camera to map from box2d to screen co-ordinates
@@ -144,6 +150,8 @@ public class MyGdxGame implements ApplicationListener {
 		addWall(0,319,(camera.viewportWidth) * 2, 10.0f);
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
+
+        level = 1;
 		Random ranNum = new Random();
 		if(level < 3) {
 			//addWall(170, 80, 10, 80);
@@ -156,7 +164,7 @@ public class MyGdxGame implements ApplicationListener {
 			}
 			wallBodiesCount=0;
 			if(level ==1) {
-				turnsRemaining = 20;
+				turnsRemaining = 2;
 			}
 			else{
 				turnsRemaining = 15;
@@ -187,7 +195,6 @@ public class MyGdxGame implements ApplicationListener {
 			if(new Random().nextBoolean() == false){
 				addWall(410, 110, 60, 10);
 			}
-
 		}
 
 		else if(level == 5) {
@@ -287,12 +294,7 @@ public class MyGdxGame implements ApplicationListener {
 			turnsRemaining = 20;
 
 		}
-
-
-
 		goalBody.createFixture(goalBox, 1.0f);
-
-
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 	//	FixtureDef goalFixture = new FixtureDef();
 	//	goalFixture.isSensor= true;
@@ -517,8 +519,7 @@ public class MyGdxGame implements ApplicationListener {
 		}
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-		if((body.getPosition().x < 431 && body.getPosition().x >394) && (body.getPosition().y >16 && body.getPosition().y < 84)){
-			Gdx.app.log("Move to next level","");
+        if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){			Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
@@ -533,7 +534,8 @@ public class MyGdxGame implements ApplicationListener {
 
 
 		if (turnsRemaining==0){
-			//TODO implement end game screen
+            game.setScreen(MyGame.endGameScreen);
+
 		}
 
 		//TODO add box with collision for goal
@@ -552,6 +554,18 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO polish
 
     }
+
+
+	@Override
+	public void show() {
+		create();
+	}
+
+	@Override
+	public void render(float delta) {
+		this.render();
+	}
+
 	@Override
 	public void resize(int width, int height) {
 	}
@@ -560,5 +574,15 @@ public class MyGdxGame implements ApplicationListener {
 	}
 	@Override
 	public void resume() {
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+	//Getter
+	public int getLevel(){
+		return this.level;
 	}
 }
