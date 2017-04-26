@@ -517,7 +517,7 @@ public class MyGdxGame implements ApplicationListener {
 		}
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-		if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){
+		if((body.getPosition().x < 431 && body.getPosition().x >394) && (body.getPosition().y >16 && body.getPosition().y < 84)){
 			Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
@@ -540,7 +540,7 @@ public class MyGdxGame implements ApplicationListener {
 		//TODO add sprite for both player and goal and map them appropriately
 
 		String turn;
-		turn ="Turn Remaining: " +turnsRemaining;
+		turn ="Turns Remaining: " +turnsRemaining;
 		batch.begin();
 		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +(Gdx.graphics.getWidth()/2- Gdx.graphics.getWidth()/9),Gdx.graphics.getHeight()/2+(Gdx.graphics.getHeight()/2-Gdx.graphics.getHeight()/20) );
 
