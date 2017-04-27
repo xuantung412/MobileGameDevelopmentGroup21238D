@@ -26,7 +26,7 @@ public class EndGameScreen implements Screen {
 
     public void create() {
 
-        final Label message = new Label("Your skill is good but not enough \n       You run out of turn.", skin);
+        final Label message = new Label("Nice Try \n       You ran out of turns.", skin);
         message.setPosition(Gdx.graphics.getWidth() /2-100f, Gdx.graphics.getHeight()/2 +150f);
         message.setSize(300,100);
         message.setColor(Color.RED);

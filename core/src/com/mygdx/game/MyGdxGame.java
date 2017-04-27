@@ -517,7 +517,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-        if((body.getPosition().x < 430 && body.getPosition().x >395) && (body.getPosition().y >15 && body.getPosition().y < 85)){
+        if((body.getPosition().x < 431 && body.getPosition().x >394) && (body.getPosition().y >14 && body.getPosition().y < 86)){
             Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
@@ -527,7 +527,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//Increase level by 1
-			level +=1;
+			level ++;
 			create();
 		}
 
