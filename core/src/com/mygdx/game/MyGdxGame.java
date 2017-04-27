@@ -86,7 +86,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wallBodies[wallBodiesCount] = wallBody;
 		wallBodiesCount++;
 	}
-/*	public Body addMoveableWall(float xPos, float yPos, float width, float height){
+	public Body addMoveableWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
 		wallBodyDef.position.set(new Vector2(xPos, yPos));
 		Body wallBody = world.createBody(wallBodyDef);
@@ -97,7 +97,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wallBodiesCount++;
 		return wallBody;
 
-	}*/
+	}
 
 	@Override
 	public void create() {
@@ -158,14 +158,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			wallBodiesCount=0;
 		}
 
-		if(level==2){
+		else if(level==2){
 			turnsRemaining=20;
 			addWall(150, 120, 10, 110);
 			addWall(270, 200, 10, 110);
 			addWall(350, 120, 10, 110);
 		}
 
-		if (level==3) {
+		else if (level==3) {
 			turnsRemaining=20;
 			addWall(60, 110, 10, 30);
 			addWall(140, 100, 30, 50);
@@ -174,7 +174,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			wallBodiesCount=0;
 		}
 
-		if (level==4) {
+		else if (level==4) {
 			turnsRemaining=2;
 			addWall(60, 110, 10, 30);
 			addWall(140, 100, 30, 50);
@@ -182,6 +182,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
 		}
+
+/*		else if(level == 4) {
+			addWall(150, 120, 5, 110);
+			addWall(200, 200, 5, 110);
+			addWall(250, 120, 5, 110);
+			addWall(350, 120, 5, 110);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+		}*/
 
 
 
@@ -511,9 +520,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		//Press left to go to next level
+		//Press left to go to next level
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 			Gdx.app.log("went into create thing",  "i love uni");
-		//	world.dispose();
+			//	world.dispose();
 			//TODO put the walls that you make each level into an array and delete them in here aswell
 			//when running create do so based on a level variable
 			//badabing badaboom
@@ -529,6 +539,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			level++;
 			create();
 		}
+
 
 		//press up to restart or run out of lives
 		if(Gdx.input.isKeyPressed(Input.Keys.UP) || (turnsRemaining==0 && !moving)){
