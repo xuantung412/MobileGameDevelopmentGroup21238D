@@ -151,20 +151,18 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
 
-		if(level==1){
-			turnsRemaining=20;
-			addWall(170, 80, 10, 80);
-			addWall(150, 120, 10, 110);
-			addWall(270, 200, 10, 110);
-			addWall(350, 120, 10, 110);
-		}
-
-
-		if (level==2) {
+		if (level==1) {
 			turnsRemaining=20;
 			addWall(270, 250, 40, 60);
 			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
+		}
+
+		if(level==2){
+			turnsRemaining=20;
+			addWall(150, 120, 10, 110);
+			addWall(270, 200, 10, 110);
+			addWall(350, 120, 10, 110);
 		}
 
 		if (level==3) {
@@ -548,9 +546,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
-			//level++;
+			//	level++;
 			create();
 		}
+
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
         if((body.getPosition().x < 431 && body.getPosition().x >394) && (body.getPosition().y >14 && body.getPosition().y < 86)){
