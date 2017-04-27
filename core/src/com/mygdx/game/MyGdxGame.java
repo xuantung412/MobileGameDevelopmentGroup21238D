@@ -54,7 +54,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
     SpriteBatch batch;
     Sprite sprite;
     Texture img;
-	static int level;
+	static int level=1;
 	BitmapFont font;
 
 	Body[] wallBodies = new Body[20];
@@ -86,7 +86,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wallBodies[wallBodiesCount] = wallBody;
 		wallBodiesCount++;
 	}
-	public Body addMoveableWall(float xPos, float yPos, float width, float height){
+/*	public Body addMoveableWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
 		wallBodyDef.position.set(new Vector2(xPos, yPos));
 		Body wallBody = world.createBody(wallBodyDef);
@@ -97,7 +97,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wallBodiesCount++;
 		return wallBody;
 
-	}
+	}*/
 
 	@Override
 	public void create() {
@@ -151,8 +151,45 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
 
-        level = 1;
-		Random ranNum = new Random();
+		if(level==1){
+			turnsRemaining=20;
+			addWall(170, 80, 10, 80);
+			addWall(150, 120, 10, 110);
+			addWall(270, 200, 10, 110);
+			addWall(350, 120, 10, 110);
+		}
+
+
+		if (level==2) {
+			turnsRemaining=20;
+			addWall(270, 250, 40, 60);
+			addWall(300, 55, 70, 40);
+			wallBodiesCount=0;
+		}
+
+		if (level==3) {
+			turnsRemaining=20;
+			addWall(60, 110, 10, 30);
+			addWall(140, 100, 30, 50);
+			addWall(250, 160, 50, 80);
+			addWall(400, 250, 20, 30);
+			wallBodiesCount=0;
+		}
+
+		if (level==4) {
+			turnsRemaining=2;
+			addWall(60, 110, 10, 30);
+			addWall(140, 100, 30, 50);
+			addWall(250, 160, 50, 80);
+			addWall(400, 250, 20, 30);
+			wallBodiesCount=0;
+		}
+
+
+
+
+
+/*		Random ranNum = new Random();
 		if(level < 3) {
 			//addWall(170, 80, 10, 80);
 
@@ -292,8 +329,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(350, 150, 8, 139);
 			wallBodiesCount=0;
 			turnsRemaining = 20;
-
-		}
+		}*/
 		goalBody.createFixture(goalBox, 1.0f);
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 	//	FixtureDef goalFixture = new FixtureDef();
@@ -371,7 +407,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 		//Move the wall
-		if(moveableWall1 != null && moveableWall2 != null) {
+	/*	if(moveableWall1 != null && moveableWall2 != null) {
 			if (moveableWall1.getPosition().y > 260 || moveableWall1.getPosition().y < 60) {
 				if (rotateWall1And2 == true) {
 					rotateWall1And2 = false;
@@ -425,7 +461,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 		if( moveableWall7 != null){
 			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-1);
-		}
+		}*/
 
 
 		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
