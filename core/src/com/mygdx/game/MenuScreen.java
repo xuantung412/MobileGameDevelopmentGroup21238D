@@ -29,7 +29,7 @@ public class MenuScreen implements Screen {
 
     public void create() {
         final Label title = new Label("Welcome to the Game", skin);
-        title.setPosition(Gdx.graphics.getWidth() /2-15f, Gdx.graphics.getHeight()/2 +150f);
+        title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
         title.setSize(300,100);
         title.setFontScale(3);
         title.setColor(Color.RED);
