@@ -53,6 +53,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
     SpriteBatch batch;
     Sprite sprite;
+	Sprite goalSprite;
     Texture img;
 	static int level=1;
 	BitmapFont font;
@@ -395,8 +396,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
         //TODO make this appear and then have it's position match the physics body all the time
         batch = new SpriteBatch();
         img = new Texture("player.png");
+		Texture goalImg = new Texture("goal.png");
         sprite = new Sprite(img);
-		
+		goalSprite = new Sprite(goalImg);
+
+		//goalSprite.
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
 
@@ -488,6 +492,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		batch.begin();
 		sprite.setRotation(body.getAngle()*57.298f);
 		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+
+		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
+		//need to change the size of it as well as the location
+		//batch.draw(goalSprite, camera.viewportWidth/2, camera.viewportHeight/2);
 		//Gdx.app.log("positioning sprite x", String.valueOf(sprite.get));
 /*		Gdx.app.log("positioning sprite X",  String.valueOf(sprite.getRegionX()));
 		Gdx.app.log("positioning sprite y",  String.valueOf(sprite.getRegionY()));
