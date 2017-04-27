@@ -432,7 +432,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				}
 			}
 			int wall1And2Speed = 0;
-			if( level == 5){
+			if( level == 4){
 				wall1And2Speed = 2;
 			}
 			else if(level == 6 ){
@@ -498,7 +498,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
-		int moveSpeed = 500000;
+		int moveSpeed = 50000;
 		double xDirectionD = (Math.cos(body.getAngle()));
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
