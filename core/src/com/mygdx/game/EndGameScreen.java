@@ -29,6 +29,7 @@ public class EndGameScreen implements Screen {
         final Label message = new Label("       Nice Try \n       You ran out of turns.", skin);
         message.setPosition(Gdx.graphics.getWidth() /2-100f, Gdx.graphics.getHeight()/2 +150f);
         message.setSize(300,100);
+        message.setFontScale(3);
         message.setColor(Color.RED);
 
         int getBestLevel = new MyGdxGame(game).getLevel();
@@ -36,6 +37,7 @@ public class EndGameScreen implements Screen {
         final Label displayInformation = new Label(bestLevel, skin);
         displayInformation.setPosition(Gdx.graphics.getWidth() /2-50f, Gdx.graphics.getHeight()/2 +100f);
         displayInformation.setSize(300,100);
+        displayInformation.setFontScale(3);
         displayInformation.setColor(Color.RED);
 
         //Create button to exit the game.

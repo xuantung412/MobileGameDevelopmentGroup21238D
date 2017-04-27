@@ -150,6 +150,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		addWall(0,319,(camera.viewportWidth) * 2, 10.0f);
 		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
 		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
+        Random ranNum = new Random();
 
 		if (level==1) {
 			turnsRemaining=20;
@@ -173,8 +174,16 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
 		}
+        else if(level ==4 ) {
+            moveableWall1 = addMoveableWall(150, 60, 10, 50);
+            addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
+            moveableWall2  = addMoveableWall(270, 260, 10, 50);
+            addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
+            wallBodiesCount=0;
+            turnsRemaining = 20;
+        }
 
-		else if (level==4) {
+		else if (level==5) {
 			turnsRemaining=2;
 			addWall(60, 110, 10, 30);
 			addWall(140, 100, 30, 50);
@@ -372,7 +381,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		fixtureDef.shape = dynamicCircle;
 
 		// Give it a density so the ball will have mass
-		fixtureDef.density = 1.0f;
+		fixtureDef.density = 0.5f;
 
 		// Ignore friction
 		fixtureDef.friction = 0.0f;
@@ -414,7 +423,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// Update the simulation
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 		//Move the wall
-	/*	if(moveableWall1 != null && moveableWall2 != null) {
+		if(moveableWall1 != null && moveableWall2 != null) {
 			if (moveableWall1.getPosition().y > 260 || moveableWall1.getPosition().y < 60) {
 				if (rotateWall1And2 == true) {
 					rotateWall1And2 = false;
@@ -468,7 +477,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 		if( moveableWall7 != null){
 			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-1);
-		}*/
+		}
 
 
 		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
@@ -489,7 +498,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
-		int moveSpeed = 50000;
+		int moveSpeed = 500000;
 		double xDirectionD = (Math.cos(body.getAngle()));
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
@@ -630,4 +639,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public int getLevel(){
 		return this.level;
 	}
+	public void setLevel(int level){
+        this.level = level;
+    }
 }
