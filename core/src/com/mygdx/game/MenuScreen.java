@@ -28,6 +28,7 @@ public class MenuScreen implements Screen {
     }
 
     public void create() {
+        //Gdx.input.setOnscreenKeyboardVisible(true);
         final Label title = new Label("Welcome to the Game", skin);
         title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
         title.setSize(300,100);
@@ -44,8 +45,7 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
-                MyGame.mainGame.setLevel(1);
-                game.setScreen(MyGame.mainGame);
+                game.setScreen(MyGame.levelSelectScreen);
             }
         });
 

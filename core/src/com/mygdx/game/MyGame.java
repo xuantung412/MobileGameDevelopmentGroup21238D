@@ -8,6 +8,7 @@ public class MyGame extends Game implements ApplicationListener {
     public static MenuScreen menuScreen;
     // The class with the game
     public static MyGdxGame mainGame;
+    public static LevelSelectScreen levelSelectScreen;
 
     public static EndGameScreen endGameScreen;
 
@@ -17,6 +18,7 @@ public class MyGame extends Game implements ApplicationListener {
         Gdx.app.log("MyGdxGame: "," create");
         mainGame = new MyGdxGame(this);
         menuScreen = new MenuScreen(this);
+        levelSelectScreen = new LevelSelectScreen(this);
         endGameScreen = new EndGameScreen(this);
 
         Gdx.app.log("MyGdxGame: ","about to change screen to menuScreen");
