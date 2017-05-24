@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +22,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.LongMap;
 import com.badlogic.gdx.utils.Timer;
 
@@ -70,10 +77,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	Body moveableWall6;
 	Body moveableWall7;
 	boolean rotateWall1And2 = false;
-
+	boolean displayOption = false;
 	MyGame game;
+	private Stage stage;
+	public static int reachedLevel;
+	public boolean createdMenu;
+
 	public MyGdxGame(MyGame game){
         this.game = game;
+		stage = new Stage();
 	}
 
 
@@ -100,8 +112,78 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	}
 
+	public void displayButton(){
+		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
+		TextButton restartButton = new TextButton("Reset", skin, "default");
+		restartButton.setColor(Color.ORANGE);
+		restartButton.setWidth(50);
+		restartButton.setHeight(50);
+		restartButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+150f);
+		restartButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				for (int i=0; i<wallBodies.length; i++){
+					if (wallBodies[i]!=null) {
+						world.destroyBody(wallBodies[i]);
+					}
+				}
+				world.destroyBody(body);
+				create();
+			}
+		});
+		TextButton nextLevelButton = new TextButton("Next", skin, "default");
+		nextLevelButton.setColor(Color.ORANGE);
+		nextLevelButton.setWidth(50);
+		nextLevelButton.setHeight(50);
+		nextLevelButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+100f);
+		nextLevelButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				for (int i=0; i<wallBodies.length; i++){
+					if (wallBodies[i]!=null) {
+						world.destroyBody(wallBodies[i]);
+					}
+				}
+				world.destroyBody(body);
+				level ++;
+				create();
+			}
+		});
+		TextButton backButton = new TextButton("Exit", skin, "default");
+		backButton.setColor(Color.ORANGE);
+		backButton.setWidth(50);
+		backButton.setHeight(50);
+		backButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+50f);
+		backButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				turnsRemaining =0;
+			}
+		});
+		stage.addActor(restartButton);
+		stage.addActor(nextLevelButton);
+		stage.addActor(backButton);
+
+	}
+
 	@Override
 	public void create() {
+		//Create option
+		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
+		TextButton menuButton = new TextButton("Menu", skin, "default");
+		createdMenu = false;
+		menuButton.setColor(Color.RED);
+		menuButton.setWidth(50);
+		menuButton.setHeight(50);
+		menuButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+200);
+		menuButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+					displayButton();
+			}
+		});
+		stage.addActor(menuButton);
+		Gdx.input.setInputProcessor(stage);
         font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
         for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
@@ -158,13 +240,16 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(270, 250, 40, 60);
 			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
+			reachedLevel =1;
 		}
 
 		else if(level==2){
-			turnsRemaining=20;
+			turnsRemaining=2;
 			addWall(150, 120, 10, 110);
 			addWall(270, 200, 10, 110);
 			addWall(350, 120, 10, 110);
+			reachedLevel =2;
+
 		}
 
 		else if (level==3) {
@@ -174,6 +259,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 160, 50, 80);
 			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
+			reachedLevel =3;
+
 		}
         else if(level ==4 ) {
             moveableWall1 = addMoveableWall(150, 60, 10, 50);
@@ -182,7 +269,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
             addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
             wallBodiesCount=0;
             turnsRemaining = 20;
-        }
+			reachedLevel =4;
+
+		}
 
 		else if (level==5) {
 			turnsRemaining=2;
@@ -191,6 +280,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 160, 50, 80);
 			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
+			reachedLevel =5;
 		}
 
 /*		else if(level == 4) {
@@ -554,6 +644,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
 			level++;
+
 			create();
 		}
 
@@ -611,6 +702,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		String currentLevel;
 		currentLevel = "Current Level: "+ level;
 		font.draw(batch,currentLevel,Gdx.graphics.getWidth()/2 -830f,Gdx.graphics.getHeight()/2+499f );
+		//Display button
+		stage.draw();
+
 		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish

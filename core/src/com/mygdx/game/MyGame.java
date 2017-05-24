@@ -3,7 +3,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
-public class MyGame extends Game implements ApplicationListener {
+public  class MyGame extends Game implements ApplicationListener {
     // The class with the menu
     public static MenuScreen menuScreen;
     // The class with the game

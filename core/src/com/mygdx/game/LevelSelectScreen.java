@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import static com.mygdx.game.MyGdxGame.reachedLevel;
+
 public class LevelSelectScreen implements Screen {
     private SpriteBatch batch;
     private Skin skin;
@@ -24,7 +26,10 @@ public class LevelSelectScreen implements Screen {
         this.game = game;
     }
 
+
+
     public void create() {
+        stage = new Stage();
         final Label title = new Label("Level Selection", skin);
         title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
         title.setSize(300,100);
@@ -45,40 +50,46 @@ public class LevelSelectScreen implements Screen {
                 game.setScreen(MyGame.mainGame);
             }
         });
-        //Button Level 2;
+            //Button Level 2;
         final TextButton level2Button = new TextButton("Level 2\n Easy", skin, "default");
-        level2Button.setColor(Color.ROYAL);
+        level2Button.setColor(Color.GRAY);
         level2Button.setWidth(100);
         level2Button.setHeight(100);
         level2Button.setPosition(Gdx.graphics.getWidth() /2-280f, Gdx.graphics.getHeight()/2 +50f);
-        level2Button.addListener(new ClickListener(){
+        if(reachedLevel >=2){
+            level2Button.setColor(Color.ROYAL);
+            level2Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(2);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 3;
-        final TextButton level3Button = new TextButton("Level 3\n Easy", skin, "default");
-        level3Button.setColor(Color.ROYAL);
+            final TextButton level3Button = new TextButton("Level 3\n Easy", skin, "default");
+        level3Button.setColor(Color.GRAY);
         level3Button.setWidth(100);
         level3Button.setHeight(100);
         level3Button.setPosition(Gdx.graphics.getWidth() /2-170f, Gdx.graphics.getHeight()/2 +50f);
-        level3Button.addListener(new ClickListener(){
+        if(reachedLevel >=3){
+            level3Button.setColor(Color.ROYAL);
+            level3Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(3);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 4;
-        final TextButton level4Button = new TextButton("Level 4\n Easy", skin, "default");
-        level4Button.setColor(Color.ROYAL);
+            final TextButton level4Button = new TextButton("Level 4\n Easy", skin, "default");
+        level4Button.setColor(Color.GRAY);
         level4Button.setWidth(100);
         level4Button.setHeight(100);
         level4Button.setPosition(Gdx.graphics.getWidth() /2-60f, Gdx.graphics.getHeight()/2 +50f);
+        if(reachedLevel >=4){
+            level4Button.setColor(Color.ROYAL);
         level4Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -86,13 +97,15 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(4);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 5;
-        final TextButton level5Button = new TextButton("Level 5\n Easy", skin, "default");
-        level5Button.setColor(Color.ROYAL);
+            final TextButton level5Button = new TextButton("Level 5\n Easy", skin, "default");
+        level5Button.setColor(Color.GRAY);
         level5Button.setWidth(100);
         level5Button.setHeight(100);
         level5Button.setPosition(Gdx.graphics.getWidth() /2+50, Gdx.graphics.getHeight()/2 +50f);
+        if(reachedLevel >=5){
+            level5Button.setColor(Color.ROYAL);
         level5Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -100,13 +113,15 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(5);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 6;
         final TextButton level6Button = new TextButton("Level 6\n Normal", skin, "default");
-        level6Button.setColor(Color.ROYAL);
+        level6Button.setColor(Color.GRAY);
         level6Button.setWidth(100);
         level6Button.setHeight(100);
         level6Button.setPosition(Gdx.graphics.getWidth() /2+160f, Gdx.graphics.getHeight()/2 +50f);
+        if(reachedLevel >=6){
+            level6Button.setColor(Color.ROYAL);
         level6Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -114,13 +129,15 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(6);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 7;
         final TextButton level7Button = new TextButton("Level 7\n Normal", skin, "default");
-        level7Button.setColor(Color.ROYAL);
+        level7Button.setColor(Color.GRAY);
         level7Button.setWidth(100);
         level7Button.setHeight(100);
         level7Button.setPosition(Gdx.graphics.getWidth() /2 + 270, Gdx.graphics.getHeight()/2 +50f);
+        if(reachedLevel >=7){
+            level7Button.setColor(Color.ROYAL);
         level7Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -128,13 +145,15 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(7);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 8;
         final TextButton level8Button = new TextButton("Level 8\n Normal", skin, "default");
-        level8Button.setColor(Color.ROYAL);
+        level8Button.setColor(Color.GRAY);
         level8Button.setWidth(100);
         level8Button.setHeight(100);
         level8Button.setPosition(Gdx.graphics.getWidth() /2 + -390f, Gdx.graphics.getHeight()/2 -80);
+        if(reachedLevel >=8){
+            level8Button.setColor(Color.ROYAL);
         level8Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -142,14 +161,16 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(8);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
 
         //Button Level 9;
         final TextButton level9Button = new TextButton("Level 9\n Normal", skin, "default");
-        level9Button.setColor(Color.ROYAL);
+        level9Button.setColor(Color.GRAY);
         level9Button.setWidth(100);
         level9Button.setHeight(100);
         level9Button.setPosition(Gdx.graphics.getWidth() /2 + -280f, Gdx.graphics.getHeight()/2 -80);
+        if(reachedLevel >=9){
+            level9Button.setColor(Color.ROYAL);
         level9Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -157,14 +178,16 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(9);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
 
         //Button Level 10;
         final TextButton level10Button = new TextButton("Level 10\n Normal", skin, "default");
-        level10Button.setColor(Color.ROYAL);
+        level10Button.setColor(Color.GRAY);
         level10Button.setWidth(100);
         level10Button.setHeight(100);
         level10Button.setPosition(Gdx.graphics.getWidth() /2 + -170, Gdx.graphics.getHeight()/2 -80);
+        if(reachedLevel >=10){
+            level10Button.setColor(Color.ROYAL);
         level10Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -172,147 +195,167 @@ public class LevelSelectScreen implements Screen {
                 MyGame.mainGame.setLevel(10);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 11;
         final TextButton level11Button = new TextButton("Level 11\n Hard", skin, "default");
-        level11Button.setColor(Color.ROYAL);
+        level11Button.setColor(Color.GRAY);
         level11Button.setWidth(100);
         level11Button.setHeight(100);
         level11Button.setPosition(Gdx.graphics.getWidth() /2 + -60, Gdx.graphics.getHeight()/2 -80);
-        level11Button.addListener(new ClickListener(){
+            if(reachedLevel >=11){
+                level11Button.setColor(Color.ROYAL);
+            level11Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(11);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 12;
         final TextButton level12Button = new TextButton("Level 12\n Hard", skin, "default");
-        level12Button.setColor(Color.ROYAL);
+        level12Button.setColor(Color.GRAY);
         level12Button.setWidth(100);
         level12Button.setHeight(100);
         level12Button.setPosition(Gdx.graphics.getWidth() /2 +50, Gdx.graphics.getHeight()/2 -80);
-        level12Button.addListener(new ClickListener(){
+            if(reachedLevel >=12){
+                level12Button.setColor(Color.ROYAL);
+            level12Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(12);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 13;
         final TextButton level13Button = new TextButton("Level 13\n Hard", skin, "default");
-        level13Button.setColor(Color.ROYAL);
+        level13Button.setColor(Color.GRAY);
         level13Button.setWidth(100);
         level13Button.setHeight(100);
         level13Button.setPosition(Gdx.graphics.getWidth() /2 +160, Gdx.graphics.getHeight()/2 -80);
-        level13Button.addListener(new ClickListener(){
+            if(reachedLevel >=13){
+                level13Button.setColor(Color.ROYAL);
+            level13Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(13);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 14;
         final TextButton level14Button = new TextButton("Level 14\n Hard", skin, "default");
-        level14Button.setColor(Color.ROYAL);
+        level14Button.setColor(Color.GRAY);
         level14Button.setWidth(100);
         level14Button.setHeight(100);
         level14Button.setPosition(Gdx.graphics.getWidth() /2 +270, Gdx.graphics.getHeight()/2 -80);
-        level14Button.addListener(new ClickListener(){
+            if(reachedLevel >=14){
+                level14Button.setColor(Color.ROYAL);
+            level14Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(14);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 15;
         final TextButton level15Button = new TextButton("Level 15\n Hard", skin, "default");
-        level15Button.setColor(Color.ROYAL);
+        level15Button.setColor(Color.GRAY);
         level15Button.setWidth(100);
         level15Button.setHeight(100);
         level15Button.setPosition(Gdx.graphics.getWidth() /2 + -390f, Gdx.graphics.getHeight()/2 -210f);
-        level15Button.addListener(new ClickListener(){
+            if(reachedLevel >=15){
+                level15Button.setColor(Color.ROYAL);
+            level15Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(15);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 16;
         final TextButton level16Button = new TextButton("Level 16\n Hard", skin, "default");
-        level16Button.setColor(Color.ROYAL);
+        level16Button.setColor(Color.GRAY);
         level16Button.setWidth(100);
         level16Button.setHeight(100);
         level16Button.setPosition(Gdx.graphics.getWidth() /2 + -280, Gdx.graphics.getHeight()/2 -210f);
-        level16Button.addListener(new ClickListener(){
+            if(reachedLevel >=16){
+                level16Button.setColor(Color.ROYAL);
+            level16Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(16);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 17;
         final TextButton level17Button = new TextButton("Level 17\n Hard", skin, "default");
-        level17Button.setColor(Color.ROYAL);
+        level17Button.setColor(Color.GRAY);
         level17Button.setWidth(100);
         level17Button.setHeight(100);
         level17Button.setPosition(Gdx.graphics.getWidth() /2 + -170, Gdx.graphics.getHeight()/2 -210f);
-        level17Button.addListener(new ClickListener(){
+            if(reachedLevel >=17){
+                level17Button.setColor(Color.ROYAL);
+            level17Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(17);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 18;
         final TextButton level18Button = new TextButton("Level 18\n Expert", skin, "default");
-        level18Button.setColor(Color.ROYAL);
+        level18Button.setColor(Color.GRAY);
         level18Button.setWidth(100);
         level18Button.setHeight(100);
         level18Button.setPosition(Gdx.graphics.getWidth() /2 + -60, Gdx.graphics.getHeight()/2 -210f);
-        level18Button.addListener(new ClickListener(){
+            if(reachedLevel >=18){
+                level18Button.setColor(Color.ROYAL);
+            level18Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(18);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 19;
         final TextButton level19Button = new TextButton("Level 19\n Expert", skin, "default");
-        level19Button.setColor(Color.ROYAL);
+        level19Button.setColor(Color.GRAY);
         level19Button.setWidth(100);
         level19Button.setHeight(100);
         level19Button.setPosition(Gdx.graphics.getWidth() /2 + 50, Gdx.graphics.getHeight()/2 -210f);
-        level19Button.addListener(new ClickListener(){
+            if(reachedLevel >=19){
+                level19Button.setColor(Color.ROYAL);
+            level19Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(19);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Button Level 20;
         final TextButton level20Button = new TextButton("Level 20\n Pro-Player", skin, "default");
-        level20Button.setColor(Color.ROYAL);
+        level20Button.setColor(Color.GRAY);
         level20Button.setWidth(100);
         level20Button.setHeight(100);
         level20Button.setPosition(Gdx.graphics.getWidth() /2 + 160, Gdx.graphics.getHeight()/2 -210f);
-        level20Button.addListener(new ClickListener(){
+            if(reachedLevel >=20){
+                level20Button.setColor(Color.ROYAL);
+            level20Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 MyGame.mainGame = new MyGdxGame(game);
                 MyGame.mainGame.setLevel(20);
                 game.setScreen(MyGame.mainGame);
             }
-        });
+        });}
         //Create button to exit the game.
         final TextButton exitButton = new TextButton("Back", skin, "default");
         exitButton.setColor(Color.WHITE);
