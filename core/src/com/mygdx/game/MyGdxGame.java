@@ -80,12 +80,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	boolean displayOption = false;
 	MyGame game;
 	private Stage stage;
+
 	public static int reachedLevel;
 	public boolean createdMenu;
 
 	public MyGdxGame(MyGame game){
         this.game = game;
 		stage = new Stage();
+
 	}
 
 
@@ -163,6 +165,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		stage.addActor(restartButton);
 		stage.addActor(nextLevelButton);
 		stage.addActor(backButton);
+		Gdx.input.setInputProcessor(stage);
+
+
+	}
+
+	public void createMenuButton(){
 
 	}
 
@@ -170,7 +178,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public void create() {
 		//Create option
 		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
-		TextButton menuButton = new TextButton("Menu", skin, "default");
+		final TextButton menuButton = new TextButton("Menu", skin, "default");
 		createdMenu = false;
 		menuButton.setColor(Color.RED);
 		menuButton.setWidth(50);
@@ -179,7 +187,20 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		menuButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
+				if(stage.getActors().size == 1) {
 					displayButton();
+				}
+				else{
+					while (stage.getActors().size > 1){
+						if(stage.getActors().get(0).equals(menuButton)) {
+							stage.getActors().removeIndex(1);
+						}
+						else{
+							stage.getActors().removeIndex(0);
+
+						}
+					}
+				}
 			}
 		});
 		stage.addActor(menuButton);
@@ -244,7 +265,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level==2){
-			turnsRemaining=2;
+			turnsRemaining=20;
 			addWall(150, 120, 10, 110);
 			addWall(270, 200, 10, 110);
 			addWall(350, 120, 10, 110);
@@ -274,7 +295,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if (level==5) {
-			turnsRemaining=2;
+			turnsRemaining=20;
 			addWall(60, 110, 10, 30);
 			addWall(140, 100, 30, 50);
 			addWall(250, 160, 50, 80);
@@ -704,7 +725,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		font.draw(batch,currentLevel,Gdx.graphics.getWidth()/2 -830f,Gdx.graphics.getHeight()/2+499f );
 		//Display button
 		stage.draw();
-
 		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
