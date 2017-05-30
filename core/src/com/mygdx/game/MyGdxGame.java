@@ -295,14 +295,102 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if (level==5) {
-			turnsRemaining=20;
-			addWall(60, 110, 10, 30);
-			addWall(140, 100, 30, 50);
-			addWall(250, 160, 50, 80);
-			addWall(400, 250, 20, 30);
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 140);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 150);
 			wallBodiesCount=0;
+			turnsRemaining = 20;
 			reachedLevel =5;
 		}
+
+
+
+		else if(level == 6){
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			reachedLevel =6;
+
+		}
+
+		else if(level == 7){
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+			wallBodiesCount=0;
+			turnsRemaining = 10;
+			reachedLevel =7;
+
+		}
+
+		else if(level == 8){
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+			wallBodiesCount=0;
+			turnsRemaining = 10;
+			reachedLevel =8;
+
+		}
+
+		else if(level == 9){
+			moveableWall3 = addMoveableWall(175, 70, 5, 60);
+			moveableWall4 = addMoveableWall(175, 200, 5, 60);
+			moveableWall5 = addMoveableWall(300, 70, 5, 60);
+			moveableWall6 = addMoveableWall(300, 200, 5, 60);
+			addWall(250, 289, 100, 20);
+			addWall(380, 61, 15, 50);
+			addWall(380, 175, 15, 30);
+			addWall(380, 274, 15, 35);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			reachedLevel =9;
+
+		}
+
+		else if(level == 10){
+			moveableWall3 = addMoveableWall(170, 70, 5, 60);
+			moveableWall4 = addMoveableWall(170, 200, 5, 60);
+			moveableWall5 = addMoveableWall(300, 70, 5, 60);
+			moveableWall6 = addMoveableWall(300, 200, 5, 60);
+			addWall(250, 289, 100, 20);
+			moveableWall1 = addMoveableWall(235, 60, 3, 50);
+			moveableWall2  = addMoveableWall(360, 260, 3, 50);
+			reachedLevel =10;
+
+			wallBodiesCount=0;
+			turnsRemaining = 25;
+		}
+
+		else if(level == 11) {
+			moveableWall3=null;
+			moveableWall4 =null;
+			moveableWall5 =null;
+			moveableWall6 =null;
+
+			addWall(150, 111, 8, 100);
+			addWall(150, 274, 8, 35);
+			addWall(200, 209, 8, 100);
+			addWall(200, 46, 8, 35);
+			addWall(250, 126, 8, 115);
+			addWall(250, 289, 8, 20);
+			addWall(300, 229, 8, 80);
+			addWall(300, 66, 8, 55);
+			addWall(350, 150, 8, 139);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			reachedLevel =11;
+		}
+
 
 /*		else if(level == 4) {
 			addWall(150, 120, 5, 110);
@@ -486,6 +574,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		// Set the size of the ball shape
 		dynamicCircle.setRadius(5f);
+		if(level == 7){
+			dynamicCircle.setRadius(8f);
+		}
 
         // Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
@@ -508,10 +599,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
         batch = new SpriteBatch();
         img = new Texture("player.png");
 		Texture goalImg = new Texture("goal.png");
-        sprite = new Sprite(img);
-		goalSprite = new Sprite(goalImg);
-
-		//goalSprite.
+		sprite = new Sprite(img);
+		goalSprite = new Sprite(goalImg);//goalSprite.
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 
 
@@ -550,17 +639,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			if( level == 4){
 				wall1And2Speed = 2;
 			}
-			else if(level == 6 ){
+			else if(level == 5 ){
 				wall1And2Speed = 3;
 			}
-			else if(level == 10 ){
-				wall1And2Speed = 8;
+			else if(level == 8 ){
+				wall1And2Speed = 5;
 			}
-			else if(level == 11 ){
-				wall1And2Speed = 10;
-			}
-			else if(level == 12 ){
-				wall1And2Speed = 8;
+			else if(level == 10){
+				wall1And2Speed = 4;
+
 			}
 
 			if (rotateWall1And2 == false) {
@@ -578,20 +665,42 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				}
 			}
 		}
+
+
 		if( moveableWall3 != null){
-			moveableWall3.setTransform(moveableWall3.getPosition().x,moveableWall3.getPosition().y, moveableWall3.getAngle()-1);
+			float rotateSpeed =0.04f;
+			if(level == 7){
+				rotateSpeed = 0.06f;
+			}
+			moveableWall3.setTransform(moveableWall3.getPosition().x,moveableWall3.getPosition().y, moveableWall3.getAngle()-rotateSpeed);
 		}
 		if( moveableWall4 != null){
-			moveableWall4.setTransform(moveableWall4.getPosition().x,moveableWall4.getPosition().y, moveableWall4.getAngle()-1);
+			float rotateSpeed = 0.04f;
+			if(level == 8){
+				rotateSpeed = 0.03f;
+			}
+			moveableWall4.setTransform(moveableWall4.getPosition().x,moveableWall4.getPosition().y, moveableWall4.getAngle()-rotateSpeed);
 		}
 		if( moveableWall5 != null){
-			moveableWall5.setTransform(moveableWall5.getPosition().x,moveableWall5.getPosition().y, moveableWall5.getAngle()-1);
+			float rotateSpeed = 0.04f;
+			if(level == 8){
+				rotateSpeed = 0.03f;
+			}
+			moveableWall5.setTransform(moveableWall5.getPosition().x,moveableWall5.getPosition().y, moveableWall5.getAngle()-rotateSpeed);
 		}
 		if( moveableWall6 != null){
-			moveableWall6.setTransform(moveableWall6.getPosition().x,moveableWall6.getPosition().y, moveableWall6.getAngle()-1);
+			float rotateSpeed = 0.04f;
+			if(level == 8){
+				rotateSpeed = -0.04f;
+			}
+			moveableWall6.setTransform(moveableWall6.getPosition().x,moveableWall6.getPosition().y, moveableWall6.getAngle()-rotateSpeed);
 		}
 		if( moveableWall7 != null){
-			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-1);
+			float rotateSpeed = 0.04f;
+			if(level == 8){
+				rotateSpeed = -0.04f;
+			}
+			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-rotateSpeed);
 		}
 
 
@@ -628,7 +737,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
         int rotationThreshold = 5;
 
 
-
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
 		if(Math.abs(body.getLinearVelocity().x)<=rotationThreshold && Math.abs(body.getLinearVelocity().y)<=rotationThreshold) {
 			moving=false;
@@ -636,6 +744,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		if (!moving){
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*4));
+		}
+
+		//Only for level 10. Ball moveback
+		if(level == 11){
+			body.setTransform(body.getPosition().x -0.07f, body.getPosition().y, body.getAngle());
+
 		}
 
 		if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
