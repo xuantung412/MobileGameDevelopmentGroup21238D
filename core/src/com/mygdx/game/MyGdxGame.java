@@ -5,6 +5,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -61,9 +63,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
     SpriteBatch batch;
     Sprite sprite;
 	Sprite goalSprite;
-    Texture img;
+	Sprite backgroundSprite;
+	Sprite backgroundSprite2;
+
+	Texture img;
 	static int level=1;
 	BitmapFont font;
+
+	public static Texture backgroundTexture;
+	public static Texture backgroundTexture2;
 
 	Body[] wallBodies = new Body[20];
 	int wallBodiesCount = 0;
@@ -80,6 +88,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	boolean displayOption = false;
 	MyGame game;
 	private Stage stage;
+	Music music;
+
+	public static boolean pauseGame = false;
 
 	public static int reachedLevel;
 	public boolean createdMenu;
@@ -95,6 +106,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		BodyDef wallBodyDef = new BodyDef();
 		wallBodyDef.position.set(new Vector2(xPos, yPos));
 		Body wallBody = world.createBody(wallBodyDef);
+
 		PolygonShape wallBox = new PolygonShape();
 		wallBox.setAsBox(width, height);
 		wallBody.createFixture(wallBox, 1.0f);
@@ -130,6 +142,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 					}
 				}
 				world.destroyBody(body);
+				music.stop();
 				create();
 			}
 		});
@@ -148,7 +161,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				}
 				world.destroyBody(body);
 				level ++;
+				music.stop();
 				create();
+
 			}
 		});
 		TextButton backButton = new TextButton("Exit", skin, "default");
@@ -160,6 +175,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y){
 				turnsRemaining =0;
+				music.stop();
 			}
 		});
 		stage.addActor(restartButton);
@@ -173,9 +189,21 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public void createMenuButton(){
 
 	}
-
+	
 	@Override
 	public void create() {
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music.setVolume(0.99f);
+		music.setLooping(true);
+		music.play();
+
+		backgroundTexture = new Texture("background1.png");
+		backgroundTexture2 = new Texture("background2.png");
+
+		backgroundSprite =new Sprite(backgroundTexture);
+		backgroundSprite2 =new Sprite(backgroundTexture2);
+
 		//Create option
 		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
 		final TextButton menuButton = new TextButton("Menu", skin, "default");
@@ -262,6 +290,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
 			reachedLevel =1;
+
 		}
 
 		else if(level==2){
@@ -780,6 +809,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		batch.begin();
 		sprite.setRotation(body.getAngle()*57.298f);
 		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+		if(level < 13) {
+			backgroundSprite.draw(batch, 0.6f);
+		}
+		else {
+			backgroundSprite2.draw(batch, 0.6f);
+		}
 
 		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
 		//need to change the size of it as well as the location
@@ -909,6 +944,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
 			//	level++;
+			music.stop();
 			create();
 		}
 
@@ -924,7 +960,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//Increase level by 1
-			level ++;
 			create();
 		}
 
