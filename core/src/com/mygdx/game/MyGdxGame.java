@@ -269,7 +269,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(150, 120, 10, 110);
 			addWall(270, 200, 10, 110);
 			addWall(350, 120, 10, 110);
-			reachedLevel =2;
+			if(reachedLevel <2) {
+				reachedLevel = 2;
+			}
 
 		}
 
@@ -280,8 +282,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 160, 50, 80);
 			addWall(400, 250, 20, 30);
 			wallBodiesCount=0;
-			reachedLevel =3;
-
+			if(reachedLevel <3) {
+				reachedLevel = 3;
+			}
 		}
         else if(level ==4 ) {
             moveableWall1 = addMoveableWall(150, 60, 10, 50);
@@ -290,8 +293,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
             addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
             wallBodiesCount=0;
             turnsRemaining = 20;
-			reachedLevel =4;
-
+			if(reachedLevel <4) {
+				reachedLevel = 4;
+			}
 		}
 
 		else if (level==5) {
@@ -301,7 +305,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 150);
 			wallBodiesCount=0;
 			turnsRemaining = 20;
-			reachedLevel =5;
+			if(reachedLevel <5) {
+				reachedLevel = 5;
+			}
 		}
 
 
@@ -314,8 +320,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
 			turnsRemaining = 20;
-			reachedLevel =6;
-
+			if(reachedLevel <6) {
+				reachedLevel = 6;
+			}
 		}
 
 		else if(level == 7){
@@ -326,8 +333,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
 			turnsRemaining = 10;
-			reachedLevel =7;
-
+			if(reachedLevel <7) {
+				reachedLevel = 7;
+			}
 		}
 
 		else if(level == 8){
@@ -338,8 +346,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
 			turnsRemaining = 10;
-			reachedLevel =8;
-
+			if(reachedLevel <8) {
+				reachedLevel = 8;
+			}
 		}
 
 		else if(level == 9){
@@ -353,8 +362,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(380, 274, 15, 35);
 			wallBodiesCount=0;
 			turnsRemaining = 20;
-			reachedLevel =9;
-
+			if(reachedLevel <9) {
+				reachedLevel = 9;
+			}
 		}
 
 		else if(level == 10){
@@ -365,8 +375,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 289, 100, 20);
 			moveableWall1 = addMoveableWall(235, 60, 3, 50);
 			moveableWall2  = addMoveableWall(360, 260, 3, 50);
-			reachedLevel =10;
-
+			if(reachedLevel <10) {
+				reachedLevel = 10;
+			}
 			wallBodiesCount=0;
 			turnsRemaining = 25;
 		}
@@ -388,7 +399,66 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(350, 150, 8, 139);
 			wallBodiesCount=0;
 			turnsRemaining = 20;
-			reachedLevel =11;
+			if(reachedLevel <11) {
+				reachedLevel = 11;
+			}
+		}
+
+		else if(level == 12) {
+			moveableWall3=null;
+			moveableWall4 =null;
+			moveableWall5 =null;
+			moveableWall6 =null;
+
+			addWall(150, 111, 8, 100);
+			addWall(150, 274, 8, 35);
+			addWall(200, 209, 8, 100);
+			addWall(200, 46, 8, 35);
+			addWall(250, 126, 8, 115);
+			addWall(250, 289, 8, 20);
+			addWall(300, 229, 8, 80);
+			addWall(300, 66, 8, 55);
+			addWall(350, 150, 8, 139);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			if(reachedLevel <12) {
+				reachedLevel = 12;
+			}
+		}
+
+		else if(level == 13) {
+			moveableWall3=null;
+			moveableWall4 =null;
+			moveableWall5 =null;
+			moveableWall6 =null;
+
+			addWall(150, 111, 8, 100);
+			addWall(150, 274, 8, 35);
+			addWall(200, 209, 8, 100);
+			addWall(200, 46, 8, 35);
+			addWall(250, 126, 8, 115);
+			addWall(250, 289, 8, 20);
+			addWall(300, 229, 8, 80);
+			addWall(300, 66, 8, 55);
+			addWall(350, 150, 8, 139);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			if(reachedLevel <13) {
+				reachedLevel = 13;
+			}
+		}
+
+		else if( level == 14){
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			moveableWall2  = addMoveableWall(350, 260, 10, 50);
+			moveableWall3 = addMoveableWall(250, 160, 5, 75);
+			addWall(250, 278, 90, 30);
+			addWall(250, 42, 90, 30);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
+			if(reachedLevel <14) {
+				reachedLevel = 14;
+			}
 		}
 
 
@@ -602,8 +672,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		sprite = new Sprite(img);
 		goalSprite = new Sprite(goalImg);//goalSprite.
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
-
-
 		// create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
 
@@ -645,7 +713,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			else if(level == 8 ){
 				wall1And2Speed = 5;
 			}
-			else if(level == 10){
+			else if(level == 10 ){
 				wall1And2Speed = 4;
 
 			}
@@ -746,10 +814,50 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*4));
 		}
 
-		//Only for level 10. Ball moveback
+		//Only for level 11. Ball moveback
 		if(level == 11){
 			body.setTransform(body.getPosition().x -0.07f, body.getPosition().y, body.getAngle());
 
+		}
+
+		//Only for level 12. Ball moveback South-West
+		if(level == 12){
+			body.setTransform(body.getPosition().x -0.08f, body.getPosition().y-0.04f, body.getAngle());
+		}
+		//Only for level 13. Ball moveback random direction
+		if(level == 13){
+			Random random = new Random();
+			int ranNum = random.nextInt(3)+1;
+			if(ranNum == 1) {
+				body.setTransform(body.getPosition().x - 0.5f, body.getPosition().y, body.getAngle());
+			}
+			if(ranNum == 2) {
+				body.setTransform(body.getPosition().x + 0.5f, body.getPosition().y, body.getAngle());
+			}
+			if(ranNum == 3) {
+				body.setTransform(body.getPosition().x , body.getPosition().y- 0.5f, body.getAngle());
+			}
+			if(ranNum == 4) {
+				body.setTransform(body.getPosition().x , body.getPosition().y+ 0.5f, body.getAngle());
+			}
+		}
+
+		//Only for level 14. Ball moveback random direction base on turn remaining.
+		if(level == 14){
+			Random random = new Random();
+			int ranNum = random.nextInt(3)+1;
+			if(ranNum == 1) {
+				body.setTransform(body.getPosition().x - 0.75f+ turnsRemaining*0.03f, body.getPosition().y, body.getAngle());
+			}
+			if(ranNum == 2) {
+				body.setTransform(body.getPosition().x + 0.4f- turnsRemaining*0.02f, body.getPosition().y, body.getAngle());
+			}
+			if(ranNum == 3) {
+				body.setTransform(body.getPosition().x , body.getPosition().y- 0.75f+ turnsRemaining*0.03f, body.getAngle());
+			}
+			if(ranNum == 4) {
+				body.setTransform(body.getPosition().x , body.getPosition().y+ 0.4f- turnsRemaining*0.02f, body.getAngle());
+			}
 		}
 
 		if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
