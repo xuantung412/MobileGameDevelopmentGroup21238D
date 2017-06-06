@@ -20,15 +20,16 @@ public class MenuScreen implements Screen {
     private Skin skin;
     private Stage stage;
 
-    MyGame game; // Note it's "MyGdxGame" not "Game"
-    // constructor to keep a reference to the main Game class
+    MyGame game;
 
+    //Constructor
     public MenuScreen(MyGame game){
         this.game = game;
     }
 
     public void create() {
-        //Gdx.input.setOnscreenKeyboardVisible(true);
+
+        //Create title
         final Label title = new Label("Welcome to the Game", skin);
         title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
         title.setSize(300,100);
@@ -73,7 +74,6 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
         stage.draw();
         batch.end();
 
@@ -93,7 +93,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("MenuScreen: ","menuScreen show called");
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
         stage = new Stage();
@@ -101,6 +100,5 @@ public class MenuScreen implements Screen {
     }
     @Override
     public void hide() {
-        Gdx.app.log("MenuScreen: ","menuScreen hide called");
     }
 }

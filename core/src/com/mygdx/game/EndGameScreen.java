@@ -16,22 +16,20 @@ public class EndGameScreen implements Screen {
     private SpriteBatch batch;
     private Skin skin;
     private Stage stage;
+    MyGame game;
 
-    MyGame game; // Note it's "MyGdxGame" not "Game"
-    // constructor to keep a reference to the main Game class
-
+    //Constructor
     public EndGameScreen(MyGame game){
         this.game = game;
     }
 
     public void create() {
-
+        //Create label to display game over message.
         final Label message = new Label("       Nice Try \n       You ran out of turns.", skin);
         message.setPosition(Gdx.graphics.getWidth() /2-100f, Gdx.graphics.getHeight()/2 +150f);
         message.setSize(300,100);
         message.setFontScale(3);
         message.setColor(Color.RED);
-
         int getBestLevel = new MyGdxGame(game).getLevel();
         String bestLevel = "Your best Level: "+getBestLevel;
         final Label displayInformation = new Label(bestLevel, skin);
@@ -49,10 +47,12 @@ public class EndGameScreen implements Screen {
         confirmButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                //Change to menuScreen
                 game.setScreen(MyGame.menuScreen);
 
             }
         });
+        //Add label and button to the game.
         stage.addActor(message);
         stage.addActor(displayInformation);
         stage.addActor(confirmButton);
@@ -64,7 +64,6 @@ public class EndGameScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
         stage.draw();
         batch.end();
 
@@ -84,7 +83,6 @@ public class EndGameScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("MenuScreen: ","menuScreen show called");
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
         stage = new Stage();
@@ -92,6 +90,5 @@ public class EndGameScreen implements Screen {
     }
     @Override
     public void hide() {
-        Gdx.app.log("MenuScreen: ","menuScreen hide called");
     }
 }

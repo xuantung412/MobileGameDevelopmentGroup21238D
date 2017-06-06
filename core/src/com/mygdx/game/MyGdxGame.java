@@ -90,7 +90,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	private Stage stage;
 	Music music;
 
-	public static boolean pauseGame = false;
+	ParticleSystem par;
+	boolean wasTouched;
 
 	public static int reachedLevel;
 	public boolean createdMenu;
@@ -98,7 +99,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public MyGdxGame(MyGame game){
         this.game = game;
 		stage = new Stage();
-
+		par = new ParticleSystem();
+		par.init();
 	}
 
 
@@ -215,6 +217,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		menuButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
+
 				if(stage.getActors().size == 1) {
 					displayButton();
 				}
@@ -707,6 +710,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	}
 	@Override
 	public void dispose() {
+		par.dispose();
 	}
 
 
@@ -715,6 +719,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	@Override
 	public void render() {
+
+
 		//Makes background colour
 		Gdx.gl.glClearColor(0/255f, 0/255f, 128/255f, 1);
 		// Clear the screen
@@ -806,7 +812,27 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		//one of their scales is in gdx graphics the other in camera or something
 		//they don't have same position
 		// 1 degree = 0.0174533 radians
+		float deltatime = Gdx.graphics.getDeltaTime();
+		//par.update(deltatime);
+		//par.render(batch);
+
+		int x = Gdx.input.getX();
+		int y = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+		if(Gdx.input.isTouched() && !wasTouched){
+			int i = par.spawn(ParticleSystem.Type.SMOKE);
+			par.position[i].set(x,y);
+			i = par.spawn(ParticleSystem.Type.SMOKE);
+			par.position[i].set(x,y);
+			i = par.spawn(ParticleSystem.Type.EXPLOSION);
+			par.position[i].set(x,y);
+			i = par.spawn(ParticleSystem.Type.SMOKE);
+			par.position[i].set(x,y);
+		}
+		par.update(deltatime);
+		wasTouched = Gdx.input.isTouched();
 		batch.begin();
+		par.render(batch);
 		sprite.setRotation(body.getAngle()*57.298f);
 		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
 		if(level < 13) {
@@ -1011,7 +1037,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	@Override
 	public void hide() {
-
 	}
 
 	//Getter

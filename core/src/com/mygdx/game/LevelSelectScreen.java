@@ -19,17 +19,18 @@ public class LevelSelectScreen implements Screen {
     private Skin skin;
     private Stage stage;
 
-    MyGame game; // Note it's "MyGdxGame" not "Game"
-    // constructor to keep a reference to the main Game class
+    MyGame game;
 
+    //Constructor
     public LevelSelectScreen(MyGame game){
         this.game = game;
     }
 
 
-
     public void create() {
         stage = new Stage();
+
+        //Create title
         final Label title = new Label("Level Selection", skin);
         title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
         title.setSize(300,100);
@@ -399,14 +400,13 @@ public class LevelSelectScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
         stage.draw();
         batch.end();
 
     }
 
     @Override
-    public void dispose() { }
+    public void dispose() {}
 
     @Override
     public void resize(int width, int height) { }
@@ -419,7 +419,6 @@ public class LevelSelectScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Screen: ","Level selection screen showed.");
         batch = new SpriteBatch();
         skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
         stage = new Stage();
@@ -427,6 +426,5 @@ public class LevelSelectScreen implements Screen {
     }
     @Override
     public void hide() {
-        Gdx.app.log("","LevelSelecScreen close.");
     }
 }
