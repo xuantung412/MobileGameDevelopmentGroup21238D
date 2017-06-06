@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.LongMap;
 import com.badlogic.gdx.utils.Timer;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.Random;
 import java.util.TimerTask;
@@ -59,6 +61,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	static final int BOX_POSITION_ITERATIONS=2;
 
     Body body;
+	//Animation goalAnim;
+
+
 
     SpriteBatch batch;
     Sprite sprite;
@@ -148,7 +153,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				create();
 			}
 		});
-		TextButton nextLevelButton = new TextButton("Next", skin, "default");
+		TextButton nextLevelButton = new TextButton("Music", skin, "default");
 		nextLevelButton.setColor(Color.ORANGE);
 		nextLevelButton.setWidth(50);
 		nextLevelButton.setHeight(50);
@@ -156,15 +161,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		nextLevelButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				for (int i=0; i<wallBodies.length; i++){
-					if (wallBodies[i]!=null) {
-						world.destroyBody(wallBodies[i]);
-					}
+				if(music.isPlaying() == true) {
+					music.stop();
 				}
-				world.destroyBody(body);
-				level ++;
-				music.stop();
-				create();
+				else{
+					music.play();
+				}
+
 
 			}
 		});
@@ -213,6 +216,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		menuButton.setColor(Color.RED);
 		menuButton.setWidth(50);
 		menuButton.setHeight(50);
+		//TODO this is only here so i can find the menu button location in future
 		menuButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+200);
 		menuButton.addListener(new ClickListener(){
 			@Override
