@@ -29,6 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.awt.Font;
 import java.util.Random;
 
 public class MyGdxGame extends Game implements ApplicationListener,Screen {
@@ -47,12 +48,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	static final int BOX_VELOCITY_ITERATIONS=6;
 	static final int BOX_POSITION_ITERATIONS=2;
 
-    Body body;
+	Body body;
 	//Animation goalAnim;
 
 
 
-    SpriteBatch batch;
+	SpriteBatch batch;
 
 
 	Sprite sprite;
@@ -92,7 +93,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public boolean createdMenu;
 
 	public MyGdxGame(MyGame game){
-        this.game = game;
+		this.game = game;
 		stage = new Stage();
 		stageForLabel = new Stage();
 		par = new ParticleSystem();
@@ -145,15 +146,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				create();
 			}
 		});
-		TextButton nextLevelButton = new TextButton("Music", skin, "default");
-		nextLevelButton.setColor(Color.ORANGE);
-		nextLevelButton.setWidth(100);
-		nextLevelButton.setHeight(100);
-		nextLevelButton.getLabel().setFontScale(2);
+		TextButton musicButton = new TextButton("Music", skin, "default");
+		musicButton.setColor(Color.ORANGE);
+		musicButton.setWidth(100);
+		musicButton.setHeight(100);
+		musicButton.getLabel().setFontScale(2);
+		musicButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+350f);
+		musicButton.addListener(new ClickListener(){
 
-		nextLevelButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+350);
-		nextLevelButton.addListener(new ClickListener(){
-			@Override
 			public void clicked(InputEvent event, float x, float y){
 				if(music.isPlaying() == true) {
 					music.stop();
@@ -165,12 +165,34 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 			}
 		});
+		TextButton nextLevelButton = new TextButton("Next", skin, "default");
+		nextLevelButton.setColor(Color.ORANGE);
+		nextLevelButton.setWidth(100);
+		nextLevelButton.setHeight(100);
+		nextLevelButton.getLabel().setFontScale(2);
+		nextLevelButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+250f);
+		nextLevelButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y){
+				for (int i=0; i<wallBodies.length; i++) {
+					if (wallBodies[i] != null) {
+						world.destroyBody(wallBodies[i]);
+					}
+				}
+				world.destroyBody(body);
+				level ++;
+				music.stop();
+				create();
+
+
+			}
+		});
 		TextButton backButton = new TextButton("Exit", skin, "default");
 		backButton.setColor(Color.ORANGE);
 		backButton.setWidth(100);
 		backButton.setHeight(100);
 		backButton.getLabel().setFontScale(2);
-		backButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+250);
+		backButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+150);
 		backButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -178,16 +200,19 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				music.stop();
 			}
 		});
+
 		stage.addActor(restartButton);
 		stage.addActor(nextLevelButton);
 		stage.addActor(backButton);
+		stage.addActor(musicButton);
+
 
 	}
 
 	public void createMenuButton(){
 
 	}
-	
+
 	@Override
 	public void create() {
 
@@ -233,8 +258,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		});
 		stage.addActor(menuButton);
-        font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
-        for (int i=0; i<wallBodies.length; i++){
+		font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
+		for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
 		}
 		// Use a camera to map from box2d to screen co-ordinates
@@ -250,13 +275,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		// Define the ground on which the ball will bounce
 		// By default a body is static
-		BodyDef goalBodyDef = new BodyDef();
+		//BodyDef goalBodyDef = new BodyDef();
 
 		// The position of the body will be at the bottom of the screen half way along
-		goalBodyDef.position.set(new Vector2(420,50));
+		//goalBodyDef.position.set(new Vector2(420,50));
 
 		// Add the body to the world
-		Body goalBody = world.createBody(goalBodyDef);
+		//Body goalBody = world.createBody(goalBodyDef);
+
 
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
@@ -267,22 +293,22 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		//goalBox.setAsBox(20.0f, 20.0f);
 
 		// Add the fixture to the ground body
-		goalBody.createFixture(goalBox, 1.0f);
+		//goalBody.createFixture(goalBox, 1f);
 
 		//TODO i think we want to make the goal box a sensor
 		//this means it won't collide and will just tell us when it's hit not bounce off it
 		//	FixtureDef goalFixture = new FixtureDef();
 		//	goalFixture.isSensor= true;
 
-        //
+		//
 
 		//TODO use this thing to make the basic walls now
 		//side walls
-		addWall(0,1,(camera.viewportWidth) * 2, 10.0f);
-		addWall(0,319,(camera.viewportWidth) * 2, 10.0f);
-		addWall(1,160,10.0f, (camera.viewportHeight) * 2);
-		addWall(479,160,10.0f, (camera.viewportHeight) * 2);
-        Random ranNum = new Random();
+		addWall(0,0,(camera.viewportWidth), 1f);
+		addWall(0,camera.viewportHeight,(camera.viewportWidth), 1f);
+		addWall(0,0,0, (camera.viewportHeight));
+		addWall(camera.viewportWidth+1,0,1f, (camera.viewportHeight));
+		Random ranNum = new Random();
 
 		if (level==1) {
 			turnsRemaining=20;
@@ -315,13 +341,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				reachedLevel = 3;
 			}
 		}
-        else if(level ==4 ) {
-            moveableWall1 = addMoveableWall(150, 60, 10, 50);
-            addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
-            moveableWall2  = addMoveableWall(270, 260, 10, 50);
-            addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
-            wallBodiesCount=0;
-            turnsRemaining = 20;
+		else if(level ==4 ) {
+			moveableWall1 = addMoveableWall(150, 60, 10, 50);
+			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
+			moveableWall2  = addMoveableWall(270, 260, 10, 50);
+			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
+			wallBodiesCount=0;
+			turnsRemaining = 20;
 			if(reachedLevel <4) {
 				reachedLevel = 4;
 			}
@@ -645,10 +671,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			wallBodiesCount=0;
 			turnsRemaining = 20;
 		}*/
-		goalBody.createFixture(goalBox, 1.0f);
+		//goalBox.setAsBox(20.0f, 20.0f);
+		//goalBody.createFixture(goalBox, 1.0f);
 		//this means it won't collide and will just tell us when it's hit not bounce off it
-	//	FixtureDef goalFixture = new FixtureDef();
-	//	goalFixture.isSensor= true;
+		//	FixtureDef goalFixture = new FixtureDef();
+		//	goalFixture.isSensor= true;
 
 
 		// Create the body for the ball
@@ -677,7 +704,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			dynamicCircle.setRadius(8f);
 		}
 
-        // Create a new fixture
+		// Create a new fixture
 		FixtureDef fixtureDef = new FixtureDef();
 		// Give it the circle shape
 		fixtureDef.shape = dynamicCircle;
@@ -693,10 +720,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
-		
-        //TODO make this appear and then have it's position match the physics body all the time
-        batch = new SpriteBatch();
-        img = new Texture("player.png");
+
+		//TODO make this appear and then have it's position match the physics body all the time
+		batch = new SpriteBatch();
+		img = new Texture("player.png");
 		Texture goalImg = new Texture("rotate_1.png");
 		sprite = new Sprite(img);
 		goalSprite = new Sprite(goalImg);//goalSprite.
@@ -833,12 +860,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		par.render(batch);
 		goalSprite.setRotation(57.298f);
 		//TODO goal sprite draw
-		batch.draw(goalSprite, 1510,100, 150f, 150f);//body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+		batch.draw(goalSprite, 2030,150, 150f, 150f);//body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
 		//if(level < 13) {
-			//backgroundSprite.draw(batch, 0.6f);
-	//}
+		//backgroundSprite.draw(batch, 0.6f);
+		//}
 		//else {
-			//backgroundSprite2.draw(batch, 0.6f);
+		//backgroundSprite2.draw(batch, 0.6f);
 		//}
 
 		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
@@ -862,7 +889,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
 
-        int rotationThreshold = 5;
+		int rotationThreshold = 5;
 
 
 		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
@@ -975,8 +1002,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-        if((body.getPosition().x < 431 && body.getPosition().x >394) && (body.getPosition().y >14 && body.getPosition().y < 86)){
-            Gdx.app.log("Move to next level","");
+		if((body.getPosition().x < 431 && body.getPosition().x >400) && (body.getPosition().y >14 && body.getPosition().y < 75)){
+			Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
@@ -991,7 +1018,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 		if (turnsRemaining==0){
-            game.setScreen(MyGame.endGameScreen);
+			game.setScreen(MyGame.endGameScreen);
 
 		}
 
@@ -1017,13 +1044,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		stageForLabel.addActor(levelLabel);
 		Gdx.input.setInputProcessor(stage);
 		stageForLabel.draw();
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
-    }
+	}
 
 
 	@Override
@@ -1055,6 +1080,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		return this.level;
 	}
 	public void setLevel(int level){
-        this.level = level;
-    }
+		this.level = level;
+	}
 }
