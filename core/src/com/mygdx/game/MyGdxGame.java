@@ -1040,6 +1040,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		levelLabel.setSize(200,200);
 		levelLabel.setFontScale(3);
 		levelLabel.setColor(Color.RED);
+		for(int i=0; i < stageForLabel.getActors().size; i++){
+				stageForLabel.getActors().removeIndex(i);
+		}
 		stageForLabel.addActor(turnRemainingLabel);
 		stageForLabel.addActor(levelLabel);
 		Gdx.input.setInputProcessor(stage);
