@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -49,12 +48,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	static final int BOX_POSITION_ITERATIONS=2;
 
 	Body body;
-
-
-
 	SpriteBatch batch;
-
-
 	Sprite sprite;
 	Sprite goalSprite;
 
@@ -62,7 +56,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	static int level=1;
 	BitmapFont font;
 
-	Body[] wallBodies = new Body[20];
+	Body[] wallBodies = new Body[30];
 	int wallBodiesCount = 0;
 	int turnsRemaining;
 
@@ -218,7 +212,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		menuButton.setWidth(100);
 		menuButton.setHeight(100);
 		menuButton.getLabel().setFontScale(2);
-		//TODO this is only here so i can find the menu button location in future
 		menuButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+550);
 		menuButton.addListener(new ClickListener(){
 			@Override
@@ -259,7 +252,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		PolygonShape goalBox = new PolygonShape();
 
 
-		//TODO use this thing to make the basic walls now
+
 		//side walls
 		addWall(0,0,(camera.viewportWidth), 1f);
 		addWall(0,camera.viewportHeight,(camera.viewportWidth), 1f);
@@ -566,7 +559,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		// add the ball to the world
 		body = world.createBody(bodyDef);
-
 		body.setFixedRotation(true);
 
 		//slows the player down
@@ -598,7 +590,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// add the fixture to the ball body
 		body.createFixture(fixtureDef);
 
-		//TODO make this appear and then have it's position match the physics body all the time
+
 		batch = new SpriteBatch();
 		img = new Texture("player.png");
 		Texture goalImg = new Texture("rotate_1.png");
@@ -618,7 +610,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 	boolean moving = false;
-
 
 	@Override
 	public void render() {
@@ -716,9 +707,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			moveableWall7.setTransform(moveableWall7.getPosition().x,moveableWall7.getPosition().y, moveableWall7.getAngle()-rotateSpeed);
 		}
 
-
-		//TODO fix this, also need to do a rotation update, will need to convert radians and degrees
-		//TODO so it moves in the same direction as the body and stuff
 		//one of their scales is in gdx graphics the other in camera or something
 		//they don't have same position
 		// 1 degree = 0.0174533 radians
@@ -729,22 +717,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		int x = Gdx.input.getX();
 		int y = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-//		if(Gdx.input.isTouched() && !wasTouched){
-//			int i = par.spawn(ParticleSystem.Type.SMOKE);
-//			par.position[i].set(x,y);
-//			i = par.spawn(ParticleSystem.Type.SMOKE);
-//			par.position[i].set(x,y);
-//			i = par.spawn(ParticleSystem.Type.EXPLOSION);
-//			par.position[i].set(x,y);
-//			i = par.spawn(ParticleSystem.Type.SMOKE);
-//			par.position[i].set(x,y);
-//		}
-	//	par.update(deltatime);
-	//	wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
 
-		//TODO goal sprite draw
 		batch.draw(goalSprite, 2150,150, 150f, 150f);
 		batch.end();
 
@@ -755,17 +730,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		float xDirection = (float) xDirectionD;
 		double yDirectionD = (Math.sin(body.getAngle()));
 		float yDirection = (float) yDirectionD;
-
 		Vector2 moveVelocity = new Vector2(xDirection * moveSpeed, yDirection * moveSpeed);
-
 		int rotationThreshold = 5;
 
-
-		//TODO may need to change to inertia or something if an issue with bouncing off walls occurs
+		//if the ball is below the rotation threshold set moving to false, isn't at 0 for gameplay
 		if(Math.abs(body.getLinearVelocity().x)<=rotationThreshold && Math.abs(body.getLinearVelocity().y)<=rotationThreshold) {
 			moving=false;
 		}
-
+		//If the ball has stopped moving rotate it
 		if (!moving){
 			body.setTransform(body.getPosition().x, body.getPosition().y, body.getAngle() + (0.0174533f*4));
 		}
@@ -815,11 +787,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-
 			if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
-				Gdx.app.log("right worked",  Float.toString(moveVelocity.x));
-				Gdx.app.log("right worked",  Float.toString(moveVelocity.y));
 				if(Gdx.input.getX() > Gdx.graphics.getWidth() /2-1100f) {
 					body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
 					moving = true;
@@ -828,15 +796,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 
 		//Press left to go to next level
-		//Press left to go to next level
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-			Gdx.app.log("went into create thing",  "i love uni");
-			//	world.dispose();
-			//TODO put the walls that you make each level into an array and delete them in here aswell
-			//when running create do so based on a level variable
-			//badabing badaboom
-			//that should work i think
-			// XD
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
 					world.destroyBody(wallBodies[i]);
@@ -855,9 +815,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 		//press up to restart or run out of lives
-		if(Gdx.input.isKeyPressed(Input.Keys.UP) || (turnsRemaining==0 && !moving)){
-			Gdx.app.log("went into create thing",  "i love uni");
-			//TODO put the walls that you make each level into an array and delete them in here aswell
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)) {//|| (turnsRemaining==0 && !moving)){
+
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
 					world.destroyBody(wallBodies[i]);
@@ -874,7 +833,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		//Check position of body and goal. If body is reach a goal, move to next level.
 		if((body.getPosition().x < 440 && body.getPosition().x >400) && (body.getPosition().y >14 && body.getPosition().y < 75)){
-			Gdx.app.log("Move to next level","");
+
 
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
@@ -898,8 +857,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			game.setScreen(MyGame.endGameScreen);
 		}
 
-		//TODO add box with collision for goal
-		//TODO add sprite for both player and goal and map them appropriately
 
 		String turn;
 		turn ="Turns Remaining: " +turnsRemaining;
