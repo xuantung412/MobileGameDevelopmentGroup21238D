@@ -32,17 +32,18 @@ public class LevelSelectScreen implements Screen {
 
         //Create title
         final Label title = new Label("Level Selection", skin);
-        title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
+        title.setPosition(Gdx.graphics.getWidth() /2-200f, Gdx.graphics.getHeight()/2 +600f);
         title.setSize(300,100);
-        title.setFontScale(3);
+        title.setFontScale(4);
         title.setColor(Color.RED);
 
         //Button Level 1;
         final TextButton level1Button = new TextButton("Level 1\n Easy", skin, "default");
         level1Button.setColor(Color.ROYAL);
-        level1Button.setWidth(100);
-        level1Button.setHeight(100);
-        level1Button.setPosition(Gdx.graphics.getWidth() /2-390f, Gdx.graphics.getHeight()/2 +50f);
+        level1Button.setWidth(300);
+        level1Button.setHeight(300);
+        level1Button.getLabel().setFontScale(4);
+        level1Button.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2 +250f);
         level1Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -54,9 +55,11 @@ public class LevelSelectScreen implements Screen {
             //Button Level 2;
         final TextButton level2Button = new TextButton("Level 2\n Easy", skin, "default");
         level2Button.setColor(Color.GRAY);
-        level2Button.setWidth(100);
-        level2Button.setHeight(100);
-        level2Button.setPosition(Gdx.graphics.getWidth() /2-280f, Gdx.graphics.getHeight()/2 +50f);
+        level2Button.setWidth(300);
+        level2Button.setHeight(300);
+        level2Button.getLabel().setFontScale(4);
+
+        level2Button.setPosition(Gdx.graphics.getWidth() /2-850, Gdx.graphics.getHeight()/2 +250f);
         if(reachedLevel >=2){
             level2Button.setColor(Color.ROYAL);
             level2Button.addListener(new ClickListener(){
@@ -70,9 +73,11 @@ public class LevelSelectScreen implements Screen {
         //Button Level 3;
             final TextButton level3Button = new TextButton("Level 3\n Easy", skin, "default");
         level3Button.setColor(Color.GRAY);
-        level3Button.setWidth(100);
-        level3Button.setHeight(100);
-        level3Button.setPosition(Gdx.graphics.getWidth() /2-170f, Gdx.graphics.getHeight()/2 +50f);
+        level3Button.setWidth(300);
+        level3Button.setHeight(300);
+        level3Button.getLabel().setFontScale(4);
+
+        level3Button.setPosition(Gdx.graphics.getWidth() /2-500, Gdx.graphics.getHeight()/2 +250f);
         if(reachedLevel >=3){
             level3Button.setColor(Color.ROYAL);
             level3Button.addListener(new ClickListener(){
@@ -86,9 +91,11 @@ public class LevelSelectScreen implements Screen {
         //Button Level 4;
             final TextButton level4Button = new TextButton("Level 4\n Easy", skin, "default");
         level4Button.setColor(Color.GRAY);
-        level4Button.setWidth(100);
-        level4Button.setHeight(100);
-        level4Button.setPosition(Gdx.graphics.getWidth() /2-60f, Gdx.graphics.getHeight()/2 +50f);
+        level4Button.setWidth(300);
+        level4Button.setHeight(300);
+        level4Button.setPosition(Gdx.graphics.getWidth() /2-150f, Gdx.graphics.getHeight()/2 +250f);
+        level4Button.getLabel().setFontScale(4);
+
         if(reachedLevel >=4){
             level4Button.setColor(Color.ROYAL);
         level4Button.addListener(new ClickListener(){
@@ -102,9 +109,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 5;
             final TextButton level5Button = new TextButton("Level 5\n Easy", skin, "default");
         level5Button.setColor(Color.GRAY);
-        level5Button.setWidth(100);
-        level5Button.setHeight(100);
-        level5Button.setPosition(Gdx.graphics.getWidth() /2+50, Gdx.graphics.getHeight()/2 +50f);
+        level5Button.setWidth(300);
+        level5Button.setHeight(300);
+        level5Button.getLabel().setFontScale(4);
+        level5Button.setPosition(Gdx.graphics.getWidth() /2+200, Gdx.graphics.getHeight()/2 +250f);
         if(reachedLevel >=5){
             level5Button.setColor(Color.ROYAL);
         level5Button.addListener(new ClickListener(){
@@ -118,9 +126,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 6;
         final TextButton level6Button = new TextButton("Level 6\n Normal", skin, "default");
         level6Button.setColor(Color.GRAY);
-        level6Button.setWidth(100);
-        level6Button.setHeight(100);
-        level6Button.setPosition(Gdx.graphics.getWidth() /2+160f, Gdx.graphics.getHeight()/2 +50f);
+        level6Button.setWidth(300);
+        level6Button.setHeight(300);
+        level6Button.getLabel().setFontScale(4);
+        level6Button.setPosition(Gdx.graphics.getWidth() /2+550, Gdx.graphics.getHeight()/2 +250f);
         if(reachedLevel >=6){
             level6Button.setColor(Color.ROYAL);
         level6Button.addListener(new ClickListener(){
@@ -134,9 +143,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 7;
         final TextButton level7Button = new TextButton("Level 7\n Normal", skin, "default");
         level7Button.setColor(Color.GRAY);
-        level7Button.setWidth(100);
-        level7Button.setHeight(100);
-        level7Button.setPosition(Gdx.graphics.getWidth() /2 + 270, Gdx.graphics.getHeight()/2 +50f);
+        level7Button.setWidth(300);
+        level7Button.setHeight(300);
+        level7Button.getLabel().setFontScale(4);
+        level7Button.setPosition(Gdx.graphics.getWidth() /2 + 900, Gdx.graphics.getHeight()/2 +250f);
         if(reachedLevel >=7){
             level7Button.setColor(Color.ROYAL);
         level7Button.addListener(new ClickListener(){
@@ -150,9 +160,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 8;
         final TextButton level8Button = new TextButton("Level 8\n Normal", skin, "default");
         level8Button.setColor(Color.GRAY);
-        level8Button.setWidth(100);
-        level8Button.setHeight(100);
-        level8Button.setPosition(Gdx.graphics.getWidth() /2 + -390f, Gdx.graphics.getHeight()/2 -80);
+        level8Button.setWidth(300);
+        level8Button.setHeight(300);
+        level8Button.getLabel().setFontScale(4);
+        level8Button.setPosition(Gdx.graphics.getWidth() /2 + -1200, Gdx.graphics.getHeight()/2 -150);
         if(reachedLevel >=8){
             level8Button.setColor(Color.ROYAL);
         level8Button.addListener(new ClickListener(){
@@ -167,9 +178,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 9;
         final TextButton level9Button = new TextButton("Level 9\n Normal", skin, "default");
         level9Button.setColor(Color.GRAY);
-        level9Button.setWidth(100);
-        level9Button.setHeight(100);
-        level9Button.setPosition(Gdx.graphics.getWidth() /2 + -280f, Gdx.graphics.getHeight()/2 -80);
+        level9Button.setWidth(300);
+        level9Button.setHeight(300);
+        level9Button.getLabel().setFontScale(4);
+        level9Button.setPosition(Gdx.graphics.getWidth() /2 + -850, Gdx.graphics.getHeight()/2 -150);
         if(reachedLevel >=9){
             level9Button.setColor(Color.ROYAL);
         level9Button.addListener(new ClickListener(){
@@ -184,9 +196,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 10;
         final TextButton level10Button = new TextButton("Level 10\n Normal", skin, "default");
         level10Button.setColor(Color.GRAY);
-        level10Button.setWidth(100);
-        level10Button.setHeight(100);
-        level10Button.setPosition(Gdx.graphics.getWidth() /2 + -170, Gdx.graphics.getHeight()/2 -80);
+        level10Button.setWidth(300);
+        level10Button.setHeight(300);
+        level10Button.getLabel().setFontScale(4);
+        level10Button.setPosition(Gdx.graphics.getWidth() /2 + -500, Gdx.graphics.getHeight()/2 -150);
         if(reachedLevel >=10){
             level10Button.setColor(Color.ROYAL);
         level10Button.addListener(new ClickListener(){
@@ -200,9 +213,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 11;
         final TextButton level11Button = new TextButton("Level 11\n Hard", skin, "default");
         level11Button.setColor(Color.GRAY);
-        level11Button.setWidth(100);
-        level11Button.setHeight(100);
-        level11Button.setPosition(Gdx.graphics.getWidth() /2 + -60, Gdx.graphics.getHeight()/2 -80);
+        level11Button.setWidth(300);
+        level11Button.setHeight(300);
+        level11Button.getLabel().setFontScale(4);
+        level11Button.setPosition(Gdx.graphics.getWidth() /2 + -150, Gdx.graphics.getHeight()/2 -150);
             if(reachedLevel >=11){
                 level11Button.setColor(Color.ROYAL);
             level11Button.addListener(new ClickListener(){
@@ -216,9 +230,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 12;
         final TextButton level12Button = new TextButton("Level 12\n Hard", skin, "default");
         level12Button.setColor(Color.GRAY);
-        level12Button.setWidth(100);
-        level12Button.setHeight(100);
-        level12Button.setPosition(Gdx.graphics.getWidth() /2 +50, Gdx.graphics.getHeight()/2 -80);
+        level12Button.setWidth(300);
+        level12Button.setHeight(300);
+        level12Button.getLabel().setFontScale(4);
+        level12Button.setPosition(Gdx.graphics.getWidth() /2 +200, Gdx.graphics.getHeight()/2 -150);
             if(reachedLevel >=12){
                 level12Button.setColor(Color.ROYAL);
             level12Button.addListener(new ClickListener(){
@@ -232,9 +247,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 13;
         final TextButton level13Button = new TextButton("Level 13\n Hard", skin, "default");
         level13Button.setColor(Color.GRAY);
-        level13Button.setWidth(100);
-        level13Button.setHeight(100);
-        level13Button.setPosition(Gdx.graphics.getWidth() /2 +160, Gdx.graphics.getHeight()/2 -80);
+        level13Button.setWidth(300);
+        level13Button.setHeight(300);
+        level13Button.getLabel().setFontScale(4);
+        level13Button.setPosition(Gdx.graphics.getWidth() /2 +550, Gdx.graphics.getHeight()/2 -150);
             if(reachedLevel >=13){
                 level13Button.setColor(Color.ROYAL);
             level13Button.addListener(new ClickListener(){
@@ -248,9 +264,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 14;
         final TextButton level14Button = new TextButton("Level 14\n Hard", skin, "default");
         level14Button.setColor(Color.GRAY);
-        level14Button.setWidth(100);
-        level14Button.setHeight(100);
-        level14Button.setPosition(Gdx.graphics.getWidth() /2 +270, Gdx.graphics.getHeight()/2 -80);
+        level14Button.setWidth(300);
+        level14Button.setHeight(300);
+        level14Button.getLabel().setFontScale(4);
+        level14Button.setPosition(Gdx.graphics.getWidth() /2 +900, Gdx.graphics.getHeight()/2 -150);
             if(reachedLevel >=14){
                 level14Button.setColor(Color.ROYAL);
             level14Button.addListener(new ClickListener(){
@@ -264,9 +281,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 15;
         final TextButton level15Button = new TextButton("Level 15\n Hard", skin, "default");
         level15Button.setColor(Color.GRAY);
-        level15Button.setWidth(100);
-        level15Button.setHeight(100);
-        level15Button.setPosition(Gdx.graphics.getWidth() /2 + -390f, Gdx.graphics.getHeight()/2 -210f);
+        level15Button.setWidth(300);
+        level15Button.setHeight(300);
+        level15Button.getLabel().setFontScale(4);
+        level15Button.setPosition(Gdx.graphics.getWidth() /2 + -1200, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=15){
                 level15Button.setColor(Color.ROYAL);
             level15Button.addListener(new ClickListener(){
@@ -280,9 +298,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 16;
         final TextButton level16Button = new TextButton("Level 16\n Hard", skin, "default");
         level16Button.setColor(Color.GRAY);
-        level16Button.setWidth(100);
-        level16Button.setHeight(100);
-        level16Button.setPosition(Gdx.graphics.getWidth() /2 + -280, Gdx.graphics.getHeight()/2 -210f);
+        level16Button.setWidth(300);
+        level16Button.setHeight(300);
+        level16Button.getLabel().setFontScale(4);
+        level16Button.setPosition(Gdx.graphics.getWidth() /2 + -850, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=16){
                 level16Button.setColor(Color.ROYAL);
             level16Button.addListener(new ClickListener(){
@@ -296,9 +315,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 17;
         final TextButton level17Button = new TextButton("Level 17\n Hard", skin, "default");
         level17Button.setColor(Color.GRAY);
-        level17Button.setWidth(100);
-        level17Button.setHeight(100);
-        level17Button.setPosition(Gdx.graphics.getWidth() /2 + -170, Gdx.graphics.getHeight()/2 -210f);
+        level17Button.setWidth(300);
+        level17Button.setHeight(300);
+        level17Button.getLabel().setFontScale(4);
+        level17Button.setPosition(Gdx.graphics.getWidth() /2 + -500, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=17){
                 level17Button.setColor(Color.ROYAL);
             level17Button.addListener(new ClickListener(){
@@ -312,9 +332,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 18;
         final TextButton level18Button = new TextButton("Level 18\n Expert", skin, "default");
         level18Button.setColor(Color.GRAY);
-        level18Button.setWidth(100);
-        level18Button.setHeight(100);
-        level18Button.setPosition(Gdx.graphics.getWidth() /2 + -60, Gdx.graphics.getHeight()/2 -210f);
+        level18Button.setWidth(300);
+        level18Button.setHeight(300);
+        level18Button.getLabel().setFontScale(4);
+        level18Button.setPosition(Gdx.graphics.getWidth() /2 + -150, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=18){
                 level18Button.setColor(Color.ROYAL);
             level18Button.addListener(new ClickListener(){
@@ -328,9 +349,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 19;
         final TextButton level19Button = new TextButton("Level 19\n Expert", skin, "default");
         level19Button.setColor(Color.GRAY);
-        level19Button.setWidth(100);
-        level19Button.setHeight(100);
-        level19Button.setPosition(Gdx.graphics.getWidth() /2 + 50, Gdx.graphics.getHeight()/2 -210f);
+        level19Button.setWidth(300);
+        level19Button.setHeight(300);
+        level19Button.getLabel().setFontScale(4);
+        level19Button.setPosition(Gdx.graphics.getWidth() /2 + 200, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=19){
                 level19Button.setColor(Color.ROYAL);
             level19Button.addListener(new ClickListener(){
@@ -344,9 +366,10 @@ public class LevelSelectScreen implements Screen {
         //Button Level 20;
         final TextButton level20Button = new TextButton("Level 20\n Pro-Player", skin, "default");
         level20Button.setColor(Color.GRAY);
-        level20Button.setWidth(100);
-        level20Button.setHeight(100);
-        level20Button.setPosition(Gdx.graphics.getWidth() /2 + 160, Gdx.graphics.getHeight()/2 -210f);
+        level20Button.setWidth(300);
+        level20Button.setHeight(300);
+        level20Button.getLabel().setFontScale(4);
+        level20Button.setPosition(Gdx.graphics.getWidth() /2 + 550, Gdx.graphics.getHeight()/2 -550);
             if(reachedLevel >=20){
                 level20Button.setColor(Color.ROYAL);
             level20Button.addListener(new ClickListener(){
@@ -359,10 +382,11 @@ public class LevelSelectScreen implements Screen {
         });}
         //Create button to exit the game.
         final TextButton exitButton = new TextButton("Back", skin, "default");
-        exitButton.setColor(Color.WHITE);
-        exitButton.setWidth(100);
-        exitButton.setHeight(100);
-        exitButton.setPosition(Gdx.graphics.getWidth() /2 + 270, Gdx.graphics.getHeight()/2 -210f);
+        exitButton.setColor(Color.ROYAL);
+        exitButton.setWidth(300);
+        exitButton.setHeight(300);
+        exitButton.getLabel().setFontScale(4);
+        exitButton.setPosition(Gdx.graphics.getWidth() /2 + 900, Gdx.graphics.getHeight()/2 -550);
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

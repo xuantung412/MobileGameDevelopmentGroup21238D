@@ -25,25 +25,26 @@ public class EndGameScreen implements Screen {
 
     public void create() {
         //Create label to display game over message.
-        final Label message = new Label("       Nice Try \n       You ran out of turns.", skin);
-        message.setPosition(Gdx.graphics.getWidth() /2-100f, Gdx.graphics.getHeight()/2 +150f);
-        message.setSize(300,100);
-        message.setFontScale(3);
+        final Label message = new Label("       Nice Try \nYou ran out of turns.", skin);
+        message.setPosition(Gdx.graphics.getWidth() /2-350f, Gdx.graphics.getHeight()/2 +400f);
+        message.setSize(600,200);
+        message.setFontScale(8);
         message.setColor(Color.RED);
         int getBestLevel = new MyGdxGame(game).getLevel();
         String bestLevel = "Your best Level: "+getBestLevel;
         final Label displayInformation = new Label(bestLevel, skin);
-        displayInformation.setPosition(Gdx.graphics.getWidth() /2-50f, Gdx.graphics.getHeight()/2 +100f);
+        displayInformation.setPosition(Gdx.graphics.getWidth() /2-350f, Gdx.graphics.getHeight()/2 +150f);
         displayInformation.setSize(300,100);
-        displayInformation.setFontScale(3);
+        displayInformation.setFontScale(8);
         displayInformation.setColor(Color.RED);
 
         //Create button to exit the game.
         final TextButton confirmButton = new TextButton("Confirm", skin, "default");
         confirmButton.setColor(Color.WHITE);
-        confirmButton.setWidth(300);
-        confirmButton.setHeight(100);
-        confirmButton.setPosition(Gdx.graphics.getWidth() /2-150f, Gdx.graphics.getHeight()/2 -120f);
+        confirmButton.setWidth(500);
+        confirmButton.setHeight(300);
+        confirmButton.getLabel().setFontScale(5);
+        confirmButton.setPosition(Gdx.graphics.getWidth() /2-150f, Gdx.graphics.getHeight()/2 -300);
         confirmButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

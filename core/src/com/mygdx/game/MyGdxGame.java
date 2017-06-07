@@ -24,10 +24,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.awt.Font;
 import java.util.Random;
 
 public class MyGdxGame extends Game implements ApplicationListener,Screen {
@@ -52,7 +54,9 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
     SpriteBatch batch;
-    Sprite sprite;
+
+
+	Sprite sprite;
 	Sprite goalSprite;
 	Sprite backgroundSprite;
 	Sprite backgroundSprite2;
@@ -79,6 +83,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	boolean displayOption = false;
 	MyGame game;
 	private Stage stage;
+	private Stage stageForLabel;
 	Music music;
 
 	ParticleSystem par;
@@ -90,6 +95,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public MyGdxGame(MyGame game){
         this.game = game;
 		stage = new Stage();
+		stageForLabel = new Stage();
 		par = new ParticleSystem();
 		par.init();
 	}
@@ -123,9 +129,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
 		TextButton restartButton = new TextButton("Reset", skin, "default");
 		restartButton.setColor(Color.ORANGE);
-		restartButton.setWidth(50);
-		restartButton.setHeight(50);
-		restartButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+150f);
+		restartButton.setWidth(100);
+		restartButton.setHeight(100);
+		restartButton.getLabel().setFontScale(2);
+		restartButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+450f);
 		restartButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -141,9 +148,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		});
 		TextButton nextLevelButton = new TextButton("Music", skin, "default");
 		nextLevelButton.setColor(Color.ORANGE);
-		nextLevelButton.setWidth(50);
-		nextLevelButton.setHeight(50);
-		nextLevelButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+100f);
+		nextLevelButton.setWidth(100);
+		nextLevelButton.setHeight(100);
+		nextLevelButton.getLabel().setFontScale(2);
+
+		nextLevelButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+350);
 		nextLevelButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -159,9 +168,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		});
 		TextButton backButton = new TextButton("Exit", skin, "default");
 		backButton.setColor(Color.ORANGE);
-		backButton.setWidth(50);
-		backButton.setHeight(50);
-		backButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+50f);
+		backButton.setWidth(100);
+		backButton.setHeight(100);
+		backButton.getLabel().setFontScale(2);
+		backButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+250);
 		backButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -172,8 +182,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		stage.addActor(restartButton);
 		stage.addActor(nextLevelButton);
 		stage.addActor(backButton);
-		Gdx.input.setInputProcessor(stage);
-
 
 	}
 
@@ -200,10 +208,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		final TextButton menuButton = new TextButton("Menu", skin, "default");
 		createdMenu = false;
 		menuButton.setColor(Color.RED);
-		menuButton.setWidth(50);
-		menuButton.setHeight(50);
+		menuButton.setWidth(100);
+		menuButton.setHeight(100);
+		menuButton.getLabel().setFontScale(2);
 		//TODO this is only here so i can find the menu button location in future
-		menuButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2+200);
+		menuButton.setPosition(Gdx.graphics.getWidth() /2-1200f, Gdx.graphics.getHeight()/2+550);
 		menuButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
@@ -225,7 +234,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		});
 		stage.addActor(menuButton);
-		Gdx.input.setInputProcessor(stage);
         font = new BitmapFont(Gdx.files.internal("uidata/default.fnt"));
         for (int i=0; i<wallBodies.length; i++){
 			wallBodies[i]=null;
@@ -993,15 +1001,24 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		String turn;
 		turn ="Turns Remaining: " +turnsRemaining;
-		batch.begin();
-		font.draw(batch,turn,Gdx.graphics.getWidth()/2 +(Gdx.graphics.getWidth()/2- Gdx.graphics.getWidth()/9),Gdx.graphics.getHeight()/2+(Gdx.graphics.getHeight()/2-Gdx.graphics.getHeight()/20) );
-
+		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
+		Label turnRemainingLabel = new Label(turn, skin);
+		turnRemainingLabel.setPosition(Gdx.graphics.getWidth() /2-1150f, Gdx.graphics.getHeight()/2 +580f);
+		turnRemainingLabel.setSize(200,200);
+		turnRemainingLabel.setFontScale(3);
+		turnRemainingLabel.setColor(Color.RED);
 		String currentLevel;
 		currentLevel = "Current Level: "+ level;
-		font.draw(batch,currentLevel,Gdx.graphics.getWidth()/2 -830f,Gdx.graphics.getHeight()/2+499f );
-		//Display button
+		Label levelLabel = new Label(currentLevel, skin);
+		levelLabel.setPosition(Gdx.graphics.getWidth() /2+800, Gdx.graphics.getHeight()/2 +580f);
+		levelLabel.setSize(200,200);
+		levelLabel.setFontScale(3);
+		levelLabel.setColor(Color.RED);
+		stageForLabel.addActor(turnRemainingLabel);
+		stageForLabel.addActor(levelLabel);
+		Gdx.input.setInputProcessor(stage);
+		stageForLabel.draw();
 		stage.draw();
-		batch.end();
 		//TODO build a couple levels so it transitions appropriately from one to another
 		//TODO polish
 
