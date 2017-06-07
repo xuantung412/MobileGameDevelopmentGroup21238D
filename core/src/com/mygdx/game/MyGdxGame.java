@@ -233,8 +233,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// Use a camera to map from box2d to screen co-ordinates
 		camera = new OrthographicCamera();
 		// Screen resolution
-		camera.viewportHeight = 2560;
-		camera.viewportWidth = 1440;
+		camera.viewportHeight = 320;
+		camera.viewportWidth = 480;
 		// Select which part of the world you want the camera to see
 		camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);
 		// Update the changed camera settings!
