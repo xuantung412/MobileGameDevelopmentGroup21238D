@@ -216,10 +216,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	@Override
 	public void create() {
 
-		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("level.wav"));
 		music.setVolume(0.99f);
 		music.setLooping(true);
-		music.play();
+		if(music.isPlaying()!= true) {
+			music.play();
+		}
 
 		backgroundTexture = new Texture("background1.png");
 		backgroundTexture2 = new Texture("background2.png");
@@ -727,9 +729,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		Texture goalImg = new Texture("rotate_1.png");
 		sprite = new Sprite(img);
 		goalSprite = new Sprite(goalImg);//goalSprite.
-
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 		// create a new debug renderer
+		goalSprite.setOriginCenter();
+		goalSprite.rotate(57.298f);
 		debugRenderer = new Box2DDebugRenderer();
 
 	}
@@ -858,7 +861,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
-		goalSprite.setRotation(57.298f);
+
 		//TODO goal sprite draw
 		batch.draw(goalSprite, 2030,150, 150f, 150f);//body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
 		//if(level < 13) {
@@ -947,6 +950,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+
 		if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
 			Gdx.app.log("right worked",  Float.toString(moveVelocity.x));
 			Gdx.app.log("right worked",  Float.toString(moveVelocity.y));
@@ -1002,7 +1007,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 		//Check postion of body and goal. If body is reach a goal, move to next level.
-		if((body.getPosition().x < 431 && body.getPosition().x >400) && (body.getPosition().y >14 && body.getPosition().y < 75)){
+		if((body.getPosition().x < 440 && body.getPosition().x >400) && (body.getPosition().y >14 && body.getPosition().y < 75)){
 			Gdx.app.log("Move to next level","");
 
 			for (int i=0; i<wallBodies.length; i++){
