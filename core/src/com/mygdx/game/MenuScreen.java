@@ -1,12 +1,9 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,18 +27,19 @@ public class MenuScreen implements Screen {
     public void create() {
 
         //Create title
-        final Label title = new Label("Welcome to the Game", skin);
-        title.setPosition(Gdx.graphics.getWidth() /2-30f, Gdx.graphics.getHeight()/2 +150f);
+        final Label title = new Label("Welcome to Ball Game", skin);
+        title.setPosition(Gdx.graphics.getWidth() /2-350f, Gdx.graphics.getHeight()/2 +600f);
         title.setSize(300,100);
-        title.setFontScale(3);
+        title.setFontScale(7);
         title.setColor(Color.RED);
 
 
         final TextButton newGameButton = new TextButton("New Game", skin, "default");
         newGameButton.setColor(Color.WHITE);
-        newGameButton.setWidth(300);
-        newGameButton.setHeight(100);
-        newGameButton.setPosition(Gdx.graphics.getWidth() /2-110f, Gdx.graphics.getHeight()/2 +50f);
+        newGameButton.setWidth(900);
+        newGameButton.setHeight(300);
+        newGameButton.getLabel().setFontScale(5);
+        newGameButton.setPosition(Gdx.graphics.getWidth() /2-300f, Gdx.graphics.getHeight()/2 +200);
         newGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -53,9 +51,10 @@ public class MenuScreen implements Screen {
         //Create button to exit the game.
         final TextButton exitButton = new TextButton("Exit", skin, "default");
         exitButton.setColor(Color.WHITE);
-        exitButton.setWidth(300);
-        exitButton.setHeight(100);
-        exitButton.setPosition(Gdx.graphics.getWidth() /2-110f, Gdx.graphics.getHeight()/2 -120f);
+        exitButton.setWidth(900);
+        exitButton.setHeight(300);
+        exitButton.getLabel().setFontScale(5);
+        exitButton.setPosition(Gdx.graphics.getWidth() /2-300f, Gdx.graphics.getHeight()/2 -400f);
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

@@ -1,7 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 
 public  class MyGame extends Game implements ApplicationListener {
     /**
