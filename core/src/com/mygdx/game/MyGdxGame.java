@@ -6,12 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,28 +19,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.LongMap;
-import com.badlogic.gdx.utils.Timer;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.Random;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.touchDown;
 
 public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	// Create a new box2d world with gravity down in the y direction
@@ -837,14 +823,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
-		sprite.setRotation(body.getAngle()*57.298f);
-		batch.draw(sprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
-		if(level < 13) {
+		//sprite.setRotation(body.getAngle()*57.298f);
+		//TODO goal sprite draw
+		batch.draw(goalSprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+		//if(level < 13) {
 			backgroundSprite.draw(batch, 0.6f);
-		}
-		else {
+	//}
+		//else {
 			backgroundSprite2.draw(batch, 0.6f);
-		}
+		//}
 
 		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
 		//need to change the size of it as well as the location
