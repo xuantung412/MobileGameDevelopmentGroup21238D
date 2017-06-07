@@ -49,7 +49,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	static final int BOX_POSITION_ITERATIONS=2;
 
 	Body body;
-	//Animation goalAnim;
 
 
 
@@ -58,15 +57,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	Sprite sprite;
 	Sprite goalSprite;
-	Sprite backgroundSprite;
-	Sprite backgroundSprite2;
 
 	Texture img;
 	static int level=1;
 	BitmapFont font;
-
-	public static Texture backgroundTexture;
-	public static TextureRegion backgroundTexture2;
 
 	Body[] wallBodies = new Body[20];
 	int wallBodiesCount = 0;
@@ -80,7 +74,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	Body moveableWall6;
 	Body moveableWall7;
 	boolean rotateWall1And2 = false;
-	boolean displayOption = false;
 	MyGame game;
 	private Stage stage;
 	private Stage stageForLabel;
@@ -100,18 +93,17 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		par.init();
 	}
 
-
 	public void addWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
 		wallBodyDef.position.set(new Vector2(xPos, yPos));
 		Body wallBody = world.createBody(wallBodyDef);
-
 		PolygonShape wallBox = new PolygonShape();
 		wallBox.setAsBox(width, height);
 		wallBody.createFixture(wallBox, 1.0f);
 		wallBodies[wallBodiesCount] = wallBody;
 		wallBodiesCount++;
 	}
+
 	public Body addMoveableWall(float xPos, float yPos, float width, float height){
 		BodyDef wallBodyDef = new BodyDef();
 		wallBodyDef.position.set(new Vector2(xPos, yPos));
@@ -122,7 +114,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wallBodies[wallBodiesCount] = wallBody;
 		wallBodiesCount++;
 		return wallBody;
-
 	}
 
 	public void displayButton(){
@@ -161,8 +152,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				else{
 					music.play();
 				}
-
-
 			}
 		});
 		TextButton nextLevelButton = new TextButton("Next", skin, "default");
@@ -186,10 +175,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 					level--;
 					game.setScreen(MyGame.endGameScreen);
 				}
-
 				create();
-
-
 			}
 		});
 		TextButton backButton = new TextButton("Exit", skin, "default");
@@ -205,17 +191,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				game.setScreen(MyGame.levelSelectScreen);
 			}
 		});
-
 		stage.addActor(restartButton);
 		stage.addActor(nextLevelButton);
 		stage.addActor(backButton);
 		stage.addActor(musicButton);
-
-
 	}
 
 	public void createMenuButton(){
-
 	}
 
 	@Override
@@ -227,8 +209,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		if(music.isPlaying()!= true) {
 			music.play();
 		}
-
-
 
 		//Create option
 		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
@@ -254,7 +234,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 						}
 						else{
 							stage.getActors().removeIndex(0);
-
 						}
 					}
 				}
@@ -275,35 +254,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		// Update the changed camera settings!
 		camera.update();
 
-
-		// Define the ground on which the ball will bounce
-		// By default a body is static
-		//BodyDef goalBodyDef = new BodyDef();
-
-		// The position of the body will be at the bottom of the screen half way along
-		//goalBodyDef.position.set(new Vector2(420,50));
-
-		// Add the body to the world
-		//Body goalBody = world.createBody(goalBodyDef);
-
-
 		// Select a shape for the fixture of the ground
 		// Its a polygon that will be defined as a box
 		PolygonShape goalBox = new PolygonShape();
 
-		// set the size of the box to fill the camera viewport width
-		// and hence the width of the screen
-		//goalBox.setAsBox(20.0f, 20.0f);
-
-		// Add the fixture to the ground body
-		//goalBody.createFixture(goalBox, 1f);
-
-		//TODO i think we want to make the goal box a sensor
-		//this means it won't collide and will just tell us when it's hit not bounce off it
-		//	FixtureDef goalFixture = new FixtureDef();
-		//	goalFixture.isSensor= true;
-
-		//
 
 		//TODO use this thing to make the basic walls now
 		//side walls
@@ -319,7 +273,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
 			reachedLevel =1;
-
 		}
 
 		else if(level==2){
@@ -330,9 +283,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			if(reachedLevel <2) {
 				reachedLevel = 2;
 			}
-
 		}
-
 		else if (level==3) {
 			turnsRemaining=7;
 			addWall(60, 110, 10, 30);
@@ -367,8 +318,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				reachedLevel = 5;
 			}
 		}
-
-
 
 		else if(level == 6){
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
@@ -619,6 +568,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		body = world.createBody(bodyDef);
 
 		body.setFixedRotation(true);
+
 		//slows the player down
 		body.setLinearDamping(.8f);
 
@@ -659,8 +609,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		goalSprite.setOriginCenter();
 		goalSprite.rotate(57.298f);
 		debugRenderer = new Box2DDebugRenderer();
-
 	}
+
 	@Override
 	public void dispose() {
 		par.dispose();
@@ -672,8 +622,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	@Override
 	public void render() {
-
-
 		//Makes background colour
 		Gdx.gl.glClearColor(0/255f, 53/255f, 107/255f, 1);
 		// Clear the screen
@@ -703,14 +651,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			else if(level == 10 ){
 				wall1And2Speed = 4;
-
 			}
 
 			if (rotateWall1And2 == false) {
 				moveableWall1.setTransform(moveableWall1.getPosition().x, wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
 			} else {
 				moveableWall1.setTransform(moveableWall1.getPosition().x, -wall1And2Speed + moveableWall1.getPosition().y, moveableWall1.getAngle());
-
 			}
 
 			if (moveableWall2 != null) {
@@ -721,7 +667,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				}
 			}
 		}
-
 
 		if( moveableWall3 != null){
 			float rotateSpeed =0.04f;
@@ -794,15 +739,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 //			i = par.spawn(ParticleSystem.Type.SMOKE);
 //			par.position[i].set(x,y);
 //		}
-		par.update(deltatime);
-		wasTouched = Gdx.input.isTouched();
+	//	par.update(deltatime);
+	//	wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
 
 		//TODO goal sprite draw
 		batch.draw(goalSprite, 2150,150, 150f, 150f);
 		batch.end();
-		//batch.draw(backgroundSprite2, 0,0,2560,1440);
+
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
 		int moveSpeed = 50000;
@@ -828,7 +773,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		//Only for level 11. Ball moveback
 		if(level == 11){
 			body.setTransform(body.getPosition().x -0.07f, body.getPosition().y, body.getAngle());
-
 		}
 
 		//Only for level 12. Ball moveback South-West
@@ -913,20 +857,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		//press up to restart or run out of lives
 		if(Gdx.input.isKeyPressed(Input.Keys.UP) || (turnsRemaining==0 && !moving)){
 			Gdx.app.log("went into create thing",  "i love uni");
-			//	world.dispose();
 			//TODO put the walls that you make each level into an array and delete them in here aswell
-			//when running create do so based on a level variable
-			//badabing badaboom
-			//that should work i think
-			// XD
 			for (int i=0; i<wallBodies.length; i++){
 				if (wallBodies[i]!=null) {
 					world.destroyBody(wallBodies[i]);
 				}
 			}
 			world.destroyBody(body);
-			//if you uncomment this it will load level 2
-			//	level++;
 			if(level == 21){
 				level--;
 				game.setScreen(MyGame.endGameScreen);
@@ -935,8 +872,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			create();
 		}
 
-
-		//Check postion of body and goal. If body is reach a goal, move to next level.
+		//Check position of body and goal. If body is reach a goal, move to next level.
 		if((body.getPosition().x < 440 && body.getPosition().x >400) && (body.getPosition().y >14 && body.getPosition().y < 75)){
 			Gdx.app.log("Move to next level","");
 
@@ -960,7 +896,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		if (turnsRemaining==0 && !moving){
 			music.stop();
 			game.setScreen(MyGame.endGameScreen);
-
 		}
 
 		//TODO add box with collision for goal
@@ -989,9 +924,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		Gdx.input.setInputProcessor(stage);
 		stageForLabel.draw();
 		stage.draw();
-		//TODO build a couple levels so it transitions appropriately from one to another
-		//TODO polish
-
 	}
 
 
