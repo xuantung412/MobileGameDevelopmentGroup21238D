@@ -26,10 +26,7 @@ public  class MyGame extends Game implements ApplicationListener {
     @Override
     public void dispose() {super.dispose();}
 
-    @Override
-    public void render() {
-        super.render();
-    }
+
 
     @Override
     public void resize(int width, int height) { super.resize(width, height);}

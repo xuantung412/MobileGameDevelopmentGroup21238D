@@ -27,8 +27,8 @@ public class MenuScreen implements Screen {
     public void create() {
 
         //Create title
-        final Label title = new Label("Welcome to Ball Game", skin);
-        title.setPosition(Gdx.graphics.getWidth() /2-350f, Gdx.graphics.getHeight()/2 +600f);
+        final Label title = new Label("      Ball Game", skin);
+        title.setPosition(Gdx.graphics.getWidth() /2-370f, Gdx.graphics.getHeight()/2 +550f);
         title.setSize(300,100);
         title.setFontScale(7);
         title.setColor(Color.RED);
@@ -39,7 +39,7 @@ public class MenuScreen implements Screen {
         newGameButton.setWidth(900);
         newGameButton.setHeight(300);
         newGameButton.getLabel().setFontScale(5);
-        newGameButton.setPosition(Gdx.graphics.getWidth() /2-300f, Gdx.graphics.getHeight()/2 +200);
+        newGameButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2 +100);
         newGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -54,7 +54,7 @@ public class MenuScreen implements Screen {
         exitButton.setWidth(900);
         exitButton.setHeight(300);
         exitButton.getLabel().setFontScale(5);
-        exitButton.setPosition(Gdx.graphics.getWidth() /2-300f, Gdx.graphics.getHeight()/2 -400f);
+        exitButton.setPosition(Gdx.graphics.getWidth() /2-400f, Gdx.graphics.getHeight()/2 -400f);
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

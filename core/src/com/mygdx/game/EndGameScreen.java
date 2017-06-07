@@ -33,7 +33,7 @@ public class EndGameScreen implements Screen {
         int getBestLevel = new MyGdxGame(game).getLevel();
         String bestLevel = "You got to Level "+getBestLevel;
         final Label displayInformation = new Label(bestLevel, skin);
-        displayInformation.setPosition(Gdx.graphics.getWidth() /2-350f, Gdx.graphics.getHeight()/2 +150f);
+        displayInformation.setPosition(Gdx.graphics.getWidth() /2-550, Gdx.graphics.getHeight()/2 +150f);
         displayInformation.setSize(300,100);
         displayInformation.setFontScale(8);
         displayInformation.setColor(Color.RED);
@@ -44,7 +44,7 @@ public class EndGameScreen implements Screen {
         confirmButton.setWidth(500);
         confirmButton.setHeight(300);
         confirmButton.getLabel().setFontScale(5);
-        confirmButton.setPosition(Gdx.graphics.getWidth() /2-150f, Gdx.graphics.getHeight()/2 -300);
+        confirmButton.setPosition(Gdx.graphics.getWidth() /2-300f, Gdx.graphics.getHeight()/2 -300);
         confirmButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

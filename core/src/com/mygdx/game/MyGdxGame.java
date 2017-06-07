@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -29,7 +30,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import java.awt.Font;
 import java.util.Random;
 
 public class MyGdxGame extends Game implements ApplicationListener,Screen {
@@ -66,7 +66,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	BitmapFont font;
 
 	public static Texture backgroundTexture;
-	public static Texture backgroundTexture2;
+	public static TextureRegion backgroundTexture2;
 
 	Body[] wallBodies = new Body[20];
 	int wallBodiesCount = 0;
@@ -200,8 +200,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		backButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y){
-				turnsRemaining =0;
 				music.stop();
+				game.setScreen(MyGame.levelSelectScreen);
 			}
 		});
 
@@ -227,17 +227,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			music.play();
 		}
 
-		backgroundTexture = new Texture("background1.png");
-		backgroundTexture2 = new Texture("background2.png");
 
-		backgroundSprite =new Sprite(backgroundTexture);
-		backgroundSprite2 =new Sprite(backgroundTexture2);
 
 		//Create option
 		Skin skin = new Skin(Gdx.files.internal("uidata/uiskin.json"));
 		final TextButton menuButton = new TextButton("Menu", skin, "default");
 		createdMenu = false;
-		menuButton.setColor(Color.RED);
+		menuButton.setColor(Color.ORANGE);
 		menuButton.setWidth(100);
 		menuButton.setHeight(100);
 		menuButton.getLabel().setFontScale(2);
@@ -317,7 +313,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		Random ranNum = new Random();
 
 		if (level==1) {
-			turnsRemaining=20;
+			turnsRemaining=5;
 			addWall(270, 250, 40, 60);
 			addWall(300, 55, 70, 40);
 			wallBodiesCount=0;
@@ -326,7 +322,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level==2){
-			turnsRemaining=20;
+			turnsRemaining=12;
 			addWall(150, 120, 10, 110);
 			addWall(270, 200, 10, 110);
 			addWall(350, 120, 10, 110);
@@ -337,7 +333,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if (level==3) {
-			turnsRemaining=20;
+			turnsRemaining=7;
 			addWall(60, 110, 10, 30);
 			addWall(140, 100, 30, 50);
 			addWall(250, 160, 50, 80);
@@ -353,7 +349,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			moveableWall2  = addMoveableWall(270, 260, 10, 50);
 			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 110);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 10;
 			if(reachedLevel <4) {
 				reachedLevel = 4;
 			}
@@ -365,7 +361,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			moveableWall2  = addMoveableWall(270, 260, 10, 50);
 			addWall(ranNum.nextInt(10)+350, 120, ranNum.nextInt(3)+5, 150);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 10;
 			if(reachedLevel <5) {
 				reachedLevel = 5;
 			}
@@ -380,7 +376,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 278, 90, 30);
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 5;
 			if(reachedLevel <6) {
 				reachedLevel = 6;
 			}
@@ -393,7 +389,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 278, 90, 30);
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
-			turnsRemaining = 10;
+			turnsRemaining = 5;
 			if(reachedLevel <7) {
 				reachedLevel = 7;
 			}
@@ -422,7 +418,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(380, 175, 15, 30);
 			addWall(380, 274, 15, 35);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 15;
 			if(reachedLevel <9) {
 				reachedLevel = 9;
 			}
@@ -440,7 +436,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				reachedLevel = 10;
 			}
 			wallBodiesCount=0;
-			turnsRemaining = 25;
+			turnsRemaining = 15;
 		}
 
 		else if(level == 11) {
@@ -516,7 +512,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(250, 278, 90, 30);
 			addWall(250, 42, 90, 30);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 5;
 			if(reachedLevel <14) {
 				reachedLevel = 14;
 			}
@@ -526,7 +522,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(380, 278, 10, 180);
 			addWall(130, 60, 10, 180);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 5;
 			if(reachedLevel <15) {
 				reachedLevel = 15;
 			}
@@ -538,12 +534,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(380, 278, 10, 180);
 			addWall(130, 60, 10, 180);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 5;
 			if(reachedLevel <16) {
 				reachedLevel = 16;
 			}
 		}
 		else if( level == 17){
+			moveableWall4 =null;
+			moveableWall5 =null;
+			moveableWall6 =null;
 			moveableWall3 = addMoveableWall(430, 200, 5, 40);
 			addWall(370, 42, 10, 200);
 			addWall(70, 20, 290, 10);
@@ -551,17 +550,21 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(70, 80, 250, 10);
 			addWall(70, 200, 250, 10);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 15;
 			if(reachedLevel <17) {
 				reachedLevel = 17;
 			}
 		}
 		else if( level == 18){
+			moveableWall3 =null;
+			moveableWall4 =null;
+			moveableWall5 =null;
+			moveableWall6 =null;
 			addWall(370, 42, 10, 200);
 			addWall(70, 42, 10, 200);
 			addWall(220, 340, 60, 280);
 			wallBodiesCount=0;
-			turnsRemaining = 20;
+			turnsRemaining = 10;
 			if(reachedLevel <18) {
 				reachedLevel = 18;
 			}
@@ -574,7 +577,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(370, 280, 10, 200);
 			addWall(70, 42, 10, 200);
 			wallBodiesCount=0;
-			turnsRemaining = 10;
+			turnsRemaining = 5;
 			if(reachedLevel <19) {
 				reachedLevel = 19;
 			}
@@ -589,7 +592,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			addWall(370, 280, 10, 200);
 			addWall(70, 42, 10, 200);
 			wallBodiesCount=0;
-			turnsRemaining = 10;
+			turnsRemaining = 7;
 			if(reachedLevel <20) {
 				reachedLevel = 20;
 			}
@@ -671,7 +674,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 		//Makes background colour
-		Gdx.gl.glClearColor(0/255f, 0/255f, 128/255f, 1);
+		Gdx.gl.glClearColor(0/255f, 53/255f, 107/255f, 1);
 		// Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		// call the debug renderer
@@ -780,41 +783,25 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		int x = Gdx.input.getX();
 		int y = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-		if(Gdx.input.isTouched() && !wasTouched){
-			int i = par.spawn(ParticleSystem.Type.SMOKE);
-			par.position[i].set(x,y);
-			i = par.spawn(ParticleSystem.Type.SMOKE);
-			par.position[i].set(x,y);
-			i = par.spawn(ParticleSystem.Type.EXPLOSION);
-			par.position[i].set(x,y);
-			i = par.spawn(ParticleSystem.Type.SMOKE);
-			par.position[i].set(x,y);
-		}
+//		if(Gdx.input.isTouched() && !wasTouched){
+//			int i = par.spawn(ParticleSystem.Type.SMOKE);
+//			par.position[i].set(x,y);
+//			i = par.spawn(ParticleSystem.Type.SMOKE);
+//			par.position[i].set(x,y);
+//			i = par.spawn(ParticleSystem.Type.EXPLOSION);
+//			par.position[i].set(x,y);
+//			i = par.spawn(ParticleSystem.Type.SMOKE);
+//			par.position[i].set(x,y);
+//		}
 		par.update(deltatime);
 		wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
 
 		//TODO goal sprite draw
-		batch.draw(goalSprite, 2030,150, 150f, 150f);//body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
-		//if(level < 13) {
-		//backgroundSprite.draw(batch, 0.6f);
-		//}
-		//else {
-		//backgroundSprite2.draw(batch, 0.6f);
-		//}
-
-		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
-		//need to change the size of it as well as the location
-		//batch.draw(goalSprite, camera.viewportWidth/2, camera.viewportHeight/2);
-		//Gdx.app.log("positioning sprite x", String.valueOf(sprite.get));
-/*		Gdx.app.log("positioning sprite X",  String.valueOf(sprite.getRegionX()));
-		Gdx.app.log("positioning sprite y",  String.valueOf(sprite.getRegionY()));
-		Gdx.app.log("positioning body x",  String.valueOf(body.getPosition().x));
-		Gdx.app.log("positioning body y",  String.valueOf(body.getPosition().y));*/
-
+		batch.draw(goalSprite, 2030,150, 150f, 150f);
 		batch.end();
-
+		//batch.draw(backgroundSprite2, 0,0,2560,1440);
 		//This code sets the direction to the way the circle is facing
 		// and sets the speed it travels in that direction to moveSpeed
 		int moveSpeed = 50000;
@@ -885,14 +872,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 
-		if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
-			Gdx.app.log("right worked",  Float.toString(moveVelocity.x));
-			Gdx.app.log("right worked",  Float.toString(moveVelocity.y));
-
-			body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
-			moving=true;
-			turnsRemaining--;
-		}
+			if((Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !moving || (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !moving)) && turnsRemaining>0) {
+				Gdx.app.log("right worked",  Float.toString(moveVelocity.x));
+				Gdx.app.log("right worked",  Float.toString(moveVelocity.y));
+				if(Gdx.input.getX() > Gdx.graphics.getWidth() /2-1100f) {
+					body.applyLinearImpulse(moveVelocity, body.getMassData().center, true);
+					moving = true;
+					turnsRemaining--;
+				}
+			}
 
 		//Press left to go to next level
 		//Press left to go to next level
@@ -981,14 +969,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		turnRemainingLabel.setPosition(Gdx.graphics.getWidth() /2-1150f, Gdx.graphics.getHeight()/2 +580f);
 		turnRemainingLabel.setSize(200,200);
 		turnRemainingLabel.setFontScale(3);
-		turnRemainingLabel.setColor(Color.RED);
+		turnRemainingLabel.setColor(Color.ORANGE);
 		String currentLevel;
 		currentLevel = "Current Level: "+ level;
 		Label levelLabel = new Label(currentLevel, skin);
 		levelLabel.setPosition(Gdx.graphics.getWidth() /2+800, Gdx.graphics.getHeight()/2 +580f);
 		levelLabel.setSize(200,200);
 		levelLabel.setFontScale(3);
-		levelLabel.setColor(Color.RED);
+		levelLabel.setColor(Color.ORANGE);
 		for(int i=0; i < stageForLabel.getActors().size; i++){
 				stageForLabel.getActors().removeIndex(i);
 		}
