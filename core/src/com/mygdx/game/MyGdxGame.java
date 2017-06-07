@@ -257,7 +257,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 		// set the size of the box to fill the camera viewport width
 		// and hence the width of the screen
-		goalBox.setAsBox(20.0f, 20.0f);
+		//goalBox.setAsBox(20.0f, 20.0f);
 
 		// Add the fixture to the ground body
 		goalBody.createFixture(goalBox, 1.0f);
@@ -690,9 +690,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
         //TODO make this appear and then have it's position match the physics body all the time
         batch = new SpriteBatch();
         img = new Texture("player.png");
-		Texture goalImg = new Texture("goal.png");
+		Texture goalImg = new Texture("rotate_1.png");
 		sprite = new Sprite(img);
 		goalSprite = new Sprite(goalImg);//goalSprite.
+
 		//sprite.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 1.1f);
 		// create a new debug renderer
 		debugRenderer = new Box2DDebugRenderer();
@@ -823,14 +824,14 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		wasTouched = Gdx.input.isTouched();
 		batch.begin();
 		par.render(batch);
-		//sprite.setRotation(body.getAngle()*57.298f);
+		goalSprite.setRotation(57.298f);
 		//TODO goal sprite draw
-		batch.draw(goalSprite, body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
+		batch.draw(goalSprite, 1510,100, 150f, 150f);//body.getPosition().x - sprite.getWidth()  / 2, body.getPosition().y - sprite.getHeight()/2);
 		//if(level < 13) {
-			backgroundSprite.draw(batch, 0.6f);
+			//backgroundSprite.draw(batch, 0.6f);
 	//}
 		//else {
-			backgroundSprite2.draw(batch, 0.6f);
+			//backgroundSprite2.draw(batch, 0.6f);
 		//}
 
 		//TODO map goal sprite to goal box, i think this can be done in create and not in every frame, maybe
@@ -977,6 +978,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//Increase level by 1
+			level++;
 			create();
 		}
 
