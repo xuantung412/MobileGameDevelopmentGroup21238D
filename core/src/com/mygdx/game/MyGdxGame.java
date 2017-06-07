@@ -180,12 +180,13 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 					}
 				}
 				world.destroyBody(body);
+				music.stop();
 				level ++;
 				if(level == 21){
 					level--;
 					game.setScreen(MyGame.endGameScreen);
 				}
-				music.stop();
+
 				create();
 
 
@@ -799,7 +800,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		par.render(batch);
 
 		//TODO goal sprite draw
-		batch.draw(goalSprite, 2030,150, 150f, 150f);
+		batch.draw(goalSprite, 2150,150, 150f, 150f);
 		batch.end();
 		//batch.draw(backgroundSprite2, 0,0,2560,1440);
 		//This code sets the direction to the way the circle is facing
@@ -899,6 +900,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//if you uncomment this it will load level 2
+			music.stop();
 			level++;
 			if(level == 21){
 				level--;
@@ -945,6 +947,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 			world.destroyBody(body);
 			//Increase level by 1
+			music.stop();
 			level++;
 			if(level == 21){
 				level--;
@@ -954,7 +957,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 
-		if (turnsRemaining==0){
+		if (turnsRemaining==0 && !moving){
+			music.stop();
 			game.setScreen(MyGame.endGameScreen);
 
 		}
