@@ -289,6 +289,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if(level ==4 ) {
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 110);
 			moveableWall2  = addMoveableWall(270, 260, 10, 50);
@@ -301,6 +302,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if (level==5) {
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			addWall(ranNum.nextInt(10)+210, 200, ranNum.nextInt(3)+5, 140);
 			moveableWall2  = addMoveableWall(270, 260, 10, 50);
@@ -313,6 +315,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level == 6){
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			moveableWall2  = addMoveableWall(350, 260, 10, 50);
 			moveableWall3 = addMoveableWall(250, 160, 5, 75);
@@ -326,6 +329,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level == 7){
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			moveableWall2  = addMoveableWall(350, 260, 10, 50);
 			moveableWall3 = addMoveableWall(250, 160, 5, 75);
@@ -339,6 +343,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level == 8){
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			moveableWall2  = addMoveableWall(350, 260, 10, 50);
 			moveableWall3 = addMoveableWall(250, 160, 5, 75);
@@ -352,6 +357,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level == 9){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(175, 70, 5, 60);
 			moveableWall4 = addMoveableWall(175, 200, 5, 60);
 			moveableWall5 = addMoveableWall(300, 70, 5, 60);
@@ -368,6 +374,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if(level == 10){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(170, 70, 5, 60);
 			moveableWall4 = addMoveableWall(170, 200, 5, 60);
 			moveableWall5 = addMoveableWall(300, 70, 5, 60);
@@ -449,6 +456,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if( level == 14){
+			setALlMoveableWallNull();
 			moveableWall1 = addMoveableWall(150, 60, 10, 50);
 			moveableWall2  = addMoveableWall(350, 260, 10, 50);
 			moveableWall3 = addMoveableWall(250, 160, 5, 75);
@@ -461,6 +469,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if( level == 15){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(250, 160, 5, 90);
 			addWall(380, 278, 10, 180);
 			addWall(130, 60, 10, 180);
@@ -471,6 +480,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if( level == 16){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(200, 160, 5, 40);
 			moveableWall4 = addMoveableWall(280, 100, 5, 40);
 			moveableWall5 = addMoveableWall(280, 220, 5, 40);
@@ -483,9 +493,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if( level == 17){
-			moveableWall4 =null;
-			moveableWall5 =null;
-			moveableWall6 =null;
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(430, 200, 5, 40);
 			addWall(370, 42, 10, 200);
 			addWall(70, 20, 290, 10);
@@ -499,10 +507,8 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if( level == 18){
-			moveableWall3 =null;
-			moveableWall4 =null;
-			moveableWall5 =null;
-			moveableWall6 =null;
+			setALlMoveableWallNull();
+
 			addWall(370, 42, 10, 200);
 			addWall(70, 42, 10, 200);
 			addWall(220, 340, 60, 280);
@@ -513,6 +519,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			}
 		}
 		else if( level == 19){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(160, 200, 5, 40);
 			moveableWall4 = addMoveableWall(160, 100, 5, 40);
 			moveableWall5 = addMoveableWall(280, 200, 5, 40);
@@ -527,6 +534,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		}
 
 		else if( level == 20){
+			setALlMoveableWallNull();
 			moveableWall3 = addMoveableWall(140, 200, 5, 40);
 			moveableWall4 = addMoveableWall(140, 100, 5, 40);
 			moveableWall5 = addMoveableWall(300, 200, 5, 40);
@@ -605,7 +613,16 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 	@Override
 	public void dispose() {
-		par.dispose();
+		int turnsRemaining;
+		Body[] wallBodies = null;
+		Body moveableWall1 = null;
+		Body moveableWall2= null;
+		Body moveableWall3= null;
+		Body moveableWall4= null;
+		Body moveableWall5= null;
+		Body moveableWall6= null;
+		Body moveableWall7= null;
+		boolean rotateWall1And2 = false;
 	}
 
 
@@ -915,4 +932,15 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	public void setLevel(int level){
 		this.level = level;
 	}
+
+
+public void setALlMoveableWallNull() {
+	Body moveableWall1 = null;
+	Body moveableWall2 = null;
+	Body moveableWall3 = null;
+	Body moveableWall4 = null;
+	Body moveableWall5 = null;
+	Body moveableWall6 = null;
+	Body moveableWall7 = null;
+}
 }
