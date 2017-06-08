@@ -935,12 +935,12 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 
 
 public void setALlMoveableWallNull() {
-	Body moveableWall1 = null;
-	Body moveableWall2 = null;
-	Body moveableWall3 = null;
-	Body moveableWall4 = null;
-	Body moveableWall5 = null;
-	Body moveableWall6 = null;
-	Body moveableWall7 = null;
+	moveableWall1 = null;
+	moveableWall2 = null;
+	moveableWall3 = null;
+	moveableWall4 = null;
+	moveableWall5 = null;
+	moveableWall6 = null;
+	moveableWall7 = null;
 }
 }
