@@ -174,7 +174,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				MyGame.mainGame.dispose();
 				MyGame.mainGame = null;
 				MyGame.mainGame = new MyGdxGame(game);
-				MyGame.mainGame.setLevel(level+1);
+				MyGame.mainGame.setLevel(level);
 				game.setScreen(MyGame.mainGame);
 			}
 		});
@@ -873,7 +873,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 			MyGame.mainGame.dispose();
 			MyGame.mainGame = null;
 			MyGame.mainGame = new MyGdxGame(game);
-			MyGame.mainGame.setLevel(this.getLevel()+1);
+			MyGame.mainGame.setLevel(this.getLevel());
 			game.setScreen(MyGame.mainGame);
 		}
 
