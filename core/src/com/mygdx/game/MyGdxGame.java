@@ -73,7 +73,6 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 	private Stage stageForLabel;
 	Music music;
 
-	ParticleSystem par;
 	boolean wasTouched;
 
 	public static int reachedLevel;
@@ -83,8 +82,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		this.game = game;
 		stage = new Stage();
 		stageForLabel = new Stage();
-		par = new ParticleSystem();
-		par.init();
+
 	}
 
 	public void addWall(float xPos, float yPos, float width, float height){
@@ -735,7 +733,7 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 		int y = Gdx.graphics.getHeight() - Gdx.input.getY();
 
 		batch.begin();
-		par.render(batch);
+
 
 		batch.draw(goalSprite, 2150,150, 150f, 150f);
 		batch.end();
