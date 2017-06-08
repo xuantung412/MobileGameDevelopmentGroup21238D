@@ -126,7 +126,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				}
 				world.destroyBody(body);
 				music.stop();
-				create();
+				MyGame.mainGame.dispose();
+				MyGame.mainGame = null;
+				MyGame.mainGame = new MyGdxGame(game);
+				MyGame.mainGame.setLevel(level);
+				game.setScreen(MyGame.mainGame);
 			}
 		});
 		TextButton musicButton = new TextButton("Music", skin, "default");
@@ -167,7 +171,11 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 					level--;
 					game.setScreen(MyGame.endGameScreen);
 				}
-				create();
+				MyGame.mainGame.dispose();
+				MyGame.mainGame = null;
+				MyGame.mainGame = new MyGdxGame(game);
+				MyGame.mainGame.setLevel(level+1);
+				game.setScreen(MyGame.mainGame);
 			}
 		});
 		TextButton backButton = new TextButton("Exit", skin, "default");
@@ -862,8 +870,10 @@ public class MyGdxGame extends Game implements ApplicationListener,Screen {
 				level--;
 				game.setScreen(MyGame.endGameScreen);
 			}
+			MyGame.mainGame.dispose();
+			MyGame.mainGame = null;
 			MyGame.mainGame = new MyGdxGame(game);
-			MyGame.mainGame.setLevel(this.getLevel());
+			MyGame.mainGame.setLevel(this.getLevel()+1);
 			game.setScreen(MyGame.mainGame);
 		}
 
